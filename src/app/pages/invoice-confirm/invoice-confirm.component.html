@@ -1,0 +1,85 @@
+<div nz-row [nzGutter]="8">
+    <div nz-col nzSpan="10">
+        <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+    </div>
+    <div nz-col nzSpan="14">
+            <form nz-form>
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="6" nzFor="invoiceNo">Invoice No</nz-form-label>
+                    <nz-form-control [nzSpan]="15">
+                        <input nz-input name="invoiceNo" id="invoiceNo" [value]="ocrData.invoiceNo">
+                    </nz-form-control>
+                </nz-form-item >
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="6" nzFor="invoiceDate">Invoice Date</nz-form-label>
+                    <nz-form-control [nzSpan]="8">
+                        <nz-date-picker id="invoiceDate" [(ngModel)]="ocrData.invoiceDate" [ngModelOptions]="{standalone: true}"></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="6" nzFor="supplier-select">Supplier</nz-form-label>
+                    <nz-form-control [nzSpan]="8">
+                        <nz-select id="supplier-select"
+                        name="supplier-select"
+                        style="width: 200px;"
+                        nzShowSearch
+                        nzAllowClear
+                        nzPlaceHolder="Select a supplier"
+                        [(ngModel)]="selectedValue"
+                      >
+                      <nz-option name="supplier-option" *ngFor="let supplier of supplierVo" [nzValue]="supplier.id" [nzLabel]="supplier.name"></nz-option>
+                      </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+            <nz-table #invoiceTable nzBordered [nzData]="listOfData" 
+                nzSize="small" [nzLoading] = false nzTotal="totaldata" nzLoadingDelay="1"
+                nzSimple=false nzPageSize=20 nzPageSizeOptions="[ 10, 20, 30, 40, 50 ]">
+                    <thead>
+                      <tr>
+                        <th *ngIf="data.sku">SKU</th>
+                        <th>Name</th>
+                        <th>Num</th>
+                        <th>Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of invoiceTable.data" class="editable-row">
+                        <td *ngIf="data.sku">{{data.sku}}</td>
+                        <td>
+                            <div class="editable-cell" *ngIf="editId !== data.id + 'content'; else editContent">
+                                <div class="editable-cell-value-wrap" (click)="startEdit(data.id + 'content', $event)">
+                                  {{ data.content }}
+                                </div>
+                            </div>
+                            <ng-template #editContent>
+                                <input type="text" nz-input [(ngModel)]="data.content" />
+                            </ng-template>
+                        </td>
+                        <td>
+                            <div class="editable-cell" *ngIf="editId !== data.id + 'num'; else editNum">
+                                <div class="editable-cell-value-wrap" (click)="startEdit(data.id + 'num', $event)">
+                                  {{ data.num }}
+                                </div>
+                            </div>
+                            <ng-template #editNum>
+                                <nz-input-number [(ngModel)]="data.num" [nzMin]='0'></nz-input-number>
+                            </ng-template>
+                        </td>
+                        <td>
+                            <div class="editable-cell" *ngIf="editId !== data.id + 'price'; else editPrice">
+                                <div class="editable-cell-value-wrap" (click)="startEdit(data.id + 'price', $event)">
+                                  {{ data.price | currency }}
+                                </div>
+                            </div>
+                            <ng-template #editPrice>
+                                <input type="text" nz-input [(ngModel)]="data.price" />
+                            </ng-template>
+                        </td>
+                      </tr>
+                    </tbody>
+            </nz-table>
+            <button nz-button nzType="primary" (click)="loadMatchNames()">Next</button>
+
+    </div>
+</div>
