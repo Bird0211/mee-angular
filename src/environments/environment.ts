@@ -7,8 +7,8 @@ export const environment = {
   updateImgUrl: '//47.74.253.166:8801/api/textocr',
   supplierUrl: '//47.74.253.166:8801/api/allSuppliers',
   authUrl: '//47.74.253.166:8801/api/authentication',
-  matchUrl: 'http://localhost:8801/api/matching'
-  //matchUrl: '//47.74.253.166:8801/api/matching'
+  // matchUrl: 'http://localhost:8801/api/matching'
+  matchUrl: '//47.74.253.166:8801/api/matching'
 };
 
 /*

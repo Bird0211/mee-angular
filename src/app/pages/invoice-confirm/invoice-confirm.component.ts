@@ -27,6 +27,18 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
   supplierUrl = null;
   selectedValue = null;
 
+  isLoading = false;
+  previewVisible = false;
+  isVisible = false;
+
+  showUploadList = {
+    showPreviewIcon: true,
+    showRemoveIcon: true,
+    hidePreviewIconInNonImage: true
+  };
+
+  submitJson: string;
+
   @ViewChild(NzInputDirective, { static: false, read: ElementRef }) inputElement: ElementRef;
 
 
@@ -60,7 +72,7 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
   }
 
   submitForm(): void {
-    for (const i in this.validateForm.controls) {
+    for (const i of Object.keys(this.validateForm.controls)) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
@@ -89,23 +101,42 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
 
   matchNames() {
     const names = [];
-    this.ocrData.products.forEach((item) => {
+    this.listOfData.forEach((item) => {
       names.push(item.content);
     });
 
-    return this.http.post(environment.matchUrl, {'name':names});
+    return this.http.post(environment.matchUrl, {name: names});
   }
 
   loadMatchNames() {
+    this.isLoading = true;
     this.matchNames().subscribe ((result: MeeResult) => {
       if ( result.statusCode === 0) {
-          console.log(result.data);
-          this.msg.info(result.data);
+        const skus: string [] = result.data;
+        for (let i = 0 ; i < skus.length; i++) {
+            const sku = skus[i];
+            this.listOfData[i].sku = sku;
+          }
       } else {
           this.msg.error('Supplier load error!');
       }
+      this.isLoading = false;
     } );
   }
 
+  handlePreview() {
+    this.previewVisible = true;
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+
+  submit() {
+    this.ocrData.purchaser = this.selectedValue;
+    this.ocrData.products = this.listOfData;
+    this.submitJson = JSON.stringify(this.ocrData);
+    this.isVisible = true;
+  }
 
 }

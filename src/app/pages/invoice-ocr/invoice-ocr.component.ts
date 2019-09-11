@@ -121,7 +121,7 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
 
   checkAuth() {
       return this.http.post(environment.authUrl,
-        { "bizId" : this.bizid, "time":this.time,"nonce":this.nonce,"sign":this.sign});
+        { bizId : this.bizid, time : this.time, nonce : this.nonce, sign : this.sign});
   }
 
   getSupplier() {

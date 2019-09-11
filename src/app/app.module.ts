@@ -16,6 +16,7 @@ import en from '@angular/common/locales/en';
 import { InvoiceStepHostDirective } from './pages/invoice-ocr/invoice-step-host.directive';
 import { InvoiceConfirmComponent } from './pages/invoice-confirm/invoice-confirm.component';
 
+
 registerLocaleData(en);
 
 @NgModule({
@@ -35,7 +36,6 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     NgZorroAntdModule,
     ReactiveFormsModule
-
   ],
   entryComponents: [ UpdateFileComponent, InvoiceConfirmComponent ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],

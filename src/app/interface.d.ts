@@ -3,7 +3,7 @@ import { Output, EventEmitter } from "@angular/core";
 export interface MeeResult {
     statusCode: number;
     description: string;
-    data: string;
+    data: any;
 }
 
 export interface OcrResult {
@@ -14,13 +14,15 @@ export interface OcrResult {
 export interface OcrData {
     invoiceDate: Date;
     invoiceNo: string;
-    products: [
-        {   sku: string;
-            price: number;
-            num: number;
-            content: string;
-        }
-    ]
+    purchaser: string;
+    products: product[];
+}
+
+export interface product {
+    sku: string;
+    price: number;
+    num: number;
+    content: string;
 }
 
 export interface InvoiceConfirmDataService {

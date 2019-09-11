@@ -50,7 +50,7 @@ export class UpdateFileComponent implements OnInit, InvoiceComponent {
       this.msg.success(`${file.name} file uploaded successfully.`);
       const response: MeeResult = file.response;
       const image = file.url || file.thumbUrl;
-      if (response.statusCode === 0) {
+      if (response.statusCode === 0 && response.data != null) {
         const ocrResult = new OcrResultVo(response, image);
         this.callback.emit(ocrResult);
       }
