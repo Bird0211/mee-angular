@@ -1,0 +1,30 @@
+{
+    "invoice": {
+        "stepOne":"Step One",
+        "stepTwo":"Step Two",
+        "stepThree":"Step Three",
+        "stepOneDescription":"Upload",
+        "stepTwoDescription":"Confirm",
+        "stepThreeDescription":"Result",
+        "no":"Invoice No",
+        "date":"Invoice Date",
+        "supplier":"Supplier",
+        "matching":"Matching",
+        "submit":"Submit",
+        "delete":"Delete",
+        "deleteTitle":"Sure to delete?",
+        "gst":"Does it include GST?",
+        "cancelText":"No",
+        "okText":"Yes",
+        "result":{
+            "title":"Account Error",
+            "subtitle":"Account Verification Failed",
+            "hint":"The Account has the following error:",
+            "try":"Please try to ",
+            "loginAgain":"Login Again",
+            "later":"at a later time"
+        }
+
+    },
+    "langue":"English"
+}

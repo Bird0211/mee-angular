@@ -1,4 +1,7 @@
 <nz-layout class="app-layout">
+    <div class='divswitch'>
+      <button nz-button nzType="default" nzSize='small' (click)="changeLangus()">{{'langue' | translate}}</button>
+    </div>
     <nz-content>
       <div class="inner-content">
         <router-outlet></router-outlet>

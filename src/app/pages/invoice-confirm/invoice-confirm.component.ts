@@ -124,6 +124,24 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
     } );
   }
 
+  addRow(): void {
+    this.listOfData = [
+      ...this.listOfData,
+      {
+        id: `${this.i}`,
+        content: '',
+        price: 0,
+        num: 0,
+        sku: ''
+      }
+    ];
+    this.i++;
+  }
+
+  deleteRow(id: string): void {
+    this.listOfData = this.listOfData.filter(d => d.id !== id);
+  }
+
   handlePreview() {
     this.previewVisible = true;
   }
@@ -137,6 +155,22 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
     this.ocrData.products = this.listOfData;
     this.submitJson = JSON.stringify(this.ocrData);
     this.isVisible = true;
+  }
+
+  gst() {
+    this.listOfData.forEach((item) => {
+      item.price = this.getGstPrice(item.price);
+    });
+
+    this.submit();
+  }
+
+  getGstPrice(price: number) {
+    if (price <= 0) {
+      return price;
+    }
+    price = price / (1.15);
+    return price;
   }
 
 }

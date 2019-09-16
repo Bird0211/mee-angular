@@ -6,9 +6,13 @@ import { InvoiceItem } from './invoice-item';
 import { UpdateFileComponent } from '../update-file/update-file.component';
 import { InvoiceConfirmComponent } from '../invoice-confirm/invoice-confirm.component';
 import { InvoiceConfirmData } from '../invoice-confirm/invoice-confirm-data';
+import { InvoiceResultComponent } from '../invoice-result/invoice-result.component';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
+
+
 
 @Component({
   selector: 'app-invoice-ocr',
@@ -29,20 +33,23 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
 
   bizid: string; time: string; nonce: string; sign: string;
 
+  isSpinning = true;
+
   @ViewChild(InvoiceStepHostDirective, {static: true})
       invoiceStepHostDirective: InvoiceStepHostDirective;
 
   constructor(private msg: NzMessageService,
               private componentFactoryResolver: ComponentFactoryResolver,
               private route: ActivatedRoute,
-              private http: HttpClient
+              private http: HttpClient,
+              private titleService: Title
     ) { }
 
   ngOnInit() {
     this.paramInit();
-    this.initAuth();
     this.invoiceItems = this.getItems();
-    this.loadComponent();
+    this.initAuth();
+    this.titleService.setTitle('Invoice OCR');
   }
 
   paramInit() {
@@ -70,6 +77,10 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
     } else if (componentRef.instance as InvoiceConfirmComponent) {
       (componentRef.instance as InvoiceComponent).callback.subscribe((ocrResult: any) => {
         this.comformDone(ocrResult);
+      });
+    } else if (componentRef.instance as InvoiceResultComponent) {
+      (componentRef.instance as InvoiceComponent).callback.subscribe((ocrResult: any) => {
+
       });
     }
   }
@@ -99,7 +110,8 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
   getItems() {
       return [
           new InvoiceItem(UpdateFileComponent, this.data),
-          new InvoiceItem(InvoiceConfirmComponent, this.data)
+          new InvoiceItem(InvoiceConfirmComponent, this.data),
+          new InvoiceItem(InvoiceResultComponent, null)
       ];
   }
 
@@ -130,12 +142,13 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
   initAuth() {
     this.checkAuth().subscribe ((result: MeeResult) => {
       if ( result.statusCode === 0) {
-
+        this.isSpinning = false;
+        this.setStep(0);
       } else {
-          this.msg.error('Login failed. Please login again!');
+          // this.msg.error('Login failed. Please login again!');
+        this.isSpinning = false;
+        this.setStep(2);
       }
     } );
   }
-
-
 }

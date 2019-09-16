@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   updateImgUrl: '//47.74.253.166:8801/api/textocr',
+  // updateImgUrl: 'http://localhost:8801/api/textocr',
   supplierUrl: '//47.74.253.166:8801/api/allSuppliers',
   authUrl: '//47.74.253.166:8801/api/authentication',
   // matchUrl: 'http://localhost:8801/api/matching'

@@ -1,0 +1,31 @@
+{
+    "invoice": {
+        "stepOne":"第一步",
+        "stepTwo":"第二步",
+        "stepThree":"第三步",
+        "stepOneDescription":"上传发票",
+        "stepTwoDescription":"匹配信息",
+        "stepThreeDescription":"更新库存",
+        "no":"发票号",
+        "date":"发票日期",
+        "supplier":"供应商",
+        "matching":"匹配",
+        "submit":"提交",
+        "delete":"删除",
+        "deleteTitle":"确认删除?",
+        "gst":"是否包含GST?",
+        "cancelText":"否",
+        "okText":"是",
+        "result":{
+            "title":"账号异常",
+            "subtitle":"账号未登陆或访问超时",
+            "hint":"账号错误信息如下:",
+            "try":"稍后请重新",
+            "loginAgain":"登陆",
+            "later":"!"
+        }
+
+    },
+    "langue":"中文"
+
+}

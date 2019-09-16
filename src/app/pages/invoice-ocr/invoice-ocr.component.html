@@ -1,15 +1,16 @@
-<title>Invoice OCR</title>
 <div>
     <nz-steps [nzCurrent]='current'>
-        <nz-step nzTitle="Step One" (click)="setStep(0)" nzDescription="Upload">
+        <nz-step nzTitle="{{'invoice.stepOne' | translate}}" (click)="setStep(0)" nzDescription="{{'invoice.stepOneDescription' | translate}}">
         </nz-step>
-        <nz-step nzTitle="Step Two" (click)="setStep(1)" nzDescription="Confirm">
+        <nz-step nzTitle="{{'invoice.stepTwo' | translate}}" (click)="setStep(1)" nzDescription="{{'invoice.stepTwoDescription' | translate}}">
         </nz-step>
-        <nz-step nzTitle="Step Three" (click)="setStep(2)" [nzDescription]="'Submit'">
+        <nz-step nzTitle="{{'invoice.stepThree' | translate}}" (click)="setStep(2)" nzDescription="{{'invoice.stepThreeDescription' | translate}}">
         </nz-step>
     </nz-steps>
 </div>
 
 <div class="steps-content">
-    <ng-template appInvoiceStepHost></ng-template>
+    <nz-spin nzSimple=false [nzSpinning]="isSpinning" [nzSize]="'large'">
+        <ng-template appInvoiceStepHost></ng-template>
+    </nz-spin>
 </div>
