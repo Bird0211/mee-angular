@@ -150,19 +150,20 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
     this.isVisible = false;
   }
 
-  submit() {
+  submit(data: any) {
     this.ocrData.purchaser = this.selectedValue;
-    this.ocrData.products = this.listOfData;
+    this.ocrData.products = data;
     this.submitJson = JSON.stringify(this.ocrData);
     this.isVisible = true;
   }
 
   gst() {
-    this.listOfData.forEach((item) => {
+    const data = JSON.parse(JSON.stringify(this.listOfData));
+    data.forEach((item) => {
       item.price = this.getGstPrice(item.price);
     });
 
-    this.submit();
+    this.submit(data);
   }
 
   getGstPrice(price: number) {
@@ -170,7 +171,7 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
       return price;
     }
     price = price / (1.15);
-    return price;
+    return price.toFixed(2);
   }
 
 }
