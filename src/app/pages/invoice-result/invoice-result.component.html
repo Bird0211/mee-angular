@@ -1,14 +1,14 @@
 <nz-result
-      nzTitle="{{'invoice.result.title'| translate}}"
+      nzTitle="{{title}}"
       nzStatus="{{status}}"
-      nzSubTitle="{{'invoice.result.subtitle' | translate}}"
+      nzSubTitle="{{subTitle}}"
     >
       <div nz-result-content>
         <div class="desc">
-          <h4 nz-title>{{'invoice.result.hint' | translate}}</h4>
-          <p nz-paragraph>
+          <h4 nz-title>{{hint}}</h4>
+          <p nz-paragraph *ngIf="desc">
             <i nz-icon nzType="close-circle"></i>
-            {{'invoice.result.try'|translate}}<a href="/">{{'invoice.result.loginAgain'|translate}} </a> {{'invoice.result.later' | translate}}
+            {{desc}}
           </p>
         </div>
       </div>

@@ -2,8 +2,10 @@ import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef }
 import { InvoiceComponent, MeeResult, OcrData } from '../../interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzInputDirective, NzMessageService } from 'ng-zorro-antd';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { ActivatedRoute } from '@angular/router';
+
 
 
 @Component({
@@ -15,6 +17,7 @@ import { environment } from 'src/environments/environment';
 export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
   @Input() data: any;
   @Output() callback = new EventEmitter<any>();
+
   previewImage: string | undefined = '';
   validateForm: FormGroup;
   editId: string | undefined = '';
@@ -29,7 +32,6 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
 
   isLoading = false;
   previewVisible = false;
-  isVisible = false;
 
   showUploadList = {
     showPreviewIcon: true,
@@ -42,11 +44,15 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
   @ViewChild(NzInputDirective, { static: false, read: ElementRef }) inputElement: ElementRef;
 
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private msg: NzMessageService) {
+  constructor(private fb: FormBuilder,
+              private http: HttpClient,
+              private msg: NzMessageService,
+              private route: ActivatedRoute) {
     this.supplierUrl = environment.supplierUrl;
   }
 
   ngOnInit() {
+    console.log('confirm-init: ', this.data);
     this.previewImage = this.data.img;
     this.ocrData = this.data.ocrData;
     this.validateForm = this.fb.group({
@@ -67,10 +73,6 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
     this.loadSupplier();
   }
 
-  onSubmit() {
-    this.callback.emit();
-  }
-
   submitForm(): void {
     for (const i of Object.keys(this.validateForm.controls)) {
       this.validateForm.controls[i].markAsDirty();
@@ -85,7 +87,19 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
   }
 
   getSupplier() {
-    return this.http.get(this.supplierUrl);
+    const bizid = this.route.snapshot.paramMap.get('bizid');
+    const params = new HttpParams();
+    params.set('bizId', bizid);
+
+    const httpOptions = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+      },
+    };
+
+    const body = 'bizId=' + bizid;
+
+    return this.http.post(this.supplierUrl, body, httpOptions);
   }
 
   loadSupplier() {
@@ -124,6 +138,37 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
     } );
   }
 
+  updateInventory(data) {
+    const bizid = this.route.snapshot.paramMap.get('bizid');
+    const time = this.route.snapshot.paramMap.get('time');
+    const nonce = this.route.snapshot.paramMap.get('nonce');
+    const sign = this.route.snapshot.paramMap.get('sign');
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'bizId': bizid,
+        'time': time,
+        'nonce': nonce,
+        'sign': sign
+      })
+    };
+
+    return this.http.post(environment.upateInventoryUrl, data, httpOptions);
+  }
+
+  loadupdateInventory(data) {
+    this.isLoading = true;
+    this.updateInventory(data).subscribe ((result: MeeResult) => {
+      console.log('UpdateInventory: ', result);
+      if (result && result.statusCode === 0) {
+        this.callback.emit(result);
+      } else {
+        this.msg.error(result.data);
+      }
+      this.isLoading = false;
+    } );
+  }
+
   addRow(): void {
     this.listOfData = [
       ...this.listOfData,
@@ -146,15 +191,23 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
     this.previewVisible = true;
   }
 
-  handleCancel(): void {
-    this.isVisible = false;
-  }
 
   submit(data: any) {
+    if (!this.checkPrice(data)) {
+        return;
+    }
+
+    const newData = [];
+    data.forEach((item) => {
+      const d: any = {};
+      d.sku = item.sku;
+      d.price = item.price;
+      d.num = item.num;
+      newData.push(d);
+    });
     this.ocrData.purchaser = this.selectedValue;
-    this.ocrData.products = data;
-    this.submitJson = JSON.stringify(this.ocrData);
-    this.isVisible = true;
+    this.ocrData.products = newData;
+    this.loadupdateInventory(this.ocrData);
   }
 
   gst() {
@@ -172,6 +225,18 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
     }
     price = price / (1.15);
     return price.toFixed(2);
+  }
+
+  checkPrice(data: any) {
+    for (const item of data) {
+      if (item.price <= 0) {
+        const name: string = item.content;
+        const price: number = item.price;
+        this.msg.error(name + ':' + price);
+        return false;
+      }
+    }
+    return true;
   }
 
 }

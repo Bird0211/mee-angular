@@ -69,21 +69,27 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
     (componentRef.instance as InvoiceComponent).data = this.data;
-    console.log(this.data);
-    if (componentRef.instance as UpdateFileComponent) {
+    if (componentRef.instance instanceof UpdateFileComponent) {
+      console.log('UpdateFileComponent');
       (componentRef.instance as InvoiceComponent).callback.subscribe((ocrResult: any) => {
+        console.log('UpdateFileComponent callback', ocrResult);
         this.updateDone(ocrResult);
       });
-    } else if (componentRef.instance as InvoiceConfirmComponent) {
+    } else if (componentRef.instance instanceof InvoiceConfirmComponent) {
+      console.log('InvoiceConfirmComponent');
       (componentRef.instance as InvoiceComponent).callback.subscribe((ocrResult: any) => {
+        console.log('InvoiceConfirmComponent callback', ocrResult);
         this.comformDone(ocrResult);
       });
-    } else if (componentRef.instance as InvoiceResultComponent) {
+    } else if (componentRef.instance instanceof InvoiceResultComponent) {
+      console.log('InvoiceResultComponent');
       (componentRef.instance as InvoiceComponent).callback.subscribe((ocrResult: any) => {
-
+        // this.comformDone(ocrResult);
       });
     }
   }
+
+
   updateDone(ocrResult: OcrResult) {
     const meeResult = ocrResult.meeResult;
     if (meeResult.statusCode === 0) {
@@ -99,8 +105,9 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
     }
   }
 
-  comformDone(ocrResult: OcrResult) {
-
+  comformDone(ocrResult: MeeResult) {
+      this.data = ocrResult;
+      this.next();
   }
 
   submitDone() {
@@ -141,12 +148,14 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
 
   initAuth() {
     this.checkAuth().subscribe ((result: MeeResult) => {
+      this.data = result;
       if ( result.statusCode === 0) {
         this.isSpinning = false;
         this.setStep(0);
       } else {
           // this.msg.error('Login failed. Please login again!');
         this.isSpinning = false;
+        this.data.data = '账号异常,请重新登录！';
         this.setStep(2);
       }
     } );
