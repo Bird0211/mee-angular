@@ -3,16 +3,29 @@
       [nzAction]="actionUrl"
       nzListType="picture-card"
       [(nzFileList)]="fileList"
-      [nzShowButton]="fileList.length < 1"
+      [nzShowButton]="true"
       [nzShowUploadList]="showUploadList"
       [nzPreview]="handlePreview"
       nzName="file"
+      [nzBeforeUpload]="beforeUpload"
       (nzChange)="onChange($event)"
       [nzSize]="1024"
     >
       <i nz-icon nzType="plus"></i>
       <div class="ant-upload-text">Upload</div>
     </nz-upload>
+
+    <button
+      nz-button
+      [nzType]="'primary'"
+      [nzLoading]="uploading"
+      (click)="handleUpload()"
+      [disabled]="fileList.length == 0"
+      style="margin-top: 16px"
+    >
+      {{ uploading ? 'Uploading' : 'Start Upload' }}
+    </button>
+
     <nz-modal
       [nzVisible]="previewVisible"
       [nzContent]="modalContent"
