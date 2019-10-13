@@ -40,7 +40,6 @@ export class UpdateFileComponent implements OnInit, InvoiceComponent {
   }
 
   beforeUpload = (file: UploadFile): boolean => {
-    console.log(file);
     this.fileList = this.fileList.concat(file);
     return false;
   }
@@ -86,13 +85,11 @@ export class UpdateFileComponent implements OnInit, InvoiceComponent {
   }
 
   onChange = ({ file, fileList }: { [key: string]: any }) => {
-    console.log(file, fileList);
     const status = file.status;
     if (status !== 'uploading') {
       console.log(file, fileList);
     }
     if (status === 'done') {
-      
       // this.msg.success(`${file.name} file uploaded successfully.`);
       // const response: MeeResult = file.response;
       // const image = file.url || file.thumbUrl;

@@ -23,6 +23,8 @@ export class InvoiceResultComponent implements OnInit, InvoiceComponent {
 
   desc: string;
 
+  listOfData: any[] = [];
+
 
   constructor() { }
 
@@ -31,6 +33,7 @@ export class InvoiceResultComponent implements OnInit, InvoiceComponent {
         this.status = 'success';
         this.title = 'Submission Success';
         this.subTitle = '';
+        this.listOfData = this.data.data;
     } else {
       this.status = 'error';
       this.title = 'Submission Failed';

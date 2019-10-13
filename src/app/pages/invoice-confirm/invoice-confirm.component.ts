@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef } from '@angular/core';
-import { InvoiceComponent, MeeResult, OcrData } from '../../interface';
+import { InvoiceComponent, MeeResult, OcrData, MeeProduct } from '../../interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzInputDirective, NzMessageService } from 'ng-zorro-antd';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -32,6 +32,8 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
 
   isLoading = false;
   previewVisible = false;
+
+  isCollapsed = true;
 
   showUploadList = {
     showPreviewIcon: true,
@@ -119,17 +121,18 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
       names.push(item.content);
     });
 
-    return this.http.post(environment.matchUrl, {name: names});
+    return this.http.post(environment.matchUrl, {name: names}, this.getHeaderOptions());
   }
 
   loadMatchNames() {
     this.isLoading = true;
     this.matchNames().subscribe ((result: MeeResult) => {
       if ( result.statusCode === 0) {
-        const skus: string [] = result.data;
+        const skus: MeeProduct [] = result.data;
         for (let i = 0 ; i < skus.length; i++) {
-            const sku = skus[i];
-            this.listOfData[i].sku = sku;
+            const product = skus[i];
+            this.listOfData[i].sku = product.code;
+            this.listOfData[i].meename = product.name;
           }
       } else {
           this.msg.error('Supplier load error!');
@@ -139,6 +142,10 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
   }
 
   updateInventory(data) {
+    return this.http.post(environment.upateInventoryUrl, data, this.getHeaderOptions());
+  }
+
+  getHeaderOptions() {
     const bizid = this.route.snapshot.paramMap.get('bizid');
     const time = this.route.snapshot.paramMap.get('time');
     const nonce = this.route.snapshot.paramMap.get('nonce');
@@ -152,8 +159,7 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
         'sign': sign
       })
     };
-
-    return this.http.post(environment.upateInventoryUrl, data, httpOptions);
+    return httpOptions;
   }
 
   loadupdateInventory(data) {

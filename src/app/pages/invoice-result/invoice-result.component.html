@@ -13,6 +13,38 @@
         </div>
       </div>
       <div nz-result-extra>
-
+          <nz-table *ngIf="listOfData.length > 0" #invoiceTable nzBordered [nzData]="listOfData"
+          nzSize="small" [nzLoading] = false nzTotal="totaldata" nzLoadingDelay="1"
+          nzSimple=false nzPageSize=20 nzPageSizeOptions="[ 10, 20, 30, 40, 50 ]">
+              <thead>
+                <tr>
+                  <th>SKU</th>
+                  <th>Name</th>
+                  <th>Cost Price</th>
+                  <th>New Price</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of invoiceTable.data" class="editable-row">
+                  <td>
+                      {{ data.sku }}
+                  </td>
+                  <td>
+                      {{ data.name }}
+                  </td>
+                  <td>
+                      {{data.costPrice | currency}}
+                  </td>
+                  <td>
+                      {{data.newPrice | currency}}
+                  </td>
+                  <td>
+                    <i *ngIf="data.costPrice < data.newPrice" nz-icon nzType="arrow-up" class="upicon" nzTheme="outline"></i>
+                    <i *ngIf="data.costPrice > data.newPrice"  nz-icon nzType="arrow-down" class="downicon" nzTheme="outline"></i>
+                  </td>
+                </tr>
+              </tbody>
+      </nz-table>
       </div>
 </nz-result>

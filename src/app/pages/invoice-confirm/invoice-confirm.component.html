@@ -1,131 +1,137 @@
-<div nz-row [nzGutter]="8">
-    <div nz-col nzSpan="4">
-        <a (click)="handlePreview()">        
-            <img [src]="previewImage" [ngStyle]="{ width: '100%'}" />
-        </a>
-        <nz-modal
-            [nzVisible]="previewVisible"
-            [nzContent]="modalContent"
-            [nzFooter]="null"
-            (nzOnCancel)="previewVisible = false"
-            >
-            <ng-template #modalContent>
-                <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
-            </ng-template>
-        </nz-modal>
-    </div>
-    <div nz-col nzSpan="20">
-        <form nz-form>
-                <nz-form-item>
-                    <nz-form-label [nzSpan]="6" nzFor="invoiceNo">{{'invoice.no' | translate}}</nz-form-label>
-                    <nz-form-control [nzSpan]="8">
-                        <input nz-input name="invoiceNo" id="invoiceNo" [(ngModel)]="ocrData.invoiceNo">
-                    </nz-form-control>
-                </nz-form-item >
-                <nz-form-item>
-                    <nz-form-label [nzSpan]="6" nzFor="invoiceDate">{{'invoice.date' | translate}}</nz-form-label>
-                    <nz-form-control [nzSpan]="4">
-                        <nz-date-picker id="invoiceDate" [(ngModel)]="ocrData.invoiceDate" [ngModelOptions]="{standalone: true}"></nz-date-picker>
-                    </nz-form-control>
-                    <nz-form-label [nzSpan]="3" nzFor="supplier-select">{{'invoice.supplier' | translate}}</nz-form-label>
-                    <nz-form-control [nzSpan]="4">
-                        <nz-select id="supplier-select"
-                        name="supplier-select"
-                        style="width: 200px;"
-                        nzShowSearch
-                        nzAllowClear
-                        nzPlaceHolder="Select a supplier"
-                        [(ngModel)]="selectedValue"
-                        >
-                        <nz-option name="supplier-option" *ngFor="let supplier of supplierVo" [nzValue]="supplier.id" [nzLabel]="supplier.name"></nz-option>
-                      </nz-select>
-                    </nz-form-control>
-                </nz-form-item>
-                <nz-form-item>
-                    <nz-form-control [nzSpan]="8" [nzOffset]="6">
-                        <button nz-button nzType="primary" nzSize="default" (click)="loadMatchNames()" [nzLoading]="isLoading"><i nz-icon nzType="sync" nzTheme="outline"></i>{{'invoice.matching' | translate}}</button>
-                        <button 
-                            nz-popconfirm
-                            nzTitle="{{'invoice.gst'|translate}}"
-                            nzPopconfirmTrigger="nz-popconfirm.click"
-                            nzPopconfirmPlacement="topLeft"
-                            nzCancelText="{{'invoice.cancelText' | translate}}"
-                            nzOkText="{{'invoice.okText' | translate}}"
-                            nzOkType="primary"
-                            (nzOnConfirm)="gst()"
-                            (nzOnCancel)="submit(listOfData)"
-                            
-                            nz-button 
-                            nzType="primary" 
-                            nzSize="default" 
-                        ><i nz-icon nzType="check-circle" nzTheme="outline"></i>{{'invoice.submit' | translate}}</button>
-                    </nz-form-control>
-                </nz-form-item>
-        </form>
-    </div>
-</div>
-<nz-divider nzDashed="true"></nz-divider>
-
-<div nz-row [nzGutter]="8">
-        <button nz-button nzType="primary" nzShape="circle" (click)="addRow()"><i nz-icon nzType="plus" nzTheme="outline"></i></button>
-        <nz-table #invoiceTable nzBordered [nzData]="listOfData"
-        nzSize="small" [nzLoading] = false nzTotal="totaldata" nzLoadingDelay="1"
-        nzSimple=false nzPageSize=20 nzPageSizeOptions="[ 10, 20, 30, 40, 50 ]">
-            <thead>
-              <tr>
-                <th>SKU</th>
-                <th>Name</th>
-                <th>Num</th>
-                <th>Price</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let data of invoiceTable.data" class="editable-row">
-                <td>
-                    <div class="editable-cell" *ngIf="editId !== data.id + 'sku'; else editSku">
-                        <div class="editable-cell-value-wrap" (click)="startEdit(data.id + 'sku', $event)">
-                          {{ data.sku }}
-                        </div>
-                    </div>
-                    <ng-template #editSku>
-                        <input type="text" nz-input [(ngModel)]="data.sku" />
-                    </ng-template>
-                </td>
-                <td>
-                    <div class="editable-cell" *ngIf="editId !== data.id + 'content'; else editContent">
-                        <div class="editable-cell-value-wrap" (click)="startEdit(data.id + 'content', $event)">
-                          {{ data.content }}
-                        </div>
-                    </div>
-                    <ng-template #editContent>
-                        <input type="text" nz-input [(ngModel)]="data.content" />
-                    </ng-template>
-                </td>
-                <td>
-                    <div class="editable-cell" *ngIf="editId !== data.id + 'num'; else editNum">
-                        <div class="editable-cell-value-wrap" (click)="startEdit(data.id + 'num', $event)">
-                          {{ data.num }}
-                        </div>
-                    </div>
-                    <ng-template #editNum>
-                        <nz-input-number [(ngModel)]="data.num" [nzMin]='0'></nz-input-number>
-                    </ng-template>
-                </td>
-                <td>
-                    <div class="editable-cell" *ngIf="editId !== data.id + 'price'; else editPrice">
-                        <div class="editable-cell-value-wrap" (click)="startEdit(data.id + 'price', $event)">
-                          {{ data.price | currency }}
-                        </div>
-                    </div>
-                    <ng-template #editPrice>
-                        <input type="text" nz-input [(ngModel)]="data.price" />
-                    </ng-template>
-                </td>
-                <td>
-                    <a nz-popconfirm nzTitle="{{ 'invoice.deleteTitle' | translate }}" (nzOnConfirm)="deleteRow(data.id)">{{ 'invoice.delete' | translate }}</a>
-                </td>
-              </tr>
-            </tbody>
-    </nz-table>
-</div>
+<nz-layout class="layout">
+    <nz-sider
+        nzCollapsible
+        [(nzCollapsed)]="isCollapsed"
+        [nzCollapsedWidth]="0"
+        [nzZeroTrigger]="zeroTrigger"
+        nzTheme="light"
+        nzWidth="40%"
+    >
+        <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+    </nz-sider>
+    
+        <nz-content>
+                <div nz-row [nzGutter]="8">
+                        <form nz-form>
+                                <nz-form-item>
+                                    <nz-form-label [nzSpan]="6" nzFor="invoiceNo">{{'invoice.no' | translate}}</nz-form-label>
+                                    <nz-form-control [nzSpan]="8">
+                                        <input nz-input name="invoiceNo" id="invoiceNo" [(ngModel)]="ocrData.invoiceNo">
+                                    </nz-form-control>
+                                </nz-form-item >
+                                <nz-form-item>
+                                    <nz-form-label [nzSpan]="6" nzFor="invoiceDate">{{'invoice.date' | translate}}</nz-form-label>
+                                    <nz-form-control [nzSpan]="8">
+                                        <nz-date-picker id="invoiceDate" [(ngModel)]="ocrData.invoiceDate" [ngModelOptions]="{standalone: true}"></nz-date-picker>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-label [nzSpan]="6" nzFor="supplier-select">{{'invoice.supplier' | translate}}</nz-form-label>
+                                    <nz-form-control [nzSpan]="8">
+                                        <nz-select id="supplier-select"
+                                            name="supplier-select"
+                                            style="width: 200px;"
+                                            nzShowSearch
+                                            nzAllowClear
+                                            nzPlaceHolder="Select a supplier"
+                                            [(ngModel)]="selectedValue"
+                                            >
+                                            <nz-option name="supplier-option" *ngFor="let supplier of supplierVo" [nzValue]="supplier.id" [nzLabel]="supplier.name"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <nz-form-item>
+                                    <nz-form-control [nzSpan]="8" [nzOffset]="6">
+                                        <button nz-button nzType="primary" nzSize="default" (click)="loadMatchNames()" [nzLoading]="isLoading"><i nz-icon nzType="sync" nzTheme="outline"></i>{{'invoice.matching' | translate}}</button>
+                                        <button 
+                                            nz-popconfirm
+                                            nzTitle="{{'invoice.gst'|translate}}"
+                                            nzPopconfirmTrigger="nz-popconfirm.click"
+                                            nzPopconfirmPlacement="topLeft"
+                                            nzCancelText="{{'invoice.cancelText' | translate}}"
+                                            nzOkText="{{'invoice.okText' | translate}}"
+                                            nzOkType="primary"
+                                            (nzOnConfirm)="gst()"
+                                            (nzOnCancel)="submit(listOfData)"
+                                            
+                                            nz-button 
+                                            nzType="primary" 
+                                            nzSize="default" 
+                                        ><i nz-icon nzType="check-circle" nzTheme="outline"></i>{{'invoice.submit' | translate}}</button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                        </form>
+                </div>
+                <nz-divider nzDashed="true"></nz-divider>
+                <div nz-row [nzGutter]="8">
+                        <button nz-button nzType="primary" nzShape="circle" (click)="addRow()"><i nz-icon nzType="plus" nzTheme="outline"></i></button>
+                        <nz-table #invoiceTable nzBordered [nzData]="listOfData"
+                        nzSize="small" [nzLoading] = false nzTotal="totaldata" nzLoadingDelay="1"
+                        nzSimple=false nzPageSize=20 nzPageSizeOptions="[ 10, 20, 30, 40, 50 ]">
+                            <thead>
+                              <tr>
+                                <th>SKU</th>
+                                <th *ngIf="invoiceTable.data[0].meename">Mee-Name</th>
+                                <th>Name</th>
+                                <th>Num</th>
+                                <th>Price</th>
+                                <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let data of invoiceTable.data" class="editable-row">
+                                <td>
+                                    <div class="editable-cell" *ngIf="editId !== data.id + 'sku'; else editSku">
+                                        <div class="editable-cell-value-wrap" (click)="startEdit(data.id + 'sku', $event)">
+                                          {{ data.sku }}
+                                        </div>
+                                    </div>
+                                    <ng-template #editSku>
+                                        <input type="text" nz-input [(ngModel)]="data.sku" />
+                                    </ng-template>
+                                </td>
+                                <td *ngIf="data.meename">
+                                    {{ data.meename }}
+                                </td>
+                                <td>
+                                    <div class="editable-cell" *ngIf="editId !== data.id + 'content'; else editContent">
+                                        <div class="editable-cell-value-wrap" (click)="startEdit(data.id + 'content', $event)">
+                                          {{ data.content }}
+                                        </div>
+                                    </div>
+                                    <ng-template #editContent>
+                                        <input type="text" nz-input [(ngModel)]="data.content" />
+                                    </ng-template>
+                                </td>
+                                <td>
+                                    <div class="editable-cell" *ngIf="editId !== data.id + 'num'; else editNum">
+                                        <div class="editable-cell-value-wrap" (click)="startEdit(data.id + 'num', $event)">
+                                          {{ data.num }}
+                                        </div>
+                                    </div>
+                                    <ng-template #editNum>
+                                        <nz-input-number [(ngModel)]="data.num" [nzMin]='0'></nz-input-number>
+                                    </ng-template>
+                                </td>
+                                <td>
+                                    <div class="editable-cell" *ngIf="editId !== data.id + 'price'; else editPrice">
+                                        <div class="editable-cell-value-wrap" (click)="startEdit(data.id + 'price', $event)">
+                                          {{ data.price | currency }}
+                                        </div>
+                                    </div>
+                                    <ng-template #editPrice>
+                                        <input type="text" nz-input [(ngModel)]="data.price" />
+                                    </ng-template>
+                                </td>
+                                <td>
+                                    <a nz-popconfirm nzTitle="{{ 'invoice.deleteTitle' | translate }}" (nzOnConfirm)="deleteRow(data.id)">{{ 'invoice.delete' | translate }}</a>
+                                </td>
+                              </tr>
+                            </tbody>
+                    </nz-table>
+                </div>
+        </nz-content>
+</nz-layout>
+<ng-template #zeroTrigger>
+    <i nz-icon nzType="file-image" nzTheme="fill"></i>
+</ng-template>

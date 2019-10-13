@@ -40,3 +40,21 @@ export interface SupplierVo {
     id: string;
     name: string;
 }
+
+export interface MeeProduct {
+    id: string;
+
+    code: string;
+
+    name: string;
+
+    brand: string;
+
+    chName: string;
+
+    weight: string;
+
+    costPrice: number;       //成本价
+
+    retailPrice: number;     //销售价
+}
