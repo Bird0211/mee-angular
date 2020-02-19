@@ -3,14 +3,14 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { OcrResult, InvoiceComponent, OcrData, MeeResult } from '../../interface';
 import { InvoiceStepHostDirective } from './invoice-step-host.directive';
 import { InvoiceItem } from './invoice-item';
-import { UpdateFileComponent } from '../update-file/update-file.component';
-import { InvoiceConfirmComponent } from '../invoice-confirm/invoice-confirm.component';
-import { InvoiceConfirmData } from '../invoice-confirm/invoice-confirm-data';
-import { InvoiceResultComponent } from '../invoice-result/invoice-result.component';
+import { UpdateFileComponent } from './update-file/update-file.component';
+import { InvoiceResultComponent } from './invoice-result/invoice-result.component';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
+import { InvoiceConfirmComponent } from './invoice-confirm/invoice-confirm.component';
+import { InvoiceConfirmData } from './invoice-confirm/invoice-confirm-data';
 
 
 
@@ -93,7 +93,7 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
   updateDone(ocrResult: OcrResult) {
     const meeResult = ocrResult.meeResult;
     if (meeResult.statusCode === 0) {
-      const ocrData: OcrData = JSON.parse(meeResult.data);
+      const ocrData: OcrData = meeResult.data;
       const image = ocrResult.img;
       const confirmData = new InvoiceConfirmData();
       confirmData.img = image;

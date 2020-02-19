@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef } from '@angular/core';
-import { InvoiceComponent, MeeResult, OcrData, MeeProduct } from '../../interface';
+import { InvoiceComponent, MeeResult, OcrData, MeeProduct } from '../../../interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzInputDirective, NzMessageService } from 'ng-zorro-antd';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -18,7 +18,8 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
   @Input() data: any;
   @Output() callback = new EventEmitter<any>();
 
-  previewImage: string | undefined = '';
+  previewImage: string[];
+  fileType: string;
   validateForm: FormGroup;
   editId: string | undefined = '';
   ocrData: OcrData;
@@ -33,7 +34,7 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
   isLoading = false;
   previewVisible = false;
 
-  isCollapsed = true;
+  isCollapsed = false;
 
   showUploadList = {
     showPreviewIcon: true,
@@ -55,7 +56,22 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
 
   ngOnInit() {
     console.log('confirm-init: ', this.data);
-    this.previewImage = this.data.img;
+    const images = [];
+    if (this.data.img != null && this.data.img.length > 0) {
+      this.fileType = this.data.img[0].type;
+      this.data.img.forEach ((file: any) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        // reader.readAsArrayBuffer(file);
+        reader.onload = function(e) {
+          const urlData = this.result;
+          images.push(urlData);
+        };
+      });
+      this.previewImage = images;
+    } else {
+      this.isCollapsed = true;
+    }
     this.ocrData = this.data.ocrData;
     this.validateForm = this.fb.group({
       invoiceNo: [null, [Validators.required]],
@@ -107,7 +123,6 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
   loadSupplier() {
     this.getSupplier().subscribe ((result: MeeResult) => {
       if ( result.statusCode === 0) {
-          console.log(result.data);
           this.supplierVo = result.data;
       } else {
           this.msg.error('Supplier load error!');
@@ -153,10 +168,10 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'bizId': bizid,
-        'time': time,
-        'nonce': nonce,
-        'sign': sign
+        bizId: bizid,
+        time,
+        nonce,
+        sign
       })
     };
     return httpOptions;

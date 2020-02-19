@@ -1,0 +1,47 @@
+
+<div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }" nzType="flex" nzJustify="center">
+  <div nz-col [nzSpan]="6">
+      <nz-card nzHoverable nzSize="small" nzType="inner" (click)="goInvoiceOcr()"
+        (mouseenter)="showHelp(1)" (mouseleave) = "hideHelp(1)">
+          <nz-card-meta
+          nzTitle="Excel导入"
+          nzDescription="自动读取Excel文档内容,进行库存更新"
+          [nzAvatar]="excelTemplate"
+        ></nz-card-meta>
+      </nz-card>
+  </div>
+  <div nz-col [nzSpan]="6">
+    <nz-card nzHoverable nzSize="small" nzType="inner" (click)="goInvoiceOcr()"
+      (mouseenter)="showHelp(2)" (mouseleave) = "hideHelp(2)">
+      <nz-card-meta
+      nzTitle="图片识别"
+      nzDescription="上传invoice图片，分析识别invoice内容"
+      [nzAvatar]="imgTemplate"
+      ></nz-card-meta>
+    </nz-card>
+  </div>
+  <div nz-col [nzSpan]="6">
+    <nz-card nzHoverable nzSize="small" nzType="inner" (click)="goInvoiceOcr()"
+    (mouseenter)="showHelp(3)" (mouseleave) = "hideHelp(3)">
+      <nz-card-meta
+      nzTitle="PDF识别"
+      nzDescription="上传PDF文件，分析识别invoice内容"
+      [nzAvatar]="pdfTemplate"
+      ></nz-card-meta>
+    </nz-card>
+  </div>
+</div>
+
+<ng-template #excelTemplate>
+  <i [@changeExl]="isExlOpen ? 'open' : 'closed'" nz-icon [nzIconfont]="'icon-excel'"></i>
+</ng-template>
+
+<ng-template #imgTemplate>
+  <i [@changeImg]="isImgOPen ? 'open' : 'closed'" nz-icon [nzIconfont]="'icon-image-reset'"></i>
+</ng-template>
+
+<ng-template #pdfTemplate>
+  <i [@changePdf]="isPdfOpen ? 'open' : 'closed'" nz-icon [nzIconfont]="'icon-PDF'"></i>
+</ng-template>
+
+

@@ -4,13 +4,13 @@
 
 export const environment = {
   production: false,
-  updateImgUrl: '//47.74.253.166:8801/api/textocr',
+  updateImgUrl: '//47.74.87.173:8801/api/textocr',
   // updateImgUrl: 'http://localhost:8801/api/textocr',
-  supplierUrl: '//47.74.253.166:8801/api/allSuppliers',
-  authUrl: '//47.74.253.166:8801/api/authentication',
+  supplierUrl: '//47.74.87.173:8801/api/allSuppliers',
+  authUrl: '//47.74.87.173:8801/api/authentication',
   // matchUrl: 'http://localhost:8801/api/matching'
-  matchUrl: '//47.74.253.166:8801/api/matching',
-  upateInventoryUrl: '//47.74.253.166:8801/api/inventory/update',
+  matchUrl: '//47.74.87.173:8801/api/matching',
+  upateInventoryUrl: '//47.74.87.173:8801/api/inventory/update',
   // upateInventoryUrl: '//localhost:8801/api/inventory/update'
 };
 

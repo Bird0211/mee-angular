@@ -7,7 +7,7 @@ export class InvoiceItem {
 
 export class OcrResultVo implements OcrResult {
 
-  constructor(public meeResult: MeeResult, public img: string) {
+  constructor(public meeResult: MeeResult, public img: any) {
   }
 
 }

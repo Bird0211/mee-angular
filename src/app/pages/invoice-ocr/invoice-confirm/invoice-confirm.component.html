@@ -6,10 +6,26 @@
         [nzZeroTrigger]="zeroTrigger"
         nzTheme="light"
         nzWidth="40%"
+        class="left-layout"
     >
-        <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+        <ng-container *ngIf="fileType==='image/jpeg'">
+            <img *ngFor="let img of previewImage" [src]="img" [ngStyle]="{ width: '100%' }" />
+        </ng-container>
+
+        <ng-container *ngIf="fileType==='application/pdf'">
+            <pdf-viewer *ngFor="let img of previewImage" [src]="img"
+            [render-text]=false
+            [original-size]="false"
+            [autoresize]="true"
+            [show-borders]="true"
+            [fit-to-page]="true"
+            style="display: block; width: 100%;"
+            >
+            </pdf-viewer>
+        </ng-container>
+
     </nz-sider>
-    
+
         <nz-content>
                 <div nz-row [nzGutter]="8">
                         <form nz-form>
@@ -43,20 +59,19 @@
                                 <nz-form-item>
                                     <nz-form-control [nzSpan]="8" [nzOffset]="6">
                                         <button nz-button nzType="primary" nzSize="default" (click)="loadMatchNames()" [nzLoading]="isLoading"><i nz-icon nzType="sync" nzTheme="outline"></i>{{'invoice.matching' | translate}}</button>
-                                        <button 
+                                        <button
                                             nz-popconfirm
                                             nzTitle="{{'invoice.gst'|translate}}"
-                                            nzPopconfirmTrigger="nz-popconfirm.click"
+                                            nzPopconfirmTrigger="click"
                                             nzPopconfirmPlacement="topLeft"
                                             nzCancelText="{{'invoice.cancelText' | translate}}"
                                             nzOkText="{{'invoice.okText' | translate}}"
                                             nzOkType="primary"
                                             (nzOnConfirm)="gst()"
                                             (nzOnCancel)="submit(listOfData)"
-                                            
-                                            nz-button 
-                                            nzType="primary" 
-                                            nzSize="default" 
+                                            nz-button
+                                            nzType="primary"
+                                            nzSize="default"
                                         ><i nz-icon nzType="check-circle" nzTheme="outline"></i>{{'invoice.submit' | translate}}</button>
                                     </nz-form-control>
                                 </nz-form-item>
@@ -67,7 +82,7 @@
                         <button nz-button nzType="primary" nzShape="circle" (click)="addRow()"><i nz-icon nzType="plus" nzTheme="outline"></i></button>
                         <nz-table #invoiceTable nzBordered [nzData]="listOfData"
                         nzSize="small" [nzLoading] = false nzTotal="totaldata" nzLoadingDelay="1"
-                        nzSimple=false nzPageSize=20 nzPageSizeOptions="[ 10, 20, 30, 40, 50 ]">
+                        nzSimple=false nzPageSize=40 nzPageSizeOptions="[ 10, 20, 30, 40, 50 ]">
                             <thead>
                               <tr>
                                 <th>SKU</th>

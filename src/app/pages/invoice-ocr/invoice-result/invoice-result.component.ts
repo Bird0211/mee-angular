@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
-import { InvoiceComponent, MeeResult } from '../../interface';
+import { InvoiceComponent, MeeResult } from '../../../interface';
 
 
 @Component({

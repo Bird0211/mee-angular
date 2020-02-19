@@ -15,10 +15,10 @@ export interface OcrData {
     invoiceDate: Date;
     invoiceNo: string;
     purchaser: string;
-    products: product[];
+    products: Product[];
 }
 
-export interface product {
+export interface Product {
     sku: string;
     price: number;
     num: number;
