@@ -12,6 +12,8 @@ export const environment = {
   matchUrl: '//47.74.87.173:8801/api/matching',
   upateInventoryUrl: '//47.74.87.173:8801/api/inventory/update',
   // upateInventoryUrl: '//localhost:8801/api/inventory/update'
+  usermenuUrl: '//47.74.87.173:8801/api/menu',
+  // usermenuUrl: '//localhost:8801/api/menu'
 };
 
 /*

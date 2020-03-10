@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MenuComponent } from './menu.component';
 
 const routes: Routes = [
-  { path: ':bizid/:time/:nonce/:sign', component: MenuComponent }
+  { path: ':bizid/:userid/:time/:nonce/:sign', component: MenuComponent }
 ];
 
 @NgModule({

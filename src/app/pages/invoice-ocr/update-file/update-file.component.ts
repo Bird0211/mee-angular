@@ -6,7 +6,7 @@ import { InvoiceComponent, MeeResult, OcrData, Product } from '../../../interfac
 import { OcrResultVo } from '../invoice-item';
 import { environment } from 'src/environments/environment';
 import { HttpRequest, HttpClient, HttpResponse } from '@angular/common/http';
-import { filter } from 'rxjs/operators';
+import { filter, timeout } from 'rxjs/operators';
 import { XlsxService } from './xlsx.service';
 import format from 'date-fns/format';
 

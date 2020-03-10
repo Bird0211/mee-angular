@@ -32,16 +32,24 @@
   </div>
 </div>
 
+<div nz-row nzType="flex" nzJustify="center" nzAlign="top">
+  <div nz-col nzSpan="18">
+    <div>
+      <img [@changeImg]="isChangeImg1 ? 'open' : 'closed'" class="img-tmp" src='{{images[0]}}'/>
+      <img [@changeImg]="isChangeImg2 ? 'open' : 'closed'" class="img-tmp" src='{{images[1]}}'/>
+      <img [@changeImg]="isChangeImg3 ? 'open' : 'closed'" class="img-tmp" src='{{images[2]}}'/>
+    </div>
+  </div>
+</div>
+
 <ng-template #excelTemplate>
-  <i [@changeExl]="isExlOpen ? 'open' : 'closed'" nz-icon [nzIconfont]="'icon-excel'"></i>
+  <i [@ocrExl]="isExlOpen ? 'open' : 'closed'" nz-icon [nzIconfont]="'icon-excel'"></i>
 </ng-template>
 
 <ng-template #imgTemplate>
-  <i [@changeImg]="isImgOPen ? 'open' : 'closed'" nz-icon [nzIconfont]="'icon-image-reset'"></i>
+  <i [@ocrImg]="isImgOPen ? 'open' : 'closed'" nz-icon [nzIconfont]="'icon-image-reset'"></i>
 </ng-template>
 
 <ng-template #pdfTemplate>
-  <i [@changePdf]="isPdfOpen ? 'open' : 'closed'" nz-icon [nzIconfont]="'icon-PDF'"></i>
+  <i [@ocrPdf]="isPdfOpen ? 'open' : 'closed'" nz-icon [nzIconfont]="'icon-PDF'"></i>
 </ng-template>
-
-

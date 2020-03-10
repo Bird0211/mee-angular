@@ -1,39 +1,41 @@
-<h3>订单数据</h3>
-<div nz-row>
-    <div nz-col nzXs="2" nzSm="4" nzMd="6" nzLg="8" nzXl="10">
-        <nz-card nzHoverable nzSize="small" nzType="inner">
-            <nz-card-meta
-            nzTitle="Excel导入"
-            nzDescription="This is the description"
-            [nzAvatar]="avatarTemplate"
-          ></nz-card-meta>
-        </nz-card>
-    </div>
+<div [@hideDiv]="showDiv ? 'closed' : 'open'" nz-row style="display: none;">
+  <div nz-col nzSpan="24">
+      <ul nz-menu nzMode="horizontal">
+        <li nz-submenu [nzTitle]="turnhoume" (click)="goback()">
+          <ng-template #turnhoume>
+            <i nz-icon class="menuicon" [nzIconfont]="'icon-down1'"></i><span>HOME</span>
+          </ng-template>
+        </li>
+        <li nz-submenu *ngFor="let item of menus" [nzTitle]="topmenutmp" >
+          <ul *ngIf="item.subMenu">
+            <li nz-menu-item *ngFor="let menu of item.subMenu" (click)="jumpto(menu.url)"><i nz-icon class="menuicon" [nzIconfont]="menu.icon"></i>{{menu.title}}</li>
+          </ul>
+          <ng-template #topmenutmp>
+            <i nz-icon class="menuicon" [nzIconfont]="item.icon"></i><span>{{item.title}}</span>
+          </ng-template>
+        </li>
+      </ul>
+  </div>
 </div>
-<h3>物流数据</h3>
-<div nz-row>
-    <div nz-col nzXs="2" nzSm="4" nzMd="6" nzLg="8" nzXl="10">
-        <nz-card nzHoverable nzSize="small" nzType="inner">
-            <nz-card-meta
-            nzTitle="富腾达"
-            nzDescription="This is the description"
-            [nzAvatar]="avatarTemplate"
-          ></nz-card-meta>
-        </nz-card>
+<div [@hideDiv]="showDiv ? 'open' : 'closed'" nz-row *ngFor="let item of menus" >
+  <div nz-row>
+    <div nz-col nzSpan="24">
+      <h3>{{item.title}}</h3>
     </div>
-</div>
-<h3>统计数据</h3>
-<div nz-row>
-    <div nz-col nzXs="2" nzSm="4" nzMd="6" nzLg="8" nzXl="10">
-        <nz-card nzHoverable nzSize="small" nzType="inner">
-            <nz-card-meta
-            nzTitle="销售分布"
-            nzDescription="This is the description"
-            [nzAvatar]="avatarTemplate"
-          ></nz-card-meta>
-        </nz-card>
+  </div>
+  <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }" nzType="flex" nzJustify="start">
+    <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="5" nzXl="5" *ngFor="let menu of item.subMenu">
+      <app-nzcard (click)="jumpto(menu.url)" [title]="menu.title" [description]="menu.description" [icon]="menu.icon" [iconColor]="menu.iconColor"></app-nzcard>
     </div>
+  </div>
 </div>
-<ng-template #avatarTemplate>
-    <i nz-icon nzType="setting" class="icon"></i>
-</ng-template>
+
+<div [@showFrame]="showDiv ? 'closed' : 'open'" nz-row nzType="flex" nzJustify="start" style="display:none;">
+  <div nz-col nzSpan="24">
+      <iframe [src]="jumpurl" class="framecls"></iframe>
+  </div>
+</div>
+
+
+
+

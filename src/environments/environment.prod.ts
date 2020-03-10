@@ -4,6 +4,6 @@ export const environment = {
   supplierUrl: 'https://external.yiyun.co.nz/api/allSuppliers',
   authUrl: 'https://external.yiyun.co.nz/api/authentication',
   matchUrl: 'https://external.yiyun.co.nz/api/matching',
-  upateInventoryUrl: 'https://external.yiyun.co.nz/api/inventory/update'
-
+  upateInventoryUrl: 'https://external.yiyun.co.nz/api/inventory/update',
+  usermenuUrl: 'https://external.yiyun.co.nz/api/menu'
 };

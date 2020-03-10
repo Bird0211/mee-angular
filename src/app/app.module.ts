@@ -16,12 +16,13 @@ import zh from '@angular/common/locales/zh';
 // import en from '@angular/common/locales/en';
 import { InvoiceStepHostDirective } from './pages/invoice-ocr/invoice-step-host.directive';
 import { InvoiceConfirmComponent } from './pages/invoice-ocr/invoice-confirm/invoice-confirm.component';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import { TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { UserComponent } from './pages/user/user.component';
 import { InvoiceIndexComponent } from './pages/invoice-ocr/invoice-index/invoice-index.component';
-
+import { MenuModule } from './pages/menu/menu.module';
+import { LoginComponent } from './pages/login/login.component';
 
 // 支持AOT
 export function createTranslateLoader(http: HttpClient) {
@@ -39,7 +40,8 @@ registerLocaleData(zh);
     InvoiceResultComponent,
     InvoiceIndexComponent,
     InvoiceStepHostDirective,
-    UserComponent
+    UserComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -58,3 +58,28 @@ export interface MeeProduct {
 
     retailPrice: number;     //销售价
 }
+
+export interface Menu {
+  id: number;
+
+  title: string;
+
+  description: string;
+
+  type: string;
+
+  url: string;
+
+  level: number;
+
+  sort: number;
+
+  icon: string;
+
+  iconColor: string;
+
+  parentId: number;
+
+  subMenu: Menu[];
+
+}

@@ -5,14 +5,12 @@ import { InvoiceStepHostDirective } from './invoice-step-host.directive';
 import { InvoiceItem } from './invoice-item';
 import { UpdateFileComponent } from './update-file/update-file.component';
 import { InvoiceResultComponent } from './invoice-result/invoice-result.component';
-import { ActivatedRoute } from '@angular/router';
-import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { InvoiceConfirmComponent } from './invoice-confirm/invoice-confirm.component';
 import { InvoiceConfirmData } from './invoice-confirm/invoice-confirm-data';
-
-
+import { AuthService } from '../auth.service';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-invoice-ocr',
@@ -31,8 +29,6 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
 
   size = 'large';
 
-  bizid: string; time: string; nonce: string; sign: string;
-
   isSpinning = true;
 
   @ViewChild(InvoiceStepHostDirective, {static: true})
@@ -40,23 +36,32 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
 
   constructor(private msg: NzMessageService,
               private componentFactoryResolver: ComponentFactoryResolver,
+              private titleService: Title,
               private route: ActivatedRoute,
-              private http: HttpClient,
-              private titleService: Title
+              private http: HttpClient
     ) { }
 
   ngOnInit() {
-    this.paramInit();
+    const authService = new AuthService(this.http, this.route);
+    authService.initAuth((result: boolean) => {
+      this.data = {
+        statusCode: 0,
+        description: null,
+        data: null,
+      };
+      if (result) {
+        this.isSpinning = false;
+        this.setStep(0);
+      } else {
+          // this.msg.error('Login failed. Please login again!');
+        this.isSpinning = false;
+        this.data.data = '账号异常,请重新登录！';
+        this.data.statusCode = 1;
+        this.setStep(2);
+      }
+    });
     this.invoiceItems = this.getItems();
-    this.initAuth();
     this.titleService.setTitle('Invoice OCR');
-  }
-
-  paramInit() {
-    this.bizid = this.route.snapshot.paramMap.get('bizid');
-    this.time = this.route.snapshot.paramMap.get('time');
-    this.nonce = this.route.snapshot.paramMap.get('nonce');
-    this.sign = this.route.snapshot.paramMap.get('sign');
   }
 
   ngOnDestroy(): void {
@@ -88,7 +93,6 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
       });
     }
   }
-
 
   updateDone(ocrResult: OcrResult) {
     const meeResult = ocrResult.meeResult;
@@ -132,32 +136,12 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
     this.loadComponent();
   }
 
-  setStep(current) {
+  setStep(current: number) {
     this.current = current;
     this.loadComponent();
-  }
-
-
-  checkAuth() {
-      return this.http.post(environment.authUrl,
-        { bizId : this.bizid, time : this.time, nonce : this.nonce, sign : this.sign});
   }
 
   getSupplier() {
   }
 
-  initAuth() {
-    this.checkAuth().subscribe ((result: MeeResult) => {
-      this.data = result;
-      if ( result.statusCode === 0) {
-        this.isSpinning = false;
-        this.setStep(0);
-      } else {
-          // this.msg.error('Login failed. Please login again!');
-        this.isSpinning = false;
-        this.data.data = '账号异常,请重新登录！';
-        this.setStep(2);
-      }
-    } );
-  }
 }

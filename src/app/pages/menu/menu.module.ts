@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 import { MenuRoutingModule } from './menu-routing.module';
 import { MenuComponent } from './menu.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
-
-
+import { NzcardComponent } from './nzcard/nzcard.component';
 
 @NgModule({
-  declarations: [MenuComponent],
+  declarations: [MenuComponent, NzcardComponent  ],
   imports: [
     MenuRoutingModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    CommonModule
   ],
-  exports: [MenuComponent]
+  exports: [MenuComponent ]
 })
 
 export class MenuModule {

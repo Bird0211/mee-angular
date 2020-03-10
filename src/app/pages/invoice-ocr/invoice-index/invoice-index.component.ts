@@ -7,6 +7,7 @@ import {
   state,
   style,
   animate,
+  keyframes,
   transition
 } from '@angular/animations';
 
@@ -15,46 +16,50 @@ import {
   templateUrl: './invoice-index.component.html',
   styleUrls: ['./invoice-index.component.less'],
   animations: [
-    trigger('changeExl', [
+    trigger('ocrExl', [
       state('open', style({
         color: '#2c9d5c'
       })),
       state('closed', style({
         color: 'rgba(0, 0, 0, 0.65)'
       })),
-      transition('open => closed', [
-        animate('0.5s')
-      ]),
-      transition('closed => open', [
+      transition('open <=> closed', [
         animate('0.5s')
       ])
     ]),
-    trigger('changePdf', [
+    trigger('ocrPdf', [
       state('open', style({
         color: '#e2373a'
       })),
       state('closed', style({
         color: 'rgba(0, 0, 0, 0.65)'
       })),
-      transition('open => closed', [
-        animate('0.5s')
-      ]),
-      transition('closed => open', [
+      transition('open <=> closed', [
         animate('0.5s')
       ])
     ]),
-    trigger('changeImg', [
+    trigger('ocrImg', [
       state('open', style({
         color: '#4e80f6'
       })),
       state('closed', style({
         color: 'rgba(0, 0, 0, 0.65)'
       })),
-      transition('open => closed', [
-        animate('0.5s')
-      ]),
-      transition('closed => open', [
-        animate('0.5s')
+      transition('open <=> closed', [
+        animate('1s')
+      ])
+    ]),
+    trigger('changeImg', [
+      state('open', style({
+        display: 'block'
+      })),
+      state('closed', style({
+        display: 'none'
+      })),
+      transition('open <=> closed', [
+        animate('1s', keyframes ( [
+          style({ opacity: 0.2, offset: 0.7 })
+        ]))
       ])
     ])
   ]
@@ -71,9 +76,20 @@ export class InvoiceIndexComponent implements OnInit {
 
   isImgOPen = false;
 
+  imgsrc = 'assets/image/exlguide.jpeg';
+
+  images = ['assets/image/exlguide.jpeg',
+            'assets/image/imgguide.jpeg',
+            'assets/image/imgguide.jpeg'];
+
+  isChangeImg1 = true;
+  isChangeImg2 = false;
+  isChangeImg3 = false;
+
+
   constructor(private iconService: NzIconService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private activedRoute: ActivatedRoute) {
     this.iconService.fetchFromIconfont({
       scriptUrl: 'https://at.alicdn.com/t/font_1644348_b5epqdfmc9.js'
     });
@@ -84,10 +100,10 @@ export class InvoiceIndexComponent implements OnInit {
   }
 
   paramInit() {
-    this.bizid = this.route.snapshot.paramMap.get('bizid');
-    this.time = this.route.snapshot.paramMap.get('time');
-    this.nonce = this.route.snapshot.paramMap.get('nonce');
-    this.sign = this.route.snapshot.paramMap.get('sign');
+    this.bizid = this.activedRoute.snapshot.paramMap.get('bizid');
+    this.time = this.activedRoute.snapshot.paramMap.get('time');
+    this.nonce = this.activedRoute.snapshot.paramMap.get('nonce');
+    this.sign = this.activedRoute.snapshot.paramMap.get('sign');
   }
 
   goInvoiceOcr = () => {
@@ -101,24 +117,32 @@ export class InvoiceIndexComponent implements OnInit {
         this.isExlOpen = true;
         this.isImgOPen = false;
         this.isPdfOpen = false;
+        this.isChangeImg1 = true;
+        this.isChangeImg2 = false;
+        this.isChangeImg3 = false;
         break;
-
       case 2:
         this.isExlOpen = false;
         this.isImgOPen = true;
         this.isPdfOpen = false;
+        this.isChangeImg1 = false;
+        this.isChangeImg2 = true;
+        this.isChangeImg3 = false;
         break;
-
       case 3:
         this.isExlOpen = false;
         this.isImgOPen = false;
         this.isPdfOpen = true;
+        this.isChangeImg1 = false;
+        this.isChangeImg2 = false;
+        this.isChangeImg3 = true;
         break;
     }
+
+    this.imgsrc = this.images[item - 1];
   }
 
   hideHelp = (item: number) => {
-    this.isActive = false;
     switch (item) {
       case 1:
         this.isExlOpen = false;
