@@ -126,5 +126,8 @@
       }
     }
   },
-  "defaultProject": "mee-angular"
+  "defaultProject": "mee-angular",
+  "cli": {
+    "analytics": "06142db0-e960-46b9-8fa2-fd6871e554b8"
+  }
 }

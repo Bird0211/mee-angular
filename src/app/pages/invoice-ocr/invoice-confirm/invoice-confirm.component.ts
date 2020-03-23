@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef } from '@angular/core';
-import { InvoiceComponent, MeeResult, OcrData, MeeProduct } from '../../../interface';
+import { InvoiceComponent, MeeResult, OcrData, MeeProduct, OCRProduct } from '../../../interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzInputDirective, NzMessageService } from 'ng-zorro-antd';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -24,7 +24,7 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
   editId: string | undefined = '';
   ocrData: OcrData;
   i = 0;
-  listOfData: any[] = [];
+  listOfData: OCRProduct[] = [];
   totaldata = 0;
   supplierVo: any;
 
@@ -44,7 +44,7 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
 
   submitJson: string;
 
-  @ViewChild(NzInputDirective, { static: false, read: ElementRef }) inputElement: ElementRef;
+  @ViewChild(NzInputDirective, { read: ElementRef }) inputElement: ElementRef;
 
 
   constructor(private fb: FormBuilder,
@@ -83,7 +83,9 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
         content: item.content,
         price: item.price,
         num: item.num,
-        sku: item.sku});
+        sku: item.sku,
+        meename: ''
+      });
       this.i++;
     });
 
@@ -194,17 +196,18 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
     this.listOfData = [
       ...this.listOfData,
       {
-        id: `${this.i}`,
+        id: Number(`${this.i}`),
         content: '',
         price: 0,
         num: 0,
-        sku: ''
+        sku: '',
+        meename: ''
       }
     ];
     this.i++;
   }
 
-  deleteRow(id: string): void {
+  deleteRow(id: number): void {
     this.listOfData = this.listOfData.filter(d => d.id !== id);
   }
 

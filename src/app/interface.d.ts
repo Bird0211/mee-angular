@@ -59,27 +59,77 @@ export interface MeeProduct {
     retailPrice: number;     //销售价
 }
 
-export interface Menu {
-  id: number;
+export class Menu {
+  id?: number | 0;
 
-  title: string;
+  title?: string | '';
 
-  description: string;
+  description?: string | null;
 
-  type: string;
+  type?: string | "0";
 
-  url: string;
+  url?: string | null;
 
-  level: number;
+  level?: number | 1;
 
-  sort: number;
+  sort?: number | 0;
 
-  icon: string;
+  icon?: string | null;
 
-  iconColor: string;
+  iconColor?: string | null;
 
-  parentId: number;
+  parentId?: number | 0;
 
-  subMenu: Menu[];
+  subMenu?: Menu[] | null;
 
+}
+
+export interface OCRProduct {
+    id: number;
+    content: string;
+    price: number;
+    num: number;
+    sku: string;
+    meename: string;
+}
+
+export interface BizData {
+    id?: number | 0;
+    name?: string | null;
+    token?: string | null;
+}
+
+export interface BizMenu {
+    id: number;
+    bizId: number;
+    menuId: number;
+}
+
+export interface Role {
+    id: number;
+    roleName: string;
+    bizId: number;
+    roleType: number;
+}
+
+export interface RoleMenu {
+    id: number;
+    roleId: number;
+    menuId: number;
+}
+
+export interface RoleUser {
+    id: number;
+    roleId: number;
+    userId: number;
+}
+
+export interface YiYunUser {
+    userId: number;
+
+    givenName: number;
+
+    surname: number;
+
+    email: string;
 }

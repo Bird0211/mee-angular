@@ -1,0 +1,157 @@
+
+<div nz-row nzType="flex" nzJustify="start">
+    <div nz-col nzSpan="2" >
+        <button nz-button nzType="primary" nzShape="round" (click)="showAddMenu()">添加菜单</button>
+    </div>
+</div>
+<div nz-row nzType="flex" nzJustify="center">
+    <div nz-col nzSpan="24">
+        <nz-tree
+        [nzTreeTemplate]="nzTreeTemplate"
+        [nzData]="nodes"
+        [(ngModel)]="nodes"
+        nzShowIcon 
+        nzShowExpand
+        nzDraggable
+        (nzClick)="activeNode($event)"
+        (nzDblClick)="openFolder($event)"
+            >
+        </nz-tree>
+        <ng-template #nzTreeTemplate let-node>
+            <span class="custom-node" [class.active]="activedNode?.key === node.key">
+              <span *ngIf="!node.isLeaf" (contextmenu)="contextMenu($event, menu)">
+                <i nz-icon [nzIconfont]="node.icon"></i>
+                <span class="folder-name">{{ node.title }}</span>
+                <span class="folder-desc">{{ node?.origin?.description}}</span>
+              </span>
+
+              <span *ngIf="node.isLeaf" (contextmenu)="contextMenu($event, menu)">
+                <i nz-icon [nzIconfont]="node.icon"></i>
+                <span class="file-name">{{ node.title }}</span>
+                <span class="folder-desc">{{ node?.origin?.description}}</span>
+              </span>
+            </span>
+          </ng-template>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="addSubmenu($event)">添加子菜单</li>
+            </ul>
+          </nz-dropdown-menu>
+    </div>
+</div>
+
+<nz-drawer
+      [nzClosable]="false"
+      [nzVisible]="visible"
+      nzPlacement="right"
+      [nzTitle]="drawTitle"
+      (nzOnClose)="closeDrawer()"
+      [nzContent]="newMenu"
+      [nzWidth]="280"
+    >
+    </nz-drawer>
+    <ng-template #drawTitle>
+        <div nz-row>
+            <div nz-col nzSpan="8">
+                <span>菜单详情</span>
+            </div>
+            <div nz-col nzSpan="8" nzOffset="5">
+                <button nz-button  nzShape="round" (click)="addSubmenu()" class="ant-btn ant-btn-primary"><span>添加子菜单</span></button>
+            </div>
+        </div>
+    </ng-template>
+
+    <nz-modal [(nzVisible)]="isAddMenuVisible" 
+        nzTitle="添加菜单" 
+        [nzFooter]= null
+        [nzContent]="newMenu"
+        (nzOnCancel)="cancelAddMenu()" 
+        (nzOnOk)="addMenu()" >
+    </nz-modal>
+
+    <ng-template #newMenu>
+        <form nz-form>
+            <div nz-row>
+              <div nz-col nzSpan="24">
+                <nz-form-item>
+                  <nz-form-label>Title</nz-form-label>
+                  <nz-form-control>
+                    <input name="title" nz-input placeholder="please enter Menu Title" [(ngModel)]="activedMenu.title"/>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+            <div nz-row>
+              <div nz-col nzSpan="24">
+                <nz-form-item>
+                  <nz-form-label>Description</nz-form-label>
+                  <nz-form-control>
+                    <textarea name="description" nz-input rows="4" placeholder="please enter Menu Description" nzAutosize [(ngModel)]="activedMenu.description">
+                    </textarea>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+            <div nz-row>
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <nz-form-label>URL</nz-form-label>
+                    <nz-form-control>
+                        <input name="url" nz-input placeholder="please enter Menu URL" [(ngModel)]="activedMenu.url"/>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <nz-form-label>Type</nz-form-label>
+                    <nz-form-control>
+                        <nz-radio-group name="type" [(ngModel)]="activedMenu.type" [nzButtonStyle]="'solid'">
+                            <label nz-radio-button nzValue="0">内部链接</label>
+                            <label nz-radio-button nzValue="1">外部练级</label>
+                        </nz-radio-group>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <nz-form-label>ICON</nz-form-label>
+                    <nz-form-control>
+                        <nz-input-group name="icon" [nzAddOnBefore]="icomTpl">
+                            <input type="text" name="icontxt" nz-input [(ngModel)]="activedMenu.icon" />
+                        </nz-input-group>
+                        <ng-template #icomTpl>
+                            <i nz-icon [nzIconfont]="activedMenu.icon"></i>
+                        </ng-template>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <nz-form-label>ICONColor</nz-form-label>
+                    <nz-form-control>
+                        <nz-input-group name="iconColor" [nzAddOnBefore]="iconColor">
+                            <input type="text" name="iconColor" nz-input [(ngModel)]="activedMenu.iconColor" />
+                        </nz-input-group>
+                        <ng-template #iconColor>
+                            <div style='width: 1em;height: 1em;' [ngStyle]="{'background-color':activedMenu.iconColor}"></div>
+                        </ng-template>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+            </div>
+          </form>
+        
+          <div nz-row class="footer">
+              <div nz-col nzSpan="24">
+                <button type="button" (click)="closeDrawer()" class="ant-btn" style="margin-right: 8px;" ><span>取消</span></button>
+                <button type="button" (click)="update()" class="ant-btn ant-btn-primary"><span>提交</span></button>
+              </div>
+          </div>
+           
+    </ng-template>

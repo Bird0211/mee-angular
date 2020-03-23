@@ -12,7 +12,7 @@ type Callback = (data: any)  => void;
 
 export class AuthService {
 
-  bizid: string; userid: string; time: string; nonce: string; sign: string;
+  private bizid: string; userid: string; time: string; nonce: string; sign: string;
 
   constructor(private http: HttpClient,
               private route: ActivatedRoute) {
@@ -20,8 +20,20 @@ export class AuthService {
   }
 
   initAuth(callback: Callback) {
+    if (!this.bizid || !this.userid) {
+      callback(false);
+      return;
+    }
+
     this.checkAuth().subscribe ((meeResult: MeeResult) => {
       const result = meeResult.statusCode === 0;
+      if (result) {
+        sessionStorage.setItem('bizId', this.bizid);
+        sessionStorage.setItem('userId', this.userid);
+      } else {
+        sessionStorage.removeItem('bizId');
+        sessionStorage.removeItem('userId');
+      }
       callback(result);
     } );
   }
@@ -39,4 +51,11 @@ export class AuthService {
       { bizId : this.bizid, userId: this.userid, time : this.time, nonce : this.nonce, sign : this.sign});
   }
 
+  public getBizId(): number {
+    return Number(sessionStorage.getItem('bizId'));
+  }
+
+  public getUserId(): number {
+    return Number(sessionStorage.getItem('userId'));
+  }
 }

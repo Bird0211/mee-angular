@@ -5,5 +5,22 @@ export const environment = {
   authUrl: 'https://external.yiyun.co.nz/api/authentication',
   matchUrl: 'https://external.yiyun.co.nz/api/matching',
   upateInventoryUrl: 'https://external.yiyun.co.nz/api/inventory/update',
-  usermenuUrl: 'https://external.yiyun.co.nz/api/menu'
+  usermenuUrl: 'https://external.yiyun.co.nz/api/menu',
+  iconUrl: '//at.alicdn.com/t/font_1644348_asl9165raq7.js',
+  menuUrl: 'https://external.yiyun.co.nz/api/allmenu',
+  updateMenuUrl: 'https://external.yiyun.co.nz/api/menu/update',
+  addMenuUrl: 'https://external.yiyun.co.nz/api/menu/add',
+  bizUrl: 'https://external.yiyun.co.nz/api/biz',
+  addBizUrl: 'https://external.yiyun.co.nz/api/biz/add',
+  updateBizUrl: 'https://external.yiyun.co.nz/api/biz/update',
+  bizMenuUrl: 'https://external.yiyun.co.nz/api/bizmenu',
+  editBizMenuUrl: 'https://external.yiyun.co.nz/api/bizmenu/edit',
+  roleUrl: 'https://external.yiyun.co.nz/api/role/query',
+  addRoleUrl: 'https://external.yiyun.co.nz/api/role/add',
+  queryRoleMenuUrl: 'https://external.yiyun.co.nz/api/role/menuid',
+  updateRoleMenuUrl: 'https://external.yiyun.co.nz/api/role/menu/update',
+  updateRoleUserUrl: 'https://external.yiyun.co.nz/api/roleuser/update',
+  userUrl: 'https://external.yiyun.co.nz/api/user',
+  allUserUrl: 'https://external.yiyun.co.nz/api/alluser',
+  roleUserUrl: 'https://external.yiyun.co.nz/api/roleuser/role'
 };

@@ -9,7 +9,7 @@ import { filter } from 'rxjs/operators';
 import { NzIconService } from 'ng-zorro-antd';
 import { trigger, state, transition, style, animate, keyframes } from '@angular/animations';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { NONE_TYPE } from '@angular/compiler/src/output/output_ast';
+
 
 @Component({
   selector: 'app-menu',
@@ -48,7 +48,8 @@ import { NONE_TYPE } from '@angular/compiler/src/output/output_ast';
         ]))
       ])
     ])
-  ]
+  ],
+  providers: [AuthService]
 })
 export class MenuComponent implements OnInit {
 
@@ -61,22 +62,21 @@ export class MenuComponent implements OnInit {
   jumpurl: SafeResourceUrl = '';
 
   constructor(private modalService: NzModalService,
-              private route: ActivatedRoute,
-              private router: Router,
               private http: HttpClient,
               private iconService: NzIconService,
-              private sanitizer: DomSanitizer) {
+              private sanitizer: DomSanitizer,
+              private authService: AuthService,
+              private route: ActivatedRoute,
+              private router: Router) {
               this.userMenuUrl = environment.usermenuUrl;
               this.iconService.fetchFromIconfont({
-                scriptUrl: '//at.alicdn.com/t/font_1644348_uatpgugx7z.js'
+                scriptUrl: environment.iconUrl
               });
-
   }
 
   ngOnInit() {
-    const authService = new AuthService(this.http, this.route);
-    authService.initAuth((result) => {
-        if (result) {
+    this.authService.initAuth((result) => {
+        if (!result) {
           this.modalService.error({
             nzTitle: '请重新登录',
             nzContent: '访问超时,请重新登录!',
@@ -84,14 +84,17 @@ export class MenuComponent implements OnInit {
             nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000))
           });
         } else {
-          this.loadMenu(authService.userid);
+          this.loadMenu();
         }
     });
   }
 
 
-  loadMenu(userid: string) {
-    const body = 'userId=' + userid;
+  loadMenu() {
+    const userId = this.authService.getUserId();
+    const bizId = this.authService.getBizId();
+
+    // const body = 'userId=' + userId;
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -100,7 +103,7 @@ export class MenuComponent implements OnInit {
       })
     };
 
-    const req = new HttpRequest('POST', this.userMenuUrl, body , httpOptions);
+    const req = new HttpRequest('GET', this.userMenuUrl + '/' + bizId + '/' + userId, '' , httpOptions);
 
     this.http
       .request(req)
@@ -120,11 +123,17 @@ export class MenuComponent implements OnInit {
   }
 
 
-  jumpto(url: string) {
+  jumpto(menu: Menu) {
     // this.router.navigateByUrl(url);
-    url += '&v=' + Date.parse(new Date().toString());
-    this.jumpurl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    this.showDiv = false;
+    if (menu.type === '0') {
+      this.router.navigate( [{ outlets: { popup: ['list'] } }]);
+
+    } else {
+      const url = menu.url += '&v=' + Date.parse(new Date().toString());
+      this.jumpurl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+      this.showDiv = false;
+    }
+
   }
 
   goback() {

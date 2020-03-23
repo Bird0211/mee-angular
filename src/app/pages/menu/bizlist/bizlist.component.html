@@ -1,0 +1,68 @@
+<div nz-row nzType="flex" nzJustify="start">
+    <div nz-col nzSpan="2">
+        <button nz-button nzType="primary" (click)="addBiz($event)"><i nz-icon nzType="plus" nzTheme="outline"></i>添加商家</button>
+    </div>
+</div>
+
+<div nz-row nzGutter="8">
+  <div nz-col nzSpan="0-24">
+    <nz-table #basicTable [nzData]="bizdata">
+        <thead>
+            <tr>
+              <th>ID</th>
+              <th>NAME</th>
+              <th>Token</th>
+              <th>action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data">
+              <td>{{data.id}}</td>
+              <td>{{data.name}}</td>
+              <td>{{data.token}}</td>
+              <td>
+                <a (click)="editBiz(data.id)"><i nz-icon nzType="edit" nzTheme="outline" ></i></a>
+              </td>
+            </tr>
+        </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" 
+        nzTitle="添加菜单"
+        (nzOnCancel)="cancel()" 
+        (nzOnOk)="submit()" >
+        <form nz-form>
+            <div nz-row>
+              <div nz-col nzSpan="24">
+                <nz-form-item>
+                  <nz-form-label>ID</nz-form-label>
+                  <nz-form-control>
+                    <input name="id" nz-input placeholder="please enter Biz ID" [(ngModel)]="activedBiz.id"/>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+            <div nz-row>
+              <div nz-col nzSpan="24">
+                <nz-form-item>
+                  <nz-form-label>NAME</nz-form-label>
+                  <nz-form-control>
+                    <input name="name" nz-input placeholder="please enter Biz Name" [(ngModel)]="activedBiz.name"/>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+            <div nz-row>
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <nz-form-label>Token</nz-form-label>
+                    <nz-form-control>
+                        <input name="token" nz-input placeholder="please enter Biz Token" [(ngModel)]="activedBiz.token"/>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+            </div>
+          </form>
+</nz-modal>

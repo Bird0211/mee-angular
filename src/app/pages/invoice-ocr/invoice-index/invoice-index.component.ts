@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NzIconService } from 'ng-zorro-antd';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 import {
   trigger,
@@ -91,7 +92,7 @@ export class InvoiceIndexComponent implements OnInit {
               private router: Router,
               private activedRoute: ActivatedRoute) {
     this.iconService.fetchFromIconfont({
-      scriptUrl: 'https://at.alicdn.com/t/font_1644348_b5epqdfmc9.js'
+      scriptUrl: environment.iconUrl
     });
   }
 

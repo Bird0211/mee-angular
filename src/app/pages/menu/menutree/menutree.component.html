@@ -1,0 +1,19 @@
+<nz-tree
+[nzTreeTemplate]="nzTreeTemplate"
+[nzData]="nodes"
+nzShowIcon 
+nzShowExpand
+nzCheckable
+nzExpandAll
+[nzCheckedKeys]="checkedNodes"
+(nzCheckBoxChange)="onCheckBox($event)"
+>
+</nz-tree>
+<ng-template #nzTreeTemplate let-node>
+<span class="custom-node" >
+  <span >
+    <i nz-icon [nzIconfont]="node.icon"></i>
+    <span class="folder-name">{{ node.title }}</span>
+  </span>
+</span>
+</ng-template>
