@@ -24,14 +24,17 @@ export class MenutreeComponent implements OnInit , OnChanges {
 
   constructor(private menuService: MenuService) { }
 
-
   ngOnInit(): void {
-    this.loadAllMenu(this.bizId);
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectedNodes && changes.selectedNodes.currentValue) {
       this.refreshChecked();
+    }
+
+    if (changes.bizId && changes.bizId.currentValue) {
+      this.loadAllMenu(this.bizId);
     }
   }
 

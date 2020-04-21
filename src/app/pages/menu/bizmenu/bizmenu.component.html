@@ -1,8 +1,6 @@
 <div nz-row nzGutter="8" nzType="flex" nzJustify="start">
   <div nz-col nzSpan="6">
-    <nz-select [(ngModel)]="selectBiz" (ngModelChange)="loadBizMenu($event)" nzPlaceHolder="Choose" >
-        <nz-option *ngFor="let biz of bizData" [nzValue]="biz.id" [nzLabel]="biz.name"></nz-option>
-    </nz-select>
+    <app-bizselect [(selectBiz)]="selectBiz" (changeValue)="changeValue()"></app-bizselect>
   </div>
   <div nz-col nzSpan="4">
     <button nz-button nzType="primary" [nzLoading]="isloading" (click)="saveBizMenu()"><i nz-icon nzType="save" nzTheme="outline"></i>保存</button>
@@ -11,7 +9,7 @@
 
 <div nz-row nzType="flex" nzJustify="start" nzAlign="top">
    <div nz-col nzSpan="24">
-      <app-menutree [(selectedNodes)]="selectedNodes" [bizId]="selectBiz">
+      <app-menutree [(selectedNodes)]="selectedNodes" bizId="all">
       </app-menutree>
    </div>
 </div>

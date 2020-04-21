@@ -97,6 +97,8 @@ export interface BizData {
     id?: number | 0;
     name?: string | null;
     token?: string | null;
+    expireDate?: Date | null;
+    status?: number | 0;
 }
 
 export interface BizMenu {

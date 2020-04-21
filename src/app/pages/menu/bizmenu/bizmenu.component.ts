@@ -1,10 +1,10 @@
-import { Component, OnInit, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
-import { BizData, MeeResult, Menu, BizMenu } from 'src/app/interface';
+import { Component, OnInit, OnChanges, SimpleChanges, Input, SimpleChange } from '@angular/core';
+import { BizData, MeeResult, BizMenu } from 'src/app/interface';
 import { environment } from 'src/environments/environment';
-import { HttpHeaders, HttpRequest, HttpResponse, HttpClient } from '@angular/common/http';
-import { filter } from 'rxjs/operators';
-import { NzMessageService, isTemplateRef, NzTreeNodeOptions, NzTreeNode, NzFormatEmitEvent } from 'ng-zorro-antd';
+import { HttpClient } from '@angular/common/http';
+import { NzMessageService} from 'ng-zorro-antd';
 import { BizServiceService } from '../biz-service.service';
+import { AuthService } from '../../auth.service';
 
 
 @Component({
@@ -16,8 +16,6 @@ export class BizmenuComponent implements OnInit {
 
   selectBiz: string;
 
-  bizData: BizData[];
-
   editBizMenuUrl: string;
 
   selectedNodes: string[];
@@ -27,30 +25,21 @@ export class BizmenuComponent implements OnInit {
   constructor(private http: HttpClient,
               private msg: NzMessageService,
               private bizService: BizServiceService,
+              private authService: AuthService
               ) {
-        this.editBizMenuUrl = environment.editBizMenuUrl;
+    this.editBizMenuUrl = environment.editBizMenuUrl;
+
   }
 
   ngOnInit(): void {
-    this.loadAllBiz();
+    this.selectBiz = this.authService.getBizId().toString();
+    this.loadSelectMenu();
   }
 
-  loadAllBiz() {
-    this.bizService.loadBiz((meeResult: MeeResult) => {
-      if (meeResult.statusCode === 0) {
-          this.bizData = meeResult.data;
-      }
-    });
+  changeValue() {
+    this.loadSelectMenu();
   }
 
-  loadBizMenu(value): void {
-    this.bizService.loadBizMenu(value.toString(), (meeResult: MeeResult) => {
-      if (meeResult.statusCode === 0) {
-        const bizMenu: BizMenu[] = meeResult.data;
-        this.selectedNodes = bizMenu.map( item => item.menuId.toString());
-      }
-    });
-  }
 
   saveBizMenu() {
     if (this.selectBiz == null) {
@@ -59,8 +48,6 @@ export class BizmenuComponent implements OnInit {
     }
 
     this.isloading = true;
-
-    console.log(this.selectedNodes);
 
     this.editBizMenu().subscribe((meeResult: MeeResult) => {
       if (meeResult.statusCode === 0) {
@@ -77,6 +64,13 @@ export class BizmenuComponent implements OnInit {
       {bizId: this.selectBiz, menuId: this.selectedNodes});
   }
 
-
+  loadSelectMenu() {
+    this.bizService.loadBizMenu(this.selectBiz, (meeResult: MeeResult) => {
+      if (meeResult.statusCode === 0) {
+        const bizMenu: BizMenu[] = meeResult.data;
+        this.selectedNodes = bizMenu.map( item => item.menuId.toString());
+      }
+    });
+  }
 
 }

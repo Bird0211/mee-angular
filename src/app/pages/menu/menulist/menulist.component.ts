@@ -64,6 +64,15 @@ export class MenulistComponent implements OnInit {
     // this.addMenu();
   }
 
+  updateOrSave() {
+    const menu = this.activedMenu;
+    if (menu.id) {
+      this.update();
+    } else {
+      this.addMenu();
+    }
+  }
+
   addMenu() {
     const menu = this.activedMenu;
     menu.sort = this.nodes[this.nodes.length - 1].sort + 1;
@@ -126,10 +135,9 @@ export class MenulistComponent implements OnInit {
   }
 
   activeNode(data: NzFormatEmitEvent): void {
-    this.activedNode = data.node!;
+    this.activedNode = data.node;
     this.activedMenu = this.activedNode.origin.menu;
     this.visible = true;
-    console.log(this.activedMenu);
   }
 
   openFolder(data: NzTreeNode | Required<NzFormatEmitEvent>): void {
@@ -157,7 +165,6 @@ export class MenulistComponent implements OnInit {
 
   update() {
     const menu: Menu = this.activedMenu;
-    console.log(menu);
 
     const httpOptions = {
       headers: new HttpHeaders({

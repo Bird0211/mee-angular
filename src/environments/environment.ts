@@ -14,7 +14,7 @@ export const environment = {
   // upateInventoryUrl: '//localhost:8801/api/inventory/update'
   usermenuUrl: '//localhost:8801/api/menu',
   // usermenuUrl: '//localhost:8801/api/menu'
-  iconUrl: '//at.alicdn.com/t/font_1644348_asl9165raq7.js',
+  iconUrl: '//at.alicdn.com/t/font_1644348_9rcqw7wm4ro.js',
   menuUrl: '//localhost:8801/api/allmenu',
   updateMenuUrl: '//localhost:8801/api/menu/update',
   addMenuUrl: '//localhost:8801/api/menu/add',
@@ -31,7 +31,8 @@ export const environment = {
   allUserUrl: '//localhost:8801/api/alluser',
   roleUserUrl: '//localhost:8801/api/roleuser/role',
   updateRoleMenuUrl: '//localhost:8801/api/role/menu/update',
-  updateRoleUserUrl: '//localhost:8801/api/roleuser/update'
+  updateRoleUserUrl: '//localhost:8801/api/roleuser/update',
+  weimob_addcode_url: 'https://external.yiyun.co.nz/api/weimobCode/add'
 };
 
 /*

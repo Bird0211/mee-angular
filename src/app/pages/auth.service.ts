@@ -16,10 +16,11 @@ export class AuthService {
 
   constructor(private http: HttpClient,
               private route: ActivatedRoute) {
-    this.paramInit();
+
   }
 
   initAuth(callback: Callback) {
+    this.paramInit();
     if (!this.bizid || !this.userid) {
       callback(false);
       return;
@@ -58,4 +59,5 @@ export class AuthService {
   public getUserId(): number {
     return Number(sessionStorage.getItem('userId'));
   }
+
 }

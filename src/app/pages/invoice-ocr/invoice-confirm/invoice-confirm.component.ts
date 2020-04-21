@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef } from '@angular/core';
 import { InvoiceComponent, MeeResult, OcrData, MeeProduct, OCRProduct } from '../../../interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NzInputDirective, NzMessageService } from 'ng-zorro-antd';
+import { NzInputDirective, NzMessageService, NzNotificationService } from 'ng-zorro-antd';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
@@ -50,12 +50,12 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
   constructor(private fb: FormBuilder,
               private http: HttpClient,
               private msg: NzMessageService,
+              private notifiction: NzNotificationService,
               private route: ActivatedRoute) {
     this.supplierUrl = environment.supplierUrl;
   }
 
   ngOnInit() {
-    console.log('confirm-init: ', this.data);
     const images = [];
     if (this.data.img != null && this.data.img.length > 0) {
       this.fileType = this.data.img[0].type;
@@ -152,7 +152,7 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
             this.listOfData[i].meename = product.name;
           }
       } else {
-          this.msg.error('Supplier load error!');
+          this.msg.error('Matching error!');
       }
       this.isLoading = false;
     } );
@@ -182,11 +182,10 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
   loadupdateInventory(data) {
     this.isLoading = true;
     this.updateInventory(data).subscribe ((result: MeeResult) => {
-      console.log('UpdateInventory: ', result);
       if (result && result.statusCode === 0) {
         this.callback.emit(result);
       } else {
-        this.msg.error(result.data);
+        this.notifiction.error('提交失败', result.data, { nzDuration: 0 });
       }
       this.isLoading = false;
     } );
@@ -252,15 +251,22 @@ export class InvoiceConfirmComponent implements OnInit, InvoiceComponent {
   }
 
   checkPrice(data: any) {
+    const error: string[] = [];
     for (const item of data) {
-      if (item.price <= 0) {
+      if (item.price <= 0 || item.num <= 0 || item.sku === '') {
         const name: string = item.content;
         const price: number = item.price;
-        this.msg.error(name + ':' + price);
-        return false;
+        error.push(name);
       }
     }
-    return true;
+
+    if (error.length > 0) {
+      this.notifiction.error('请检查商品SKU、数量、价格', error.join('\n'), { nzDuration: 0 });
+      return false;
+    } else {
+      return true;
+    }
+
   }
 
 }

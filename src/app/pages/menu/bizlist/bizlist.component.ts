@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { filter } from 'rxjs/operators';
 import { BizServiceService } from '../biz-service.service';
 
+
 @Component({
   selector: 'app-bizlist',
   templateUrl: './bizlist.component.html',
@@ -55,7 +56,6 @@ export class BizlistComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.activedBiz);
 
     let url = null;
     if (this.isAdd) {
@@ -107,6 +107,10 @@ export class BizlistComponent implements OnInit {
           console.log(e);
         }
       );
+  }
+
+  changeDateValue(date: Date) {
+    this.activedBiz.expireDate = date;
   }
 
 }

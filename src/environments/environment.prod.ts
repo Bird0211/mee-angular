@@ -6,11 +6,11 @@ export const environment = {
   matchUrl: 'https://external.yiyun.co.nz/api/matching',
   upateInventoryUrl: 'https://external.yiyun.co.nz/api/inventory/update',
   usermenuUrl: 'https://external.yiyun.co.nz/api/menu',
-  iconUrl: '//at.alicdn.com/t/font_1644348_asl9165raq7.js',
+  iconUrl: '//at.alicdn.com/t/font_1644348_9rcqw7wm4ro.js',
   menuUrl: 'https://external.yiyun.co.nz/api/allmenu',
   updateMenuUrl: 'https://external.yiyun.co.nz/api/menu/update',
   addMenuUrl: 'https://external.yiyun.co.nz/api/menu/add',
-  bizUrl: 'https://external.yiyun.co.nz/api/biz',
+  bizUrl: 'https://external.yiyun.co.nz/api/allbiz',
   addBizUrl: 'https://external.yiyun.co.nz/api/biz/add',
   updateBizUrl: 'https://external.yiyun.co.nz/api/biz/update',
   bizMenuUrl: 'https://external.yiyun.co.nz/api/bizmenu',
@@ -22,5 +22,6 @@ export const environment = {
   updateRoleUserUrl: 'https://external.yiyun.co.nz/api/roleuser/update',
   userUrl: 'https://external.yiyun.co.nz/api/user',
   allUserUrl: 'https://external.yiyun.co.nz/api/alluser',
-  roleUserUrl: 'https://external.yiyun.co.nz/api/roleuser/role'
+  roleUserUrl: 'https://external.yiyun.co.nz/api/roleuser/role',
+  weimob_addcode_url: 'https://external.yiyun.co.nz/api/weimobCode/add'
 };

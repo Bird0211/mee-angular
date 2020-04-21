@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Output, EventEmitter } from '@angular/core';
-import { UploadFile } from 'ng-zorro-antd';
+import { UploadFile, NzNotificationService } from 'ng-zorro-antd';
 import { NzMessageService } from 'ng-zorro-antd';
 import { InvoiceComponent, MeeResult, OcrData, Product } from '../../../interface';
 import { OcrResultVo } from '../invoice-item';
@@ -8,7 +8,6 @@ import { environment } from 'src/environments/environment';
 import { HttpRequest, HttpClient, HttpResponse } from '@angular/common/http';
 import { filter, timeout } from 'rxjs/operators';
 import { XlsxService } from './xlsx.service';
-import format from 'date-fns/format';
 
 
 @Component({
@@ -33,7 +32,9 @@ export class UpdateFileComponent implements OnInit, InvoiceComponent {
     hidePreviewIconInNonImage: true
   };
 
-  constructor(private msg: NzMessageService, private http: HttpClient) {
+  constructor(private notification: NzNotificationService,
+              private http: HttpClient,
+              private msg: NzMessageService) {
     this.actionUrl = environment.updateImgUrl;
   }
 
@@ -50,7 +51,6 @@ export class UpdateFileComponent implements OnInit, InvoiceComponent {
       return;
     }
 
-    console.log(this.fileList);
     this.uploading = true;
     if (this.fileList[0].type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
       this.ocrExl(this.fileList);
@@ -76,7 +76,7 @@ export class UpdateFileComponent implements OnInit, InvoiceComponent {
           this.uploading = false;
           this.msg.success('upload successfully.');
           const response: MeeResult = e.body;
-          console.log(response);
+
           if (response.statusCode === 0 && response.data != null) {
             const ocrResult = new OcrResultVo(response, this.fileList);
             this.callback.emit(ocrResult);

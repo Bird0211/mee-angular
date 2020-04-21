@@ -1,1 +1,11 @@
-<p>roleuser works!</p>
+<div nz-row>
+    <div nz-col nzSpan="8">
+        <app-bizselect [(selectBiz)]="selectBiz" ></app-bizselect>
+    </div>
+</div>
+<div nz-row >
+    <div nz-col nzSpan="24">
+        <app-rolelist [bizId]="selectBiz" [isDisabledRoleType] = "true">
+        </app-rolelist>
+    </div>
+</div>

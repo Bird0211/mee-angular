@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-roleuser',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoleuserComponent implements OnInit {
 
-  constructor() { }
+  selectBiz: string;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.selectBiz = this.authService.getBizId().toString();
   }
+
 
 }

@@ -11,10 +11,11 @@ import { BizlistComponent } from './bizlist/bizlist.component';
 import { RolelistComponent } from './rolelist/rolelist.component';
 import { RoleuserComponent } from './roleuser/roleuser.component';
 import { MenutreeComponent } from './menutree/menutree.component';
+import { BizselectComponent } from './bizselect/bizselect.component';
 
 @NgModule({
   declarations: [MenuComponent, NzcardComponent, MenulistComponent, BizmenuComponent,
-    BizlistComponent, RolelistComponent, RoleuserComponent, MenutreeComponent  ],
+    BizlistComponent, RolelistComponent, RoleuserComponent, MenutreeComponent, BizselectComponent  ],
   imports: [
     MenuRoutingModule,
     NgZorroAntdModule,

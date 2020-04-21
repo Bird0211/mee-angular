@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -58,6 +58,10 @@ export class MenuComponent implements OnInit {
   menus: Menu[];
 
   showDiv = true;
+
+  isShowRoute = false;
+
+  isShowIFrame = false;
 
   jumpurl: SafeResourceUrl = '';
 
@@ -124,20 +128,24 @@ export class MenuComponent implements OnInit {
 
 
   jumpto(menu: Menu) {
-    // this.router.navigateByUrl(url);
+    this.showDiv = false;
     if (menu.type === '0') {
-      this.router.navigate( [{ outlets: { popup: ['list'] } }]);
-
+      this.isShowRoute = true;
+      this.isShowIFrame = false;
+      this.router.navigate([menu.url], {relativeTo: this.route, skipLocationChange: true});
     } else {
-      const url = menu.url += '&v=' + Date.parse(new Date().toString());
+      this.isShowRoute = false;
+      this.isShowIFrame = true;
+      const url = menu.url +=  '&bid=' + this.authService.getBizId() + '&uid=' + this.authService.getUserId() +
+              '&v=' + Date.parse(new Date().toString());
       this.jumpurl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-      this.showDiv = false;
     }
-
   }
 
-  goback() {
+  jumpback() {
     this.showDiv = true;
+    this.isShowIFrame = false;
+    this.isShowRoute = false;
   }
 
 }

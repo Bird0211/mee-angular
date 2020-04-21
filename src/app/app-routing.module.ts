@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { InvoiceOcrComponent } from './pages/invoice-ocr/invoice-ocr.component';
 import { InvoiceIndexComponent } from './pages/invoice-ocr/invoice-index/invoice-index.component';
 import { LoginComponent } from './pages/login/login.component';
+import { WeimobAuthComponent } from './pages/weimob-auth/weimob-auth.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/welcome' },
@@ -10,7 +11,8 @@ const routes: Routes = [
   { path: 'invoice/:bizid/:time/:nonce/:sign', component: InvoiceOcrComponent},
   { path: 'invoiceocr/:bizid/:time/:nonce/:sign', component: InvoiceIndexComponent},
   { path: 'dashboard', loadChildren: () => import('./pages/menu/menu.module').then(m => m.MenuModule)},
-  { path: 'login', component: LoginComponent}
+  { path: 'login', component: LoginComponent},
+  { path: 'weimob', component: WeimobAuthComponent}
 ];
 
 @NgModule({

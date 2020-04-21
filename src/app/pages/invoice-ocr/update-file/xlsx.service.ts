@@ -21,7 +21,6 @@ export class XlsxService {
 
   importdata(files: UploadFile[] , range: number, callback: Callback ) {
     if (!files) {
-        console.log('obj.files fail');
         return;
     }
     const rABS = true; // 是否将文件读取为二进制字符串

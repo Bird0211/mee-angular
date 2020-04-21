@@ -32,16 +32,18 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
   isSpinning = true;
 
   @ViewChild(InvoiceStepHostDirective, {static: true})
-      invoiceStepHostDirective: InvoiceStepHostDirective;
 
-  constructor(private msg: NzMessageService,
-              private componentFactoryResolver: ComponentFactoryResolver,
+  invoiceStepHostDirective: InvoiceStepHostDirective;
+
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private titleService: Title,
               private route: ActivatedRoute,
               private http: HttpClient
     ) { }
 
   ngOnInit() {
+    this.invoiceItems = this.getItems();
+
     const authService = new AuthService(this.http, this.route);
     authService.initAuth((result: boolean) => {
       this.data = {
@@ -60,7 +62,6 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
         this.setStep(2);
       }
     });
-    this.invoiceItems = this.getItems();
     this.titleService.setTitle('Invoice OCR');
   }
 
@@ -75,19 +76,14 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
     const componentRef = viewContainerRef.createComponent(componentFactory);
     (componentRef.instance as InvoiceComponent).data = this.data;
     if (componentRef.instance instanceof UpdateFileComponent) {
-      console.log('UpdateFileComponent');
       (componentRef.instance as InvoiceComponent).callback.subscribe((ocrResult: any) => {
-        console.log('UpdateFileComponent callback', ocrResult);
         this.updateDone(ocrResult);
       });
     } else if (componentRef.instance instanceof InvoiceConfirmComponent) {
-      console.log('InvoiceConfirmComponent');
       (componentRef.instance as InvoiceComponent).callback.subscribe((ocrResult: any) => {
-        console.log('InvoiceConfirmComponent callback', ocrResult);
         this.comformDone(ocrResult);
       });
     } else if (componentRef.instance instanceof InvoiceResultComponent) {
-      console.log('InvoiceResultComponent');
       (componentRef.instance as InvoiceComponent).callback.subscribe((ocrResult: any) => {
         // this.comformDone(ocrResult);
       });

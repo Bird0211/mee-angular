@@ -23,6 +23,7 @@ import { UserComponent } from './pages/user/user.component';
 import { InvoiceIndexComponent } from './pages/invoice-ocr/invoice-index/invoice-index.component';
 import { MenuModule } from './pages/menu/menu.module';
 import { LoginComponent } from './pages/login/login.component';
+import { WeimobAuthComponent } from './pages/weimob-auth/weimob-auth.component';
 
 // 支持AOT
 export function createTranslateLoader(http: HttpClient) {
@@ -41,7 +42,8 @@ registerLocaleData(zh);
     InvoiceIndexComponent,
     InvoiceStepHostDirective,
     UserComponent,
-    LoginComponent
+    LoginComponent,
+    WeimobAuthComponent
   ],
   imports: [
     BrowserModule,

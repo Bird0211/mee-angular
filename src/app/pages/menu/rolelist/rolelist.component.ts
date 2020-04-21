@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AuthService } from '../../auth.service';
 import { NzMessageService, TransferItem } from 'ng-zorro-antd';
 import { environment } from 'src/environments/environment';
@@ -11,7 +11,7 @@ import { th, ms } from 'date-fns/locale';
   templateUrl: './rolelist.component.html',
   styleUrls: ['./rolelist.component.less']
 })
-export class RolelistComponent implements OnInit {
+export class RolelistComponent implements OnInit, OnChanges {
 
   loading = true;
   isVisible = false;
@@ -32,7 +32,9 @@ export class RolelistComponent implements OnInit {
   updateRoleMenuUrl: string;
   updateRoleUserUrl: string;
 
-  bizId: number = this.authService.getBizId();
+  @Input() bizId: string;
+
+  @Input() isDisabledRoleType = false;
 
   selectedNodes: string[] = [];
   yiyunUsers: YiYunUser[] = [];
@@ -60,6 +62,17 @@ export class RolelistComponent implements OnInit {
     if (!this.authService.getBizId()) {
         this.msg.error('请重新登录！');
     } else {
+        this.bizId = this.authService.getBizId().toString();
+        this.loadRole();
+        this.loadUser();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.bizId && changes.bizId.currentValue) {
+      this.allUsers = [];
+      this.selectedRole = null;
+      this.radioValue = null;
       this.loadRole();
       this.loadUser();
     }
@@ -110,7 +123,7 @@ export class RolelistComponent implements OnInit {
   }
 
   queryRole() {
-    const url = this.queryRoleUrl + '/' + this.authService.getBizId();
+    const url = this.queryRoleUrl + '/' + this.bizId;
     return this.http.get(url);
   }
 

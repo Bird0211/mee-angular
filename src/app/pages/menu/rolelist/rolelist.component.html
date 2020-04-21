@@ -16,7 +16,6 @@
                     [nzTitle]="nzTitle"
                   >
                     <ng-template #nzTitle>
-                      <!-- <a (click)="selectRole(item.id)">{{ item.roleName }}</a> -->
                       <label nz-radio-button [nzValue]="item.id" (click)="selectRole(item.id)">{{ item.roleName }}</label>
                     </ng-template>
                   </nz-list-item-meta>
@@ -86,7 +85,7 @@
             <nz-form-item>
               <nz-form-label>角色类型</nz-form-label>
               <nz-form-control>
-                <nz-radio-group name="type" [(ngModel)]="role.roleType" [nzButtonStyle]="'solid'" [nzDisabled]="true">
+                <nz-radio-group name="type" [(ngModel)]="role.roleType" [nzButtonStyle]="'solid'" [nzDisabled]="isDisabledRoleType">
                     <label nz-radio-button [nzValue]="0">全局角色</label>
                     <label nz-radio-button [nzValue]="1">普通角色</label>
                 </nz-radio-group>

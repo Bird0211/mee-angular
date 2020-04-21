@@ -1,7 +1,7 @@
 <div [@hideDiv]="showDiv ? 'closed' : 'open'" nz-row style="display: none;">
   <div nz-col nzSpan="24">
       <ul nz-menu nzMode="horizontal">
-        <li nz-submenu [nzTitle]="turnhoume" (click)="goback()">
+        <li nz-submenu [nzTitle]="turnhoume" (click)="jumpback()">
           <ng-template #turnhoume>
             <i nz-icon class="menuicon" [nzIconfont]="'icon-down1'"></i><span>HOME</span>
           </ng-template>
@@ -17,6 +17,7 @@
       </ul>
   </div>
 </div>
+
 <div [@hideDiv]="showDiv ? 'open' : 'closed'" nz-row *ngFor="let item of menus" >
   <div nz-row>
     <div nz-col nzSpan="24">
@@ -32,8 +33,12 @@
 
 <div [@showFrame]="showDiv ? 'closed' : 'open'" nz-row nzType="flex" nzJustify="start" style="display:none;">
   <div nz-col nzSpan="24">
-      <router-outlet></router-outlet>
+    <div [ngClass]="isShowRoute ? 'showSubRoute' : 'hideSubRoute'">
+      <router-outlet ></router-outlet>
+    </div>
+    <div [ngClass]="isShowIFrame ? 'showIFrame' : 'hideIFrame'">
       <iframe [src]="jumpurl" class="framecls"></iframe>
+    </div>
   </div>
 </div>
 

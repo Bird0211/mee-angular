@@ -34,7 +34,7 @@
           </ng-template>
           <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul nz-menu>
-              <li nz-menu-item (click)="addSubmenu($event)">添加子菜单</li>
+              <li nz-menu-item (click)="addSubmenu()">添加子菜单</li>
             </ul>
           </nz-dropdown-menu>
     </div>
@@ -150,7 +150,7 @@
           <div nz-row class="footer">
               <div nz-col nzSpan="24">
                 <button type="button" (click)="closeDrawer()" class="ant-btn" style="margin-right: 8px;" ><span>取消</span></button>
-                <button type="button" (click)="update()" class="ant-btn ant-btn-primary"><span>提交</span></button>
+                <button type="button" (click)="updateOrSave()" class="ant-btn ant-btn-primary"><span>提交</span></button>
               </div>
           </div>
            
