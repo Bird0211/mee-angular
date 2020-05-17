@@ -14,7 +14,7 @@ export const environment = {
   // upateInventoryUrl: '//localhost:8801/api/inventory/update'
   usermenuUrl: '//localhost:8801/api/menu',
   // usermenuUrl: '//localhost:8801/api/menu'
-  iconUrl: '//at.alicdn.com/t/font_1644348_9rcqw7wm4ro.js',
+  iconUrl: '//at.alicdn.com/t/font_1644348_iv365gabzfd.js',
   menuUrl: '//localhost:8801/api/allmenu',
   updateMenuUrl: '//localhost:8801/api/menu/update',
   addMenuUrl: '//localhost:8801/api/menu/add',

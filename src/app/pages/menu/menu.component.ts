@@ -136,9 +136,11 @@ export class MenuComponent implements OnInit {
     } else {
       this.isShowRoute = false;
       this.isShowIFrame = true;
-      const url = menu.url +=  '&bid=' + this.authService.getBizId() + '&uid=' + this.authService.getUserId() +
+      console.log('MenuUrl: ', menu.url);
+      const url = menu.url +  '&bid=' + this.authService.getBizId() + '&uid=' + this.authService.getUserId() +
               '&v=' + Date.parse(new Date().toString());
       this.jumpurl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+      console.log(this.jumpurl);
     }
   }
 

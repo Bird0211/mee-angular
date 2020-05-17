@@ -38,7 +38,8 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private titleService: Title,
               private route: ActivatedRoute,
-              private http: HttpClient
+              private http: HttpClient,
+              private authService: AuthService
     ) { }
 
   ngOnInit() {

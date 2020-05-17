@@ -6,7 +6,7 @@ export const environment = {
   matchUrl: 'https://external.yiyun.co.nz/api/matching',
   upateInventoryUrl: 'https://external.yiyun.co.nz/api/inventory/update',
   usermenuUrl: 'https://external.yiyun.co.nz/api/menu',
-  iconUrl: '//at.alicdn.com/t/font_1644348_9rcqw7wm4ro.js',
+  iconUrl: '//at.alicdn.com/t/font_1644348_iv365gabzfd.js',
   menuUrl: 'https://external.yiyun.co.nz/api/allmenu',
   updateMenuUrl: 'https://external.yiyun.co.nz/api/menu/update',
   addMenuUrl: 'https://external.yiyun.co.nz/api/menu/add',

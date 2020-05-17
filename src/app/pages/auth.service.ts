@@ -21,7 +21,8 @@ export class AuthService {
 
   initAuth(callback: Callback) {
     this.paramInit();
-    if (!this.bizid || !this.userid) {
+    if (!this.bizid) {
+      console.log(this.bizid);
       callback(false);
       return;
     }
