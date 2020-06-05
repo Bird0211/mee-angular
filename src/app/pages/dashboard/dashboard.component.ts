@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { HttpClient } from '@angular/common/http';
-import { NzMessageService } from 'ng-zorro-antd';
 import { YiYunUser, AuthParam } from 'src/app/interface';
 
 @Component({
