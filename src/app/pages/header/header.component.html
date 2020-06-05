@@ -5,12 +5,18 @@
         <span class="h5">Middle-earth Export Limited</span>
     </div>
     <div nz-col>
-        
-        <button nz-button nzType="default" nzSize='small' (click)="changeLangus()">{{'langue' | translate}}</button>
-        <div *ngIf="user">
-            <nz-avatar [nzText]="user.givenName.substr(0,1).toUpperCase()"></nz-avatar>
-            <span class="h6 ml-1 text-muted">{{user.givenName}}</span>
-        </div>
+        <nz-space>
+            <nz-space-item>
+                <button nz-button nzType="default" nzSize='small' (click)="changeLangus()">{{'langue' | translate}}</button>
+            </nz-space-item>
+            <nz-space-item>
+                <div *ngIf="user">
+                    <nz-avatar [nzText]="user.givenName.substr(0,1).toUpperCase()"></nz-avatar>
+                    <span class="h6 ml-1 text-muted">{{user.givenName}}</span>
+                </div>
+            </nz-space-item>
+        </nz-space>
+       
     </div>
 </div>
 

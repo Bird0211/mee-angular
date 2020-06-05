@@ -5,7 +5,7 @@ import { MeeResult, Menu } from 'src/app/interface';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../auth.service';
 import { NzTreeNodeOptions, NzFormatEmitEvent, NzTreeNode,
-  NzDropdownMenuComponent, NzContextMenuService, NzMessageService, menuServiceFactory } from 'ng-zorro-antd';
+  NzDropdownMenuComponent, NzContextMenuService, NzMessageService } from 'ng-zorro-antd';
 import { el } from 'date-fns/locale';
 import { MenuService } from '../menu.service';
 
