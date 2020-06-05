@@ -10,7 +10,7 @@ import { RolelistComponent } from './rolelist/rolelist.component';
 import { RoleuserComponent } from './roleuser/roleuser.component';
 
 const routes: Routes = [
-  { path: ':bizid/:userid/:time/:nonce/:sign',
+  { path: '',
     component: MenuComponent,
     children:
       [

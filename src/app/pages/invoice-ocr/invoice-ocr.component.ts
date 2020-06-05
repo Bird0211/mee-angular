@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { OcrResult, InvoiceComponent, OcrData, MeeResult } from '../../interface';
+import { OcrResult, InvoiceComponent, OcrData, MeeResult, AuthParam } from '../../interface';
 import { InvoiceStepHostDirective } from './invoice-step-host.directive';
 import { InvoiceItem } from './invoice-item';
 import { UpdateFileComponent } from './update-file/update-file.component';
@@ -45,8 +45,8 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
   ngOnInit() {
     this.invoiceItems = this.getItems();
 
-    const authService = new AuthService(this.http, this.route);
-    authService.initAuth((result: boolean) => {
+    const authParam: AuthParam = this.authService.getAuthParam(this.route);
+    this.authService.initAuth(authParam).then((result: boolean) => {
       this.data = {
         statusCode: 0,
         description: null,
@@ -63,6 +63,7 @@ export class InvoiceOcrComponent implements OnInit, OnDestroy  {
         this.setStep(2);
       }
     });
+
     this.titleService.setTitle('Invoice OCR');
   }
 

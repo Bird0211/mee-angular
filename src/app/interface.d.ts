@@ -129,9 +129,13 @@ export interface RoleUser {
 export interface YiYunUser {
     userId: number;
 
-    givenName: number;
+    givenName: string;
 
-    surname: number;
+    surname: string;
 
     email: string;
+}
+
+export interface AuthParam {
+    bizid: string; userid: string; time: string; nonce: string; sign: string;
 }

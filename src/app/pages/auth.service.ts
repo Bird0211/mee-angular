@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MeeResult } from '../interface';
+import { MeeResult, YiYunUser, AuthParam } from '../interface';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
@@ -14,38 +14,76 @@ export class AuthService {
 
   private bizid: string; userid: string; time: string; nonce: string; sign: string;
 
+  private user: YiYunUser;
+
+  private userUrl: string;
+
+  @Output() getLoggedInName: EventEmitter<YiYunUser> = new EventEmitter();
+
+
   constructor(private http: HttpClient,
               private route: ActivatedRoute) {
-
+        this.userUrl = environment.userUrl;
   }
 
-  initAuth(callback: Callback) {
-    this.paramInit();
-    if (!this.bizid) {
-      console.log(this.bizid);
-      callback(false);
-      return;
-    }
-
-    this.checkAuth().subscribe ((meeResult: MeeResult) => {
-      const result = meeResult.statusCode === 0;
-      if (result) {
-        sessionStorage.setItem('bizId', this.bizid);
-        sessionStorage.setItem('userId', this.userid);
-      } else {
-        sessionStorage.removeItem('bizId');
-        sessionStorage.removeItem('userId');
+  initAuth(authParam: AuthParam): Promise<boolean> {
+    const promise = new Promise<boolean>((resolve, reject) => {
+      this.paramInit(authParam);
+      if (!this.bizid) {
+        console.log(this.bizid);
+        resolve(false);
+        return;
       }
-      callback(result);
-    } );
+
+      this.checkAuth().subscribe ((meeResult: MeeResult) => {
+        const result = meeResult.statusCode === 0;
+        resolve(result);
+        if (result) {
+          sessionStorage.setItem('bizId', this.bizid);
+          sessionStorage.setItem('userId', this.userid);
+          this.getYiyunUser().then((user: YiYunUser) => {
+            this.user = user;
+            console.log('emit User', user);
+            this.getLoggedInName.emit(user);
+            }
+          );
+        } else {
+          sessionStorage.removeItem('bizId');
+          sessionStorage.removeItem('userId');
+        }
+      });
+
+    });
+
+    return promise;
   }
 
-  private paramInit() {
-    this.bizid = this.route.snapshot.paramMap.get('bizid');
-    this.time = this.route.snapshot.paramMap.get('time');
-    this.nonce = this.route.snapshot.paramMap.get('nonce');
-    this.sign = this.route.snapshot.paramMap.get('sign');
-    this.userid = this.route.snapshot.paramMap.get('userid');
+  private paramInit(authParam: AuthParam) {
+
+    this.bizid = authParam.bizid;
+    this.time = authParam.time;
+    this.nonce = authParam.nonce;
+    this.sign = authParam.sign;
+    this.userid = authParam.userid;
+
+    console.log('bizId', this.bizid);
+  }
+
+  public getAuthParam(route: ActivatedRoute) {
+    const bizid = route.snapshot.paramMap.get('bizid');
+    const time = route.snapshot.paramMap.get('time');
+    const nonce = route.snapshot.paramMap.get('nonce');
+    const sign = route.snapshot.paramMap.get('sign');
+    const userid = route.snapshot.paramMap.get('userid');
+
+    const param: AuthParam = {
+      bizid,
+      time,
+      nonce,
+      sign,
+      userid
+    };
+    return param;
   }
 
   private checkAuth() {
@@ -59,6 +97,30 @@ export class AuthService {
 
   public getUserId(): number {
     return Number(sessionStorage.getItem('userId'));
+  }
+
+  public getYiyunUser(): Promise<YiYunUser> {
+    const userPromise = new Promise<YiYunUser>((resolve, reject) => {
+      if (this.user) {
+        this.getLoggedInName.emit(this.user);
+        resolve(this.user);
+      } else {
+        this.getUser().subscribe((result: MeeResult) => {
+          if (result.statusCode === 0) {
+             this.user = result.data;
+             resolve(result.data);
+          } else {
+            reject();
+          }
+        });
+      }
+    });
+    return userPromise;
+  }
+
+  private getUser() {
+    const url = this.userUrl + '/' + this.getBizId() + '/' + this.getUserId();
+    return this.http.get(url);
   }
 
 }

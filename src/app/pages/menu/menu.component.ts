@@ -79,18 +79,7 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.initAuth((result) => {
-        if (!result) {
-          this.modalService.error({
-            nzTitle: '请重新登录',
-            nzContent: '访问超时,请重新登录!',
-            nzClosable: false,
-            nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000))
-          });
-        } else {
-          this.loadMenu();
-        }
-    });
+    this.loadMenu();
   }
 
 

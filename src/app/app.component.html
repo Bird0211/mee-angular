@@ -1,12 +1,16 @@
-<nz-layout class="app-layout">
-    <nz-header >
-      <div class='divswitch'>
-        <button nz-button nzType="default" nzSize='small' (click)="changeLangus()">{{'langue' | translate}}</button>
-      </div>
+<nz-layout class="h-100">
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" nzWidth="260px" >
+    <app-sider [isCollapsed]="isCollapsed" class="shadow"></app-sider>
+  </nz-sider>
+  <nz-layout class="app-layout">
+    <nz-header style="background-color: white;">
+      <app-header [(isCollapsed)]="isCollapsed"></app-header>
     </nz-header>
     <nz-content>
       <div class="inner-content">
         <router-outlet></router-outlet>
       </div>
     </nz-content>
+  </nz-layout>
 </nz-layout>
+

@@ -1,0 +1,16 @@
+<div nz-row nzGutter="8" nzJustify="space-between" nzAlign="middle" nzType="flex" class="pl-4 pr-5">
+    <div nz-col>
+        <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu' : 'arrow-left'" (click)="changeTrigger()"></i>
+        <img class="ml-2 mr-2" src="https://biz.yiyun.co.nz/assets/images/biz_logos/Mee_logo.png" />
+        <span class="h5">Middle-earth Export Limited</span>
+    </div>
+    <div nz-col>
+        
+        <button nz-button nzType="default" nzSize='small' (click)="changeLangus()">{{'langue' | translate}}</button>
+        <div *ngIf="user">
+            <nz-avatar [nzText]="user.givenName.substr(0,1).toUpperCase()"></nz-avatar>
+            <span class="h6 ml-1 text-muted">{{user.givenName}}</span>
+        </div>
+    </div>
+</div>
+
