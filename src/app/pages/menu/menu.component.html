@@ -1,43 +1,14 @@
-<div [@hideDiv]="showDiv ? 'closed' : 'open'" nz-row style="display: none;">
+<div nz-row *ngFor="let item of menus" >
   <div nz-col nzSpan="24">
-      <ul nz-menu nzMode="horizontal">
-        <li nz-submenu [nzTitle]="turnhoume" (click)="jumpback()">
-          <ng-template #turnhoume>
-            <i nz-icon class="menuicon" [nzIconfont]="'icon-down1'"></i><span>HOME</span>
-          </ng-template>
-        </li>
-        <li nz-submenu *ngFor="let item of menus" [nzTitle]="topmenutmp" >
-          <ul *ngIf="item.subMenu">
-            <li nz-menu-item *ngFor="let menu of item.subMenu" (click)="jumpto(menu)"><i nz-icon class="menuicon" [nzIconfont]="menu.icon"></i>{{menu.title}}</li>
-          </ul>
-          <ng-template #topmenutmp>
-            <i nz-icon class="menuicon" [nzIconfont]="item.icon"></i><span>{{item.title}}</span>
-          </ng-template>
-        </li>
-      </ul>
-  </div>
-</div>
-
-<div [@hideDiv]="showDiv ? 'open' : 'closed'" nz-row *ngFor="let item of menus" >
-  <div nz-row>
-    <div nz-col nzSpan="24">
-      <h3>{{item.title}}</h3>
+    <div nz-row>
+      <div nz-col nzSpan="24">
+        <h3>{{item.title}}</h3>
+      </div>
     </div>
-  </div>
-  <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }" nzType="flex" nzJustify="start">
-    <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="5" nzXl="5" *ngFor="let menu of item.subMenu">
-      <app-nzcard (click)="jumpto(menu)" [title]="menu.title" [description]="menu.description" [icon]="menu.icon" [iconColor]="menu.iconColor"></app-nzcard>
-    </div>
-  </div>
-</div>
-
-<div [@showFrame]="showDiv ? 'closed' : 'open'" nz-row nzType="flex" nzJustify="start" style="display:none;">
-  <div nz-col nzSpan="24">
-    <div [ngClass]="isShowRoute ? 'showSubRoute' : 'hideSubRoute'">
-      <router-outlet ></router-outlet>
-    </div>
-    <div [ngClass]="isShowIFrame ? 'showIFrame' : 'hideIFrame'">
-      <iframe [src]="jumpurl" class="framecls"></iframe>
+    <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }" nzJustify="start">
+      <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="5" nzXl="5" *ngFor="let menu of item.subMenu">
+        <app-nzcard (click)="jumpto(menu)" [title]="menu.title" [description]="menu.description" [icon]="menu.icon" [iconColor]="menu.iconColor"></app-nzcard>
+      </div>
     </div>
   </div>
 </div>

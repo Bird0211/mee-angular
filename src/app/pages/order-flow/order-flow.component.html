@@ -1,0 +1,6 @@
+<p class="h6"><strong>订单流转</strong></p>
+<div nz-row class="mt-2 border rounded w-100 p-2 shadow-sm " [nzGutter]="[8,8]" nzJustify="start">
+    <div nz-col *ngFor="let item of menus" nzSpan="6">
+        <app-order-flow-item [menu]="item"></app-order-flow-item>
+    </div>
+</div>

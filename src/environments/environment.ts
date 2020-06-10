@@ -4,6 +4,9 @@
 
 export const environment = {
   production: false,
+
+  iconUrl: '//at.alicdn.com/t/font_1644348_mq0vk2whji.js',
+
   updateImgUrl: '//localhost:8801/api/textocr',
   // updateImgUrl: 'http://localhost:8801/api/textocr',
   supplierUrl: '//localhost:8801/api/allSuppliers',
@@ -14,7 +17,6 @@ export const environment = {
   // upateInventoryUrl: '//localhost:8801/api/inventory/update'
   usermenuUrl: '//localhost:8801/api/menu',
   // usermenuUrl: '//localhost:8801/api/menu'
-  iconUrl: '//at.alicdn.com/t/font_1644348_iv365gabzfd.js',
   menuUrl: '//localhost:8801/api/allmenu',
   updateMenuUrl: '//localhost:8801/api/menu/update',
   addMenuUrl: '//localhost:8801/api/menu/add',
@@ -32,7 +34,12 @@ export const environment = {
   roleUserUrl: '//localhost:8801/api/roleuser/role',
   updateRoleMenuUrl: '//localhost:8801/api/role/menu/update',
   updateRoleUserUrl: '//localhost:8801/api/roleuser/update',
-  weimob_addcode_url: 'https://external.yiyun.co.nz/api/weimobCode/add'
+  weimob_addcode_url: 'https://external.yiyun.co.nz/api/weimobCode/add',
+
+  orderFlowUrl: '//localhost:8801/api/menu/flow',
+  subMenuUrl:  '//localhost:8801/api/menu/sub',
+
+  flywayTokenUrl: '//localhost:8801/api/flyway/token'
 };
 
 /*

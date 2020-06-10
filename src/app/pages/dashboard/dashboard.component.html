@@ -1,1 +1,13 @@
-<p>Dashboard</p>
+<nz-alert *ngIf="alertMsg" nzCloseable nzType="info" [nzMessage]="alertMsg"></nz-alert>
+
+<div *ngIf="isLogin" nz-row nzGutter="8" nzJustify="space-between">
+    <div nz-col>
+        <app-order-flow></app-order-flow>
+    </div>
+    <div nz-col>
+
+    </div>
+    <div nz-col>
+
+    </div>
+</div>

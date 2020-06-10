@@ -13,7 +13,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() isCollapsed = false;
+  @Input() isCollapsed: boolean | true;
 
   @Output() isCollapsedChange = new EventEmitter<boolean>();
 

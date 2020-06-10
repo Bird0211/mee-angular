@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SiderComponent implements OnInit {
 
-  @Input() isCollapsed = false;
+  @Input() isCollapsed: boolean | true;
 
   constructor() { }
 

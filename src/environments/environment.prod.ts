@@ -1,12 +1,15 @@
 export const environment = {
   production: true,
+
+  iconUrl: '//at.alicdn.com/t/font_1644348_mq0vk2whji.js',
+
   updateImgUrl: 'https://external.yiyun.co.nz/api/textocr',
   supplierUrl: 'https://external.yiyun.co.nz/api/allSuppliers',
   authUrl: 'https://external.yiyun.co.nz/api/authentication',
   matchUrl: 'https://external.yiyun.co.nz/api/matching',
   upateInventoryUrl: 'https://external.yiyun.co.nz/api/inventory/update',
   usermenuUrl: 'https://external.yiyun.co.nz/api/menu',
-  iconUrl: '//at.alicdn.com/t/font_1644348_iv365gabzfd.js',
+
   menuUrl: 'https://external.yiyun.co.nz/api/allmenu',
   updateMenuUrl: 'https://external.yiyun.co.nz/api/menu/update',
   addMenuUrl: 'https://external.yiyun.co.nz/api/menu/add',
@@ -23,5 +26,9 @@ export const environment = {
   userUrl: 'https://external.yiyun.co.nz/api/user',
   allUserUrl: 'https://external.yiyun.co.nz/api/alluser',
   roleUserUrl: 'https://external.yiyun.co.nz/api/roleuser/role',
-  weimob_addcode_url: 'https://external.yiyun.co.nz/api/weimobCode/add'
+  weimob_addcode_url: 'https://external.yiyun.co.nz/api/weimobCode/add',
+  orderFlowUrl: 'https://external.yiyun.co.nz/api/menu/flow',
+
+  subMenuUrl:  'https://external.yiyun.co.nz/api/menu/sub',
+  flywayTokenUrl: '//localhost:8801/api/flyway/token'
 };

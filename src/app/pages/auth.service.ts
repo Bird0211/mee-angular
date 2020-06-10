@@ -20,7 +20,6 @@ export class AuthService {
 
   @Output() getLoggedInName: EventEmitter<YiYunUser> = new EventEmitter();
 
-
   constructor(private http: HttpClient,
               private route: ActivatedRoute) {
         this.userUrl = environment.userUrl;
@@ -65,8 +64,17 @@ export class AuthService {
     this.nonce = authParam.nonce;
     this.sign = authParam.sign;
     this.userid = authParam.userid;
+  }
 
-    console.log('bizId', this.bizid);
+  public loadAuthParam(): AuthParam {
+    const param: AuthParam = {
+      bizid: this.bizid,
+      time: this.time,
+      nonce: this.nonce,
+      sign: this.sign,
+      userid: this.userid
+    };
+    return param;
   }
 
   public getAuthParam(route: ActivatedRoute) {

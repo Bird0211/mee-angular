@@ -1,0 +1,11 @@
+<div nz-row>
+    <div nz-col nzSpan="6">
+        <app-bizselect [(selectBiz)]="selectBiz" ></app-bizselect>
+    </div>
+</div>
+<div nz-row class="mt-3">
+    <div nz-col nzSpan="24">
+        <app-rolelist [bizId]="selectBiz" [isDisabledRoleType] = "true">
+        </app-rolelist>
+    </div>
+</div>

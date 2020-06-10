@@ -10,9 +10,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  isCollapsed = false;
 
-
+  isCollapsed = true;
 
   constructor(public translate: TranslateService,
               public iconService: NzIconService

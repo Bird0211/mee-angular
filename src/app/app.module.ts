@@ -8,7 +8,7 @@ import { InvoiceOcrComponent } from './pages/invoice-ocr/invoice-ocr.component';
 import { UpdateFileComponent } from './pages/invoice-ocr/update-file/update-file.component';
 import { InvoiceResultComponent } from './pages/invoice-ocr/invoice-result/invoice-result.component';
 import { IconsProviderModule } from './icons-provider.module';
-import { NgZorroAntdModule, NZ_I18N, en_US, zh_CN } from 'ng-zorro-antd';
+import { NgZorroAntdModule, NZ_I18N, en_US, zh_CN, NzCardComponent } from 'ng-zorro-antd';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
@@ -21,11 +21,25 @@ import { TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { UserComponent } from './pages/user/user.component';
 import { InvoiceIndexComponent } from './pages/invoice-ocr/invoice-index/invoice-index.component';
-import { MenuModule } from './pages/menu/menu.module';
 import { LoginComponent } from './pages/login/login.component';
 import { WeimobAuthComponent } from './pages/weimob-auth/weimob-auth.component';
 import { SiderComponent } from './pages/sider/sider.component';
 import { HeaderComponent } from './pages/header/header.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { IframeComponent } from './pages/iframe/iframe.component';
+import { MenuInfoComponent } from './pages/menu-info/menu-info.component';
+import { BizlistComponent } from './pages/bizlist/bizlist.component';
+import { BizmenuComponent } from './pages/bizmenu/bizmenu.component';
+import { RolelistComponent } from './pages/rolelist/rolelist.component';
+import { RoleuserComponent } from './pages/roleuser/roleuser.component';
+import { BizselectComponent } from './pages/bizselect/bizselect.component';
+import { MenutreeComponent } from './pages/menutree/menutree.component';
+import { MenulistComponent } from './pages/menulist/menulist.component';
+import { OrderFlowComponent } from './pages/order-flow/order-flow.component';
+import { OrderFlowItemComponent } from './pages/order-flow-item/order-flow-item.component';
+import { MenuComponent } from './pages/menu/menu.component';
+import { CardComponent } from './pages/nzcard/nzcard.component';
+import { FlywaySettingComponent } from './pages/flyway-setting/flyway-setting.component';
 
 // 支持AOT
 export function createTranslateLoader(http: HttpClient) {
@@ -47,7 +61,22 @@ registerLocaleData(zh);
     LoginComponent,
     WeimobAuthComponent,
     SiderComponent,
-    HeaderComponent
+    HeaderComponent,
+    DashboardComponent,
+    IframeComponent,
+    MenuInfoComponent,
+    BizlistComponent,
+    BizmenuComponent,
+    RolelistComponent,
+    RoleuserComponent,
+    BizselectComponent,
+    MenutreeComponent,
+    MenulistComponent,
+    OrderFlowComponent,
+    OrderFlowItemComponent,
+    MenuComponent,
+    CardComponent,
+    FlywaySettingComponent
   ],
   imports: [
     BrowserModule,

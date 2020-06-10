@@ -1,4 +1,4 @@
-import { Output, EventEmitter } from "@angular/core";
+import {EventEmitter } from "@angular/core";
 
 export interface MeeResult {
     statusCode: number;
