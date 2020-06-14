@@ -40,6 +40,13 @@ import { OrderFlowItemComponent } from './pages/order-flow-item/order-flow-item.
 import { MenuComponent } from './pages/menu/menu.component';
 import { CardComponent } from './pages/nzcard/nzcard.component';
 import { FlywaySettingComponent } from './pages/flyway-setting/flyway-setting.component';
+import { DataTodayComponent } from './pages/data-today/data-today.component';
+import { DataTotalComponent } from './pages/data-total/data-total.component';
+import { NewsComponent } from './pages/news/news.component';
+import { TodoListComponent } from './pages/todo-list/todo-list.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { NewsEditerComponent } from './pages/news-editer/news-editer.component';
+import { NewsListComponent } from './pages/news-list/news-list.component';
 
 // 支持AOT
 export function createTranslateLoader(http: HttpClient) {
@@ -76,7 +83,13 @@ registerLocaleData(zh);
     OrderFlowItemComponent,
     MenuComponent,
     CardComponent,
-    FlywaySettingComponent
+    FlywaySettingComponent,
+    DataTodayComponent,
+    DataTotalComponent,
+    NewsComponent,
+    TodoListComponent,
+    NewsEditerComponent,
+    NewsListComponent
   ],
   imports: [
     BrowserModule,
@@ -89,6 +102,7 @@ registerLocaleData(zh);
     NzSpaceModule,
     ReactiveFormsModule,
     PdfViewerModule,
+    EditorModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

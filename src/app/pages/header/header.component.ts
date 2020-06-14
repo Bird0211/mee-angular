@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../auth.service';
-import { YiYunUser } from 'src/app/interface';
+import { YiYunUser, MeeResult } from 'src/app/interface';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +22,10 @@ export class HeaderComponent implements OnInit {
 
   isZh = true;
 
+  currency: string;
+
+  currencyUrl: string;
+
   constructor(public translate: TranslateService,
               public message: NzMessageService,
               public http: HttpClient,
@@ -31,11 +36,13 @@ export class HeaderComponent implements OnInit {
         translate.setDefaultLang('zh');
         translate.use('zh');
 
-        console.log('Header getLoginInfo');
+        this.currencyUrl = environment.currencyUrl;
+
         authService.getLoggedInName.subscribe((yiYunUser: YiYunUser) => this.changeName(yiYunUser));
   }
 
   ngOnInit(): void {
+    this.loadCurrency();
   }
 
   changeLangus() {
@@ -54,6 +61,18 @@ export class HeaderComponent implements OnInit {
   private changeName(user: YiYunUser): void {
     console.log('header User', user);
     this.user = user;
+  }
+
+  loadCurrency() {
+    this.getCurrency().subscribe((resuult: MeeResult) => {
+      if (resuult.statusCode === 0) {
+        this.currency = resuult.data.rate;
+      }
+    });
+  }
+
+  getCurrency() {
+    return this.http.get(this.currencyUrl);
   }
 
 }

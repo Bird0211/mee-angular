@@ -14,6 +14,8 @@ import { MenulistComponent } from './pages/menulist/menulist.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { MenuService } from './pages/menu/menu.service';
 import { FlywaySettingComponent } from './pages/flyway-setting/flyway-setting.component';
+import { NewsEditerComponent } from './pages/news-editer/news-editer.component';
+import { NewsListComponent } from './pages/news-list/news-list.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/welcome' },
@@ -31,6 +33,8 @@ const routes: Routes = [
   { path: 'rolemanage', component: RoleuserComponent, canActivate: [MenuService]},
   { path: 'list', component: MenulistComponent, canActivate: [MenuService]},
   { path: 'flyway/setting', component: FlywaySettingComponent, canActivate: [MenuService]},
+  { path: 'news/edit/:id', component: NewsEditerComponent},
+  { path: 'news/list', component: NewsListComponent}
 ];
 
 @NgModule({

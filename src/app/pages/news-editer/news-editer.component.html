@@ -1,0 +1,41 @@
+<h1 class="text-center">编辑公告</h1>
+
+<h4>公告标题:</h4>
+<div>
+    <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" >
+      <input type="text" nz-input [(ngModel)]="title" />
+    </nz-input-group>
+    <ng-template #addOnBeforeTemplate>
+      <nz-select [ngModel]="newsType">
+        <nz-option nzLabel="系统公告" [nzValue]="0"></nz-option>
+        <nz-option nzLabel="活动公告" [nzValue]="1"></nz-option>
+        <nz-option nzLabel="产品更新" [nzValue]="2"></nz-option>
+      </nz-select>
+    </ng-template>
+</div>
+
+<h4>公告内容:</h4>
+<editor
+  [initialValue]="content"
+  [(ngModel)]="content"
+  apiKey="jopk581j07aewgt6un975gw1f9rie1ujify5iacwjtkev3x7"
+  [init]="{
+    height: 500,
+    menubar: true,
+    plugins: [
+      'advlist autolink lists link image charmap print',
+      'preview anchor searchreplace visualblocks code',
+      'fullscreen insertdatetime media table paste',
+      'help wordcount'
+    ],
+    toolbar:
+      'undo redo | formatselect | image | table | media | bold italic | \
+      alignleft aligncenter alignright alignjustify | \
+      bullist numlist outdent indent | help'
+  }"
+></editor>
+
+<div class="text-center mt-3" >
+    <button nz-button nzType="primary" (click)="submit()">提交</button>
+</div>
+

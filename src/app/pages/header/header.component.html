@@ -7,6 +7,10 @@
     <div nz-col>
         <nz-space nzSize="large">
             <nz-space-item>
+                <i *ngIf="currency" class="mr-1" nz-icon [nzIconfont]="'icon-huishuai-copy'"></i>
+                <span nz-tooltip nzTooltipTitle="当前汇率" nzTooltipPlacement="bottom" >{{currency}}</span>
+            </nz-space-item>
+            <nz-space-item>
                 <button nz-button nzType="default" nzSize='small' (click)="changeLangus()">{{'langue' | translate}}</button>
             </nz-space-item>
             <nz-space-item>

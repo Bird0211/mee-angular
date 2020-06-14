@@ -1,0 +1,14 @@
+<p class="h6 ml-2"><strong>总数据</strong></p>
+<div nz-row [nzGutter]="[8,8]" nzJustify="space-between">
+    <div nz-col *ngFor="let item of totalDatas" nzSpan="12">
+        <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzParagraph]="true" [nzTitle]="false" [nzAvatar]="true" [nzParagraph]="{ rows: 0 }">
+            <nz-card [nzBodyStyle]="{'padding':'4px 8px'}">
+                <nz-card-meta [nzAvatar]="avatarTemplate" [nzTitle]="item.value" 
+                              [nzDescription]="item.name"></nz-card-meta>
+            </nz-card>
+            <ng-template #avatarTemplate>
+                <nz-avatar [nzSize]="50" nzShape="square" [nzSrc]="item.image"></nz-avatar>
+            </ng-template>
+        </nz-skeleton>
+    </div>
+</div>

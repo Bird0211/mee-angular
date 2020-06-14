@@ -139,3 +139,62 @@ export interface YiYunUser {
 export interface AuthParam {
     bizid: string; userid: string; time: string; nonce: string; sign: string;
 }
+
+export interface SimpleData {
+    image: string;
+    value: string;
+    name: string;
+}
+
+export interface News {
+    id: number;
+    title: string;
+    type: number;
+    overView: string;
+}
+
+export interface NewsIO {
+    status: string;
+    totalResults: number;
+    articles: NewsIOInfo[];
+}
+
+export interface NewsIOInfo {
+    author: string;
+    title: string;
+    description: string;
+    url: string;
+    urlToImage: string;
+    publishedAt: string;
+    content: string;
+    source: NewsSource;
+}
+
+export interface NewsSource {
+    id: string;
+    name: string;
+}
+
+export interface TodoEvent {
+    id: number;
+    title: string;
+}
+
+export interface NewsInfo {
+    id: number;
+
+    title: string;
+
+    content: string;
+
+    updateDate: Date;
+
+    type: number;
+}
+
+export interface pageNewsInfo {
+    total: number;
+    pageIndex: number;
+    pageSize: number;
+    news: NewsInfo[];
+}

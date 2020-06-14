@@ -1,13 +1,23 @@
 <nz-alert *ngIf="alertMsg" nzCloseable nzType="info" [nzMessage]="alertMsg"></nz-alert>
 
-<div *ngIf="isLogin" nz-row nzGutter="8" nzJustify="space-between">
-    <div nz-col>
+<div *ngIf="isLogin" nz-row nzGutter="16" nzJustify="space-between">
+    <div nz-col class="h-100" nzSpan="10">
         <app-order-flow></app-order-flow>
     </div>
-    <div nz-col>
-
+    <div nz-col class="h-100" nzSpan="6">
+        <div>
+            <app-data-today></app-data-today>
+        </div>
+        <div class="mt-2">
+            <app-data-total></app-data-total>
+        </div>
     </div>
-    <div nz-col>
-
+    <div nz-col nzSpan="8">
+        <div>
+            <app-news></app-news>
+        </div>
+        <div class="mt-2">
+            <app-todo-list></app-todo-list>
+        </div>
     </div>
 </div>

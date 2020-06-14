@@ -17,6 +17,8 @@ export class FlywaySettingComponent implements OnInit {
 
   flywayTokenUrl: string;
 
+  isLoading = false;
+
   constructor(private fb: FormBuilder,
               private authService: AuthService,
               private http: HttpClient,
@@ -48,19 +50,23 @@ export class FlywaySettingComponent implements OnInit {
   }
 
   submitForm(): void {
-    for (const key in this.validateForm.controls) {
+
+    this.isLoading = true;
+
+    for (const key of Object.keys(this.validateForm.controls)) {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
 
     if (this.validateForm.valid) {
       const userName = this.validateForm.value.userName;
-      const password = this.validateForm.value.userName;
+      const password = this.validateForm.value.password;
       this.postFlyway(userName, password).subscribe((result: MeeResult) => {
-        if (result.data === 0) {
+        this.isLoading = false;
+        if (result.statusCode === 0) {
           this.message.success('设置成功!');
         } else  {
-          this.message.success('设置失败!');
+          this.message.error('设置失败!');
         }
       });
     }

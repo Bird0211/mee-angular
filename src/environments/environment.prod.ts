@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
 
-  iconUrl: '//at.alicdn.com/t/font_1644348_mq0vk2whji.js',
+  iconUrl: '//at.alicdn.com/t/font_1644348_v8tczljbkk.js',
 
   updateImgUrl: 'https://external.yiyun.co.nz/api/textocr',
   supplierUrl: 'https://external.yiyun.co.nz/api/allSuppliers',
@@ -30,5 +30,10 @@ export const environment = {
   orderFlowUrl: 'https://external.yiyun.co.nz/api/menu/flow',
 
   subMenuUrl:  'https://external.yiyun.co.nz/api/menu/sub',
-  flywayTokenUrl: '//localhost:8801/api/flyway/token'
+  flywayTokenUrl: 'https://external.yiyun.co.nz/api/flyway/token',
+  newsUrl: 'https://external.yiyun.co.nz/api/news/list',
+  newsAddUrl: 'https://external.yiyun.co.nz/api/news/add',
+  newsUpdateUrl: 'https://external.yiyun.co.nz/api/news/update',
+  currencyUrl: 'https://external.yiyun.co.nz/api/currency',
+  newsListUrl: 'https://external.yiyun.co.nz/api/news/all'
 };
