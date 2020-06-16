@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { News, NewsIO, MeeResult } from 'src/app/interface';
+import { News, NewsIO, MeeResult, pageNewsInfo, NewsInfo } from 'src/app/interface';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+import { NewsService } from './news.service';
 
 @Component({
   selector: 'app-news',
@@ -13,6 +15,8 @@ export class NewsComponent implements OnInit {
 
   news: News[] = [];
 
+  newsInfo: NewsInfo[] = [];
+
   newsUrl: string;
 
   selectedNews: News;
@@ -20,14 +24,23 @@ export class NewsComponent implements OnInit {
   isVisible = false;
 
   constructor(private http: HttpClient,
-              private authService: AuthService
+              private authService: AuthService,
+              private router: Router,
+              private newsService: NewsService
     ) {
     this.newsUrl = environment.newsUrl;
   }
 
   ngOnInit(): void {
-    this.loadNews();
+    // this.loadNews();
+    this.loadYiyunNews();
+  }
 
+
+  loadYiyunNews() {
+    this.newsService.loadNews(1, 5).then((result: pageNewsInfo) => {
+      this.newsInfo = result.news;
+    });
   }
 
   loadNews() {
@@ -56,6 +69,14 @@ export class NewsComponent implements OnInit {
 
   handleOk(): void {
     this.isVisible = false;
+  }
+
+  more() {
+    this.router.navigate(['news/list']);
+  }
+
+  show(value: NewsInfo) {
+    this.router.navigate(['news', value.id]);
   }
 
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { MeeResult, pageNewsInfo } from 'src/app/interface';
+import { MeeResult, pageNewsInfo, NewsInfo } from 'src/app/interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +10,12 @@ export class NewsService {
 
   newsListUrl: string;
 
-  constructor(private http: HttpClient) {
+  newsDetailUrl: string;
 
+
+  constructor(private http: HttpClient) {
     this.newsListUrl = environment.newsListUrl;
+    this.newsDetailUrl = environment.newsDetailUrl;
   }
 
   loadNews(pageIndex: number, pageSize: number): Promise<pageNewsInfo> {
@@ -34,6 +37,26 @@ export class NewsService {
   postNews(pageIndex: number, pageSize: number) {
     const param = {pageSize, pageIndex};
     return this.http.post(this.newsListUrl, param);
+  }
+
+  loadNewsDetail(id: string): Promise<NewsInfo> {
+    const promise = new Promise<NewsInfo>((resolve, reject) => {
+      this.getNewsDetail(id).subscribe((result: MeeResult) => {
+        console.log(result);
+        if (result.statusCode === 0) {
+          resolve(result.data);
+        } else {
+          reject();
+        }
+      });
+
+    });
+    return promise;
+  }
+
+  getNewsDetail(id: string) {
+    const url = this.newsDetailUrl + '/' + id;
+    return this.http.get(url);
   }
 
 }

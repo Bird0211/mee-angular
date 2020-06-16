@@ -1,4 +1,12 @@
-<p class="h5 ml-4"><strong>公告列表</strong></p>
+<div nz-row nzGutter="8">
+  <div nz-col>
+    <p class="h3">公告列表</p>
+  </div>
+  <div nz-col>
+    <button nz-button nzType="primary" (click)="add()"><i nz-icon nzType="plus" ></i>添加公告</button>
+  </div>
+</div>
+
 <nz-divider></nz-divider>
 <nz-table #basicTable [nzData]="news" 
     (nzPageIndexChange)="pageIndexChange($event)" 

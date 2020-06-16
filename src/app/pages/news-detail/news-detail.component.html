@@ -1,0 +1,8 @@
+<nz-spin nzSimple [nzSpinning]="spinning">
+
+</nz-spin>
+
+<p *ngIf="newsInfo" class="h3 text-center">{{newsInfo.title}}</p>
+<div *ngIf="newsInfo" class="m-5" [innerHTML]="newsInfo.content | bypassSecurityTrustHtml">
+
+</div>

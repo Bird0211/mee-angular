@@ -43,9 +43,10 @@ export const environment = {
 
   newsUrl: '//localhost:8801/api/news/list',
   newsAddUrl: '//localhost:8801/api/news/add',
-  newsUpdateUrl: 'localhost:8801/api/news/update',
+  newsUpdateUrl: '//localhost:8801/api/news/update',
   currencyUrl: '//localhost:8801/api/currency',
-  newsListUrl: '//localhost:8801/api/news/all'
+  newsListUrl: '//localhost:8801/api/news/all',
+  newsDetailUrl: '//localhost:8801/api/news/detail'
 };
 
 /*

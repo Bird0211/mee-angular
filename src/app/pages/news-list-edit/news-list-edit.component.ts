@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { NewsInfo, pageNewsInfo } from 'src/app/interface';
 import { NewsService } from '../news/news.service';
-import { pageNewsInfo, NewsInfo } from 'src/app/interface';
-import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-news-list',
-  templateUrl: './news-list.component.html',
-  styleUrls: ['./news-list.component.less']
+  selector: 'app-news-list-edit',
+  templateUrl: './news-list-edit.component.html',
+  styleUrls: ['./news-list-edit.component.less']
 })
-export class NewsListComponent implements OnInit {
+export class NewsListEditComponent implements OnInit {
 
   pageIndex = 1;
 
@@ -42,8 +41,11 @@ export class NewsListComponent implements OnInit {
   }
 
   show(value: NewsInfo) {
-    console.log('value:', value);
-    this.router.navigate(['news', value.id]);
+    this.router.navigate(['news/edit', value.id]);
+  }
+
+  add() {
+    this.router.navigate(['news/edit', 0]);
   }
 
   handleCancel() {

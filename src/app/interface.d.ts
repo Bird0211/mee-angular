@@ -181,7 +181,7 @@ export interface TodoEvent {
 }
 
 export interface NewsInfo {
-    id: number;
+    id: string;
 
     title: string;
 

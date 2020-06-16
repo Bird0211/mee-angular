@@ -16,6 +16,8 @@ import { MenuService } from './pages/menu/menu.service';
 import { FlywaySettingComponent } from './pages/flyway-setting/flyway-setting.component';
 import { NewsEditerComponent } from './pages/news-editer/news-editer.component';
 import { NewsListComponent } from './pages/news-list/news-list.component';
+import { NewsDetailComponent } from './pages/news-detail/news-detail.component';
+import { NewsListEditComponent } from './pages/news-list-edit/news-list-edit.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/welcome' },
@@ -34,7 +36,9 @@ const routes: Routes = [
   { path: 'list', component: MenulistComponent, canActivate: [MenuService]},
   { path: 'flyway/setting', component: FlywaySettingComponent, canActivate: [MenuService]},
   { path: 'news/edit/:id', component: NewsEditerComponent},
-  { path: 'news/list', component: NewsListComponent}
+  { path: 'news/list', component: NewsListComponent},
+  { path: 'news/edit', component: NewsListEditComponent},
+  { path: 'news/:id', component: NewsDetailComponent}
 ];
 
 @NgModule({

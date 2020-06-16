@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../auth.service';
-import { YiYunUser, MeeResult } from 'src/app/interface';
+import { YiYunUser, MeeResult, AuthParam } from 'src/app/interface';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import { environment } from 'src/environments/environment';
 
@@ -30,7 +30,8 @@ export class HeaderComponent implements OnInit {
               public message: NzMessageService,
               public http: HttpClient,
               public authService: AuthService,
-              public route: ActivatedRoute
+              public route: ActivatedRoute,
+              private router: Router
       ) {
         translate.addLangs(['en', 'zh']);
         translate.setDefaultLang('zh');
@@ -73,6 +74,15 @@ export class HeaderComponent implements OnInit {
 
   getCurrency() {
     return this.http.get(this.currencyUrl);
+  }
+
+  jumpback() {
+    const param: AuthParam = this.authService.loadAuthParam();
+    this.router.navigate(['dashboard', param.bizid,
+            param.userid,
+            param.time,
+            param.nonce,
+            param.sign]);
   }
 
 }

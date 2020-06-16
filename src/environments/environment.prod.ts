@@ -35,5 +35,7 @@ export const environment = {
   newsAddUrl: 'https://external.yiyun.co.nz/api/news/add',
   newsUpdateUrl: 'https://external.yiyun.co.nz/api/news/update',
   currencyUrl: 'https://external.yiyun.co.nz/api/currency',
-  newsListUrl: 'https://external.yiyun.co.nz/api/news/all'
+  newsListUrl: 'https://external.yiyun.co.nz/api/news/all',
+  newsDetailUrl: 'https://external.yiyun.co.nz/api/news/detail'
+
 };

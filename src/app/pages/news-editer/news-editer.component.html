@@ -6,7 +6,7 @@
       <input type="text" nz-input [(ngModel)]="title" />
     </nz-input-group>
     <ng-template #addOnBeforeTemplate>
-      <nz-select [ngModel]="newsType">
+      <nz-select [(ngModel)]="newsType">
         <nz-option nzLabel="系统公告" [nzValue]="0"></nz-option>
         <nz-option nzLabel="活动公告" [nzValue]="1"></nz-option>
         <nz-option nzLabel="产品更新" [nzValue]="2"></nz-option>
@@ -36,6 +36,6 @@
 ></editor>
 
 <div class="text-center mt-3" >
-    <button nz-button nzType="primary" (click)="submit()">提交</button>
+    <button nz-button nzType="primary" (click)="submit()" [nzLoading]="loading">提交</button>
 </div>
 

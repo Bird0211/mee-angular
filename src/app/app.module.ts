@@ -47,6 +47,9 @@ import { TodoListComponent } from './pages/todo-list/todo-list.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { NewsEditerComponent } from './pages/news-editer/news-editer.component';
 import { NewsListComponent } from './pages/news-list/news-list.component';
+import { NewsDetailComponent } from './pages/news-detail/news-detail.component';
+import { PipeModule } from './pipe/pipe.module';
+import { NewsListEditComponent } from './pages/news-list-edit/news-list-edit.component';
 
 // 支持AOT
 export function createTranslateLoader(http: HttpClient) {
@@ -89,7 +92,9 @@ registerLocaleData(zh);
     NewsComponent,
     TodoListComponent,
     NewsEditerComponent,
-    NewsListComponent
+    NewsListComponent,
+    NewsDetailComponent,
+    NewsListEditComponent
   ],
   imports: [
     BrowserModule,
@@ -103,6 +108,7 @@ registerLocaleData(zh);
     ReactiveFormsModule,
     PdfViewerModule,
     EditorModule,
+    PipeModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { News, NewsInfo, MeeResult } from 'src/app/interface';
 import { HttpClient } from '@angular/common/http';
+import { NewsService } from '../news/news.service';
 
 @Component({
   selector: 'app-news-editer',
@@ -18,7 +19,7 @@ export class NewsEditerComponent implements OnInit {
 
   newsType = 0;
 
-  id: number;
+  id: string;
 
   newsAddUrl: string;
 
@@ -28,7 +29,9 @@ export class NewsEditerComponent implements OnInit {
 
   constructor(private message: NzMessageService,
               private route: ActivatedRoute,
-              private http: HttpClient
+              private router: Router,
+              private http: HttpClient,
+              private newsService: NewsService
     ) {
       this.newsAddUrl = environment.newsAddUrl;
       this.newsUpdateUrl = environment.newsUpdateUrl;
@@ -36,14 +39,19 @@ export class NewsEditerComponent implements OnInit {
 
   ngOnInit(): void {
     const newsId = this.route.snapshot.paramMap.get('id');
-    this.id = Number(newsId);
-    if (this.id !== 0) {
-      this.loadNews();
+    this.id = newsId;
+    if (this.id !== '0') {
+      this.loadNews(this.id);
     }
   }
 
-  loadNews() {
-
+  loadNews(id: string) {
+    console.log('Number: {}' , id);
+    this.newsService.loadNewsDetail(id).then((result: NewsInfo) => {
+      this.title = result.title;
+      this.content = result.content;
+      this.newsType = result.type;
+    });
   }
 
   submit() {
@@ -58,7 +66,7 @@ export class NewsEditerComponent implements OnInit {
     }
 
     this.loading = true;
-    if (this.id === 0) {
+    if (this.id === '0') {
       this.addNews();
     } else {
       this.updateNews();
@@ -73,6 +81,7 @@ export class NewsEditerComponent implements OnInit {
       this.loading = false;
       if (result.statusCode === 0) {
         this.message.success('更新成功！');
+        this.router.navigate(['news/edit']);
       } else {
         this.message.error('更新失败！');
       }
@@ -85,6 +94,7 @@ export class NewsEditerComponent implements OnInit {
       this.loading = false;
       if (result.statusCode === 0) {
         this.message.success('添加成功！');
+        this.router.navigate(['news/list']);
       } else {
         this.message.error('添加失败！');
       }
@@ -93,7 +103,7 @@ export class NewsEditerComponent implements OnInit {
 
   postNews(url: string) {
     const body: NewsInfo = {
-              id: this.id,
+              id: this.id === '0' ? null : this.id,
               title: this.title,
               content: this.content,
               type: this.newsType,
