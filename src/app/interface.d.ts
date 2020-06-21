@@ -144,6 +144,7 @@ export interface SimpleData {
     image: string;
     value: string;
     name: string;
+    color: string;
 }
 
 export interface News {
@@ -197,4 +198,25 @@ export interface pageNewsInfo {
     pageIndex: number;
     pageSize: number;
     news: NewsInfo[];
+}
+
+export interface TodayData {
+    totalPrice: number;
+
+    totalNum: number;
+
+    deliveredNum: number;
+
+    undeliveredNum: number;
+}
+
+export interface TotalData {
+    totalNumber: number;
+    totalPrice: number;
+}
+
+export interface NoshipData {
+    noShipOrder: number;
+
+    errorOrder: number;
 }

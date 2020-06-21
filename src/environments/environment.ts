@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  iconUrl: '//at.alicdn.com/t/font_1644348_v8tczljbkk.js',
+  iconUrl: '//at.alicdn.com/t/font_1644348_21ibzkzvholh.js',
 
   updateImgUrl: '//localhost:8801/api/textocr',
   // updateImgUrl: 'http://localhost:8801/api/textocr',
@@ -46,7 +46,11 @@ export const environment = {
   newsUpdateUrl: '//localhost:8801/api/news/update',
   currencyUrl: '//localhost:8801/api/currency',
   newsListUrl: '//localhost:8801/api/news/all',
-  newsDetailUrl: '//localhost:8801/api/news/detail'
+  newsDetailUrl: '//localhost:8801/api/news/detail',
+
+  todayDataUrl: '//localhost:8801/api/today',
+  totalDataUrl: '//localhost:8801/api/total',
+  noShipUrl: '//localhost:8801/api/noshipped'
 };
 
 /*

@@ -3,15 +3,40 @@
       <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTitle]="'Home'" nzSelected (click)="jumpback()">
         <i nz-icon nzType="home" nzTheme="outline"></i><span>HOME</span>
       </li>
-      <li nz-submenu *ngFor="let item of menus" [nzTitle]="topmenutmp" nz-tooltip [nzTooltipTitle]="item.title" nzTooltipPlacement="right">
-        <ul *ngIf="item.subMenu" >
-          <li nz-menu-item *ngFor="let menu of item.subMenu" (click)="jumpto(menu)" >
-            <i nz-icon class="menuicon" [nzIconfont]="menu.icon"></i>{{menu.title}}
-          </li>
-        </ul>
+
+      <ng-container *ngFor="let item of menus">
+        <li nz-submenu *ngIf="item.subMenu" [nzTitle]="topmenutmp">
+          <ul >
+            <li nz-menu-item *ngFor="let menu of item.subMenu" (click)="jumpto(menu)" [nzTitle]="submenutmp" nz-tooltip nzTooltipPlacement="right">
+              <i nz-icon class="menuicon" [nzIconfont]="menu.icon"></i><span>{{menu.title}}</span>
+              <ng-template #submenutmp>
+                <i nz-icon class="menuicon" [nzIconfont]="menu.icon" ></i><span>{{menu.description}}</span>
+              </ng-template>
+            </li>
+          </ul>
+        </li>
+        <li nz-menu-item *ngIf="!item.subMenu" nz-tooltip nzTooltipPlacement="right" [nzTitle]="menutmp" (click)="jumpto(item)">
+          <i nz-icon class="menuicon" [nzIconfont]="item.icon"></i><span>{{item.title}}</span>
+          <ng-template #menutmp>
+            <i nz-icon class="menuicon" [nzIconfont]="item.icon" ></i><span>{{item.description ? item.description : item.title}}</span>
+          </ng-template>
+        </li>
         <ng-template #topmenutmp>
           <i nz-icon class="menuicon" [nzIconfont]="item.icon" ></i><span>{{item.title}}</span>
         </ng-template>
-      </li>
+      </ng-container>
+
+      <!--
+        <li nz-submenu *ngFor="let item of menus" [nzTitle]="topmenutmp" nz-tooltip [nzTooltipTitle]="item.title" nzTooltipPlacement="right">
+          <ul *ngIf="item.subMenu" >
+            <li nz-menu-item *ngFor="let menu of item.subMenu" (click)="jumpto(menu)" >
+              <i nz-icon class="menuicon" [nzIconfont]="menu.icon"></i>{{menu.title}}
+            </li>
+          </ul>
+          <ng-template #topmenutmp>
+            <i nz-icon class="menuicon" [nzIconfont]="item.icon" ></i><span>{{item.title}}</span>
+          </ng-template>
+        </li>
+      -->
   </ul>
 </nz-spin>
