@@ -1,0 +1,65 @@
+<nz-space>
+    <nz-space-item>
+        <p class="h5 ml-4 mb-0"><strong>待办事项</strong></p>
+    </nz-space-item>
+    <nz-space-item>
+        <a (click)="isVisible = true">
+            <!-- <i nz-icon nzType="plus-square" nzTheme="outline"></i> -->
+            <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+        </a>
+    </nz-space-item>
+</nz-space>
+<nz-divider></nz-divider>
+<nz-tabset (nzSelectedIndexChange)="changeTab($event)">
+    <nz-tab [nzTitle]="myTodo">
+        <app-todo-all-table 
+            [pageIndex]="mytodoPageIndex"
+            [pageSize]="mytodoPageSize"
+            [data]="mytodo"
+            [total]="mytodoTotal"
+            (pageIndexChange)="mytodoIndexChange($event)"
+            (refreshData)="loadMyTodo()"
+        ></app-todo-all-table>
+    </nz-tab>
+    <nz-tab [nzTitle]="createdTodo">
+        <app-todo-all-table 
+            [pageIndex]="createdPageIndex"
+            [pageSize]="createdPageSize"
+            [data]="createdtodo"
+            [total]="createdTotal"
+            (pageIndexChange)="createdIndexChange($event)"
+            (refreshData)="loadCreateTodo()"
+        ></app-todo-all-table>
+    </nz-tab>
+  </nz-tabset>
+
+  <ng-template #myTodo>
+    <nz-badge [nzCount]="mytodoUnsetNum" nzOverflowCount="99" [nzOffset]="[8,-4]">
+        <a class="head-example">我的待办</a>
+    </nz-badge>
+  </ng-template>
+
+  <ng-template #createdTodo>
+    <nz-badge [nzCount]="createdUnsetNum" nzOverflowCount="99" [nzOffset]="[8,-4]">
+        <a class="head-example">分配待办</a>
+    </nz-badge>
+  </ng-template>
+
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="新建待办事项" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <form nz-form [formGroup]="validateForm" >
+        <nz-form-item nzGutter="16">
+          <nz-form-label [nzSpan]="8" nzRequired nzFor="title">待办事项</nz-form-label>
+          <nz-form-control [nzSpan]="14" nzErrorTip="请输入待办内容">
+            <input type="text" nz-input formControlName="title"/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nzGutter="16">
+          <nz-form-label [nzSpan]="8" nzFor="user">待办人员</nz-form-label>
+          <nz-form-control [nzSpan]="14" nzErrorTip="请选择待办人员">
+            <nz-select  nzShowSearch nzAllowClear formControlName="user">
+                <nz-option *ngFor="let item of yiyunUsers" [nzLabel]="item.givenName" [nzValue]="item.userId"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+  </nz-modal>

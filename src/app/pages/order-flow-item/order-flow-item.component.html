@@ -1,7 +1,10 @@
-<div class="rounded border-0 pt-2 pb-1" [ngClass]="isShadow?'shadow':''" (mouseover)="isShadow = true" (mouseleave)="isShadow = false">
-    <a (click)="jumpTo()" nz-tooltip [nzTooltipTitle]="menu.description" nzTooltipPlacement="rightBottom">
+<div class="rounded border-0 pt-2 pb-1" (mouseover)="isShadow = true" (mouseleave)="isShadow = false">
+    <a (click)="jumpTo()" >
         <div class="rounded-circle icon-div align-items-center justify-content-center d-flex m-auto"
-            [ngStyle]="{'background-color': menu.iconColor !== null ? menu.iconColor : 'gainsboro' }">
+            [ngClass]="isShadow?'shadow':''" 
+            [ngStyle]="{'background-color': menu.iconColor !== null ? menu.iconColor : 'gainsboro' }"
+            nz-tooltip [nzTooltipTitle]="menu.description" nzTooltipPlacement="right"
+            >
             <i nz-icon class="menuicon align-middle" [nzIconfont]="menu.icon"></i>
         </div>
         <p class="text-center">{{menu.title}}</p>

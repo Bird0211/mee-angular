@@ -72,7 +72,7 @@ export class NewsComponent implements OnInit {
   }
 
   more() {
-    this.router.navigate(['news/list']);
+    this.router.navigate(['news/list'], {skipLocationChange: true});
   }
 
   show(value: NewsInfo) {

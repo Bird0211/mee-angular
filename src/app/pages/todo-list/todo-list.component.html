@@ -1,4 +1,85 @@
-<p class="h6 ml-2"><strong>待办事项</strong></p>
-<div class="mt-2 border rounded w-100 pl-3 pr-3 pt-2 pb-2 shadow-sm">
-    <nz-empty *ngIf="!todoList || todoList.length <= 0" [nzNotFoundContent]="null"></nz-empty>
+<div nz-row nzJustify="space-between" class="mr-2 mt-2" [nzGutter]="[8,8]">
+    <div nz-col>
+        <p class="h6 ml-2"><strong>待办事项</strong></p>
+    </div>
+    <div nz-col>
+        <a (click)="more()">更多</a>
+    </div>
 </div>
+<div class="mt-2 border rounded w-100 shadow-sm">
+    <nz-list nzBordered="false" nzSize="small" class="p-2">
+        <nz-list-header>
+            <nz-space nzSize="small" class="ml-3 ml-2 w-100 pr-3">
+                <nz-space-item class="w-100">
+                    <input nz-input [(ngModel)]="title" />
+                </nz-space-item>
+                <nz-space-item>
+                    <button nz-button nzType="primary" nzSize="small" (click)="add()" [disabled]="!title">save</button>
+                </nz-space-item>
+                <nz-space-item>
+                    <a 
+                        nz-popconfirm
+                        [nzPopconfirmTitle]="users"
+                        [ngClass]="!title ? 'desable':''"
+                        (nzOnCancel)="selectedUser = null"
+                        >
+                        <i nz-icon nzType="user-add" nzTheme="outline"></i>
+                    </a>
+                </nz-space-item>
+            </nz-space>
+        </nz-list-header>
+
+        <nz-empty class="mt-2" *ngIf="!todoList || todoList.length <= 0"></nz-empty>
+
+        <nz-list-item *ngFor="let item of todoList">
+            <nz-space nzSize="small" class="w-100">
+                <nz-space-item>
+                    <label nz-checkbox [ngModel]="item.status === 1" (ngModelChange)="finish($event,item)"></label>
+                </nz-space-item>
+                <nz-space-item class="w-100">
+                    <a *ngIf="editId !== item.id" (click)="editId = item.id" >
+                        <span class="w-100" *ngIf="item.status === 1">
+                            <del >{{item.title}}</del>
+                        </span>
+                        <span class="w-100" *ngIf="item.status === 0">
+                            {{item.title}}
+                        </span>
+                    </a>
+                    <input *ngIf="editId === item.id" nz-input [(ngModel)]="item.title" class="w-100"/>
+                </nz-space-item>
+                <nz-space-item *ngIf="editId === item.id">
+                    <button nz-button nzType="primary" nzSize="small" (click)="save(item)" [disabled]="!item.title">save</button>
+                </nz-space-item>
+                <nz-space-item *ngIf="editId === item.id">
+                    <a 
+                        nz-popconfirm
+                        [nzPopconfirmTitle]="users"
+                        [ngClass]="!item.title ? 'desable':''"
+                        (nzOnCancel)="selectedUser = null"
+                        >
+                        <i nz-icon nzType="user-add" nzTheme="outline"></i>
+                    </a>
+                </nz-space-item>
+                <nz-space-item class="position-absolute" style="right: 0px;">
+                    <a (click)="remove(item.id)">
+                        <i class="delete-i" nz-icon nzType="close-square" nzTheme="fill"></i>
+                    </a>
+                </nz-space-item>
+            </nz-space>
+        </nz-list-item>
+    </nz-list>
+    <nz-pagination class="mt-2 mb-2 float-right"
+        [(nzPageIndex)]="current" 
+        [nzTotal]="totalNum" 
+        [nzPageSize]="pageSize"
+        [nzSize]="'small'"
+        nzHideOnSinglePage
+        (nzPageIndexChange)="loadMyTodo($event)"
+        ></nz-pagination>
+</div>
+
+<ng-template #users>
+    <nz-select class="w-100" nzShowSearch nzAllowClear [(ngModel)]="selectedUser">
+        <nz-option *ngFor="let item of yiyunUsers" [nzLabel]="item.givenName" [nzValue]="item.userId"></nz-option>
+    </nz-select>
+</ng-template>

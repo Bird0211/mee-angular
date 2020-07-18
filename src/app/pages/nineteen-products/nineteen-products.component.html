@@ -1,0 +1,225 @@
+<div nz-row nzGutter="8">
+    <div nz-col nzSpan="5" class="text-right">
+        <nz-select [ngModel]="platformId" (ngModelChange)="platFormChange($event)" class="text-left">
+            <nz-option *ngFor="let item of platForms" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+        </nz-select>
+    </div>
+    <div nz-col>
+        <label>商品分组</label>
+        <nz-select [(ngModel)]="groupId" nzAllowClear="true">
+            <nz-option [nzValue]="" nzLabel="请选择商品分组"></nz-option>
+            <nz-option *ngFor="let item of nineTeenGroup" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+        </nz-select>
+    </div>
+    <div nz-col>
+        <label>商品类别</label>
+        <nz-select [ngModel]="typeId" (ngModelChange)="typeChange($event)" nzAllowClear="true">
+            <nz-option [nzValue]="" nzLabel="请选择商品类别"></nz-option>
+            <nz-option *ngFor="let item of nineTeenTypes" [nzValue]="item.id" [nzLabel]="item.type_name"></nz-option>
+        </nz-select>
+        <nz-select [(ngModel)]="subTypeId" nzAllowClear="true">
+            <nz-option *ngFor="let item of subTeenTypes" [nzValue]="item.id" [nzLabel]="item.type_name"></nz-option>
+        </nz-select>
+    </div>
+</div>
+<div nz-row class="mt-2" nzGutter="8" nzAlign="bottom">
+    <div nz-col nzPush="5">
+        <label>商品名称</label>
+        <input nz-input [(ngModel)]="productName" />
+        <label class="labelDiv">商品编码</label>
+        <input nz-input [(ngModel)]="productSku" />
+    </div>
+    <div nz-col nzPush="5">
+        <button nz-button nzType="primary" [nzLoading]="loading" (click)="submit()"><i nz-icon nzType="search"></i>Search</button>
+    </div>
+    <div nz-col nzPush="5">
+        <nz-space>
+            <nz-space-item>
+                <a class="show" (click)="isCollapse = !isCollapse">
+                    更新价格
+                    <i nz-icon [nzType]="isCollapse ? 'down' : 'up'"></i>
+                </a>
+            </nz-space-item>
+            <nz-space-item>
+                <i class="ml-2" nz-icon nzType="question-circle" nzTheme="outline" nz-tooltip nzTooltipTitle="更新价格 = 易云成本价 X 计算系数 X 汇率 + 重量(1kg) X 计算邮费 X 汇率"></i>
+            </nz-space-item>
+            <nz-space-item>
+                <app-refresh-cache (refreshResult)="loadProducts()"></app-refresh-cache>
+            </nz-space-item>
+        </nz-space>
+    </div>
+</div>
+
+<div nz-row class="mt-2" nzGutter="8" [hidden]="isCollapse">
+
+    <div nz-col nzPush="5">
+        <label>参考汇率</label>
+        <input nz-input [(ngModel)]="exchangeRate" />
+    </div>
+    <div nz-col nzPush="5">
+        <label>订单邮费</label>
+        <input nz-input [(ngModel)]="postage" />
+    </div>
+    <div nz-col nzPush="5">
+        <button nz-button nzType="primary" (click)="count()"><i nz-icon nzType="build" nzTheme="outline"></i>计算</button>
+    </div>
+    <div nz-col nzPush="5">
+        <button nz-button nzType="primary" (click)="update()" [nzLoading]="updateLoading"><i nz-icon nzType="check" nzTheme="outline"></i>更新</button>
+    </div>
+</div>
+<nz-divider></nz-divider>
+
+<div>
+    <nz-table #basicTable [nzData]="nineTeenGoods" [nzTotal]="total" [nzPageIndex]="page" [nzPageSize]="pageSize"
+            [nzLoadingDelay] = "'1'" [nzHideOnSinglePage]="true" [nzFrontPagination]="false"
+            [nzLoading]="loading"
+            (nzPageIndexChange)="pageIndexChange($event)">
+        <thead>
+          <tr>
+            <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+            <th>SKU</th>  
+            <th>商品名</th>
+            <th>规格名</th>
+            <th>库存</th>
+            <th>重量(g)</th>
+            <th>易云成本价</th>
+            <th nzAlign="center" width="90px">
+                <span class="w-100 text-center m-auto">价格</span>
+                <input class="w-100 text-center m-0" type="text" nz-input [(ngModel)]="coefficient" placeholder="输入系数"
+                        nz-tooltip
+                        nzTooltipTrigger="hover"
+                        nzTooltipPlacement="bottomLeft"
+                        nzTooltipTitle="计算系数"
+
+                />
+            </th>
+            <th width="90px">
+                一级会员
+                <input class="w-100 text-center m-0" type="text" nz-input [(ngModel)]="coefficientV1" placeholder="输入系数"
+                        nz-tooltip
+                        nzTooltipTrigger="hover"
+                        nzTooltipPlacement="bottomLeft"
+                        nzTooltipTitle="计算系数"
+
+                />
+            </th>
+            <th width="90px">
+                二级会员
+                <input class="w-100 text-center m-0" type="text" nz-input [(ngModel)]="coefficientV2" placeholder="输入系数"
+                        nz-tooltip
+                        nzTooltipTrigger="hover"
+                        nzTooltipPlacement="bottomLeft"
+                        nzTooltipTitle="计算系数"
+
+                />
+            </th>
+            <th width="90px">
+                三级会员
+                <input class="w-100 text-center m-0" type="text" nz-input [(ngModel)]="coefficientV3" placeholder="输入系数"
+                        nz-tooltip
+                        nzTooltipTrigger="hover"
+                        nzTooltipPlacement="bottomLeft"
+                        nzTooltipTitle="计算系数"
+
+                />
+            </th>
+            <th width="90px">
+                四级会员
+                <input class="w-100 text-center m-0" type="text" nz-input [(ngModel)]="coefficientV4" placeholder="输入系数"
+                        nz-tooltip
+                        nzTooltipTrigger="hover"
+                        nzTooltipPlacement="bottomLeft"
+                        nzTooltipTitle="计算系数"
+
+                />
+            </th>
+            <th width="90px">
+                五级会员
+                <input class="w-100 text-center m-0" type="text" nz-input [(ngModel)]="coefficientV5" placeholder="输入系数"
+                        nz-tooltip
+                        nzTooltipTrigger="hover"
+                        nzTooltipPlacement="bottomLeft"
+                        nzTooltipTitle="计算系数"
+
+                />
+            </th>
+            <th width="90px">
+                六级会员
+                <input class="w-100 text-center m-0" type="text" nz-input [(ngModel)]="coefficientV6" placeholder="输入系数"
+                        nz-tooltip
+                        nzTooltipTrigger="hover"
+                        nzTooltipPlacement="bottomLeft"
+                        nzTooltipTitle="计算系数"
+
+                />
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td
+                [nzChecked]="setOfCheckedId.has(data.goodCode + data.sku)"
+                [nzDisabled]="data.disabled"
+                (nzCheckedChange)="onItemChecked(data.goodCode + data.sku, $event)"
+            ></td>
+            <td>{{data.sku}}</td>
+            <td>{{data.productName}}</td>
+            <td>{{data.skuName}}</td>
+            <td>{{data.stock}}</td>
+            <td>{{data.meeWeight}}</td>
+            <td>{{data.meeCostPrice}}</td>
+            <td width="100px" class="text-center" (click)="startEdit(data.goodCode + data.sku)">{{data.price|currency}} 
+                <div *ngIf="data.newPrice" class="editable-cell" [hidden]="editId === data.goodCode + data.sku">
+                    <i nz-icon nzType="arrow-down" nzTheme="outline"></i>
+                    <span [ngClass]="data.newPrice > data.price ? 'increase' : 'markdown'"><strong>{{ data.newPrice|currency }}</strong></span>
+                </div>
+                <input class="w-100" [hidden]="editId !== data.goodCode + data.sku" type="text" nz-input [(ngModel)]="data.newPrice" (blur)="stopEdit()" />
+            </td>
+            <td width="90px" class="text-center" (click)="startEdit(data.goodCode + data.sku)">{{data.firstLevel|currency}} 
+                <div *ngIf="data.newFirstPrice" class="editable-cell" [hidden]="editId === data.goodCode + data.sku">
+                    <i nz-icon nzType="arrow-down" nzTheme="outline"></i>
+                    <span [ngClass]="data.newFirstPrice > data.firstLevel ? 'increase' : 'markdown'"><strong>{{ data.newFirstPrice|currency }}</strong></span>
+                </div>
+                <input class="w-100" [hidden]="editId !== data.goodCode + data.sku" type="text" nz-input [(ngModel)]="data.newFirstPrice" (blur)="stopEdit()" />
+
+            </td>
+            <td width="90px" class="text-center" (click)="startEdit(data.goodCode + data.sku)">{{data.secondLevel|currency}}
+                <div *ngIf="data.newSecondLevel" class="editable-cell" [hidden]="editId === data.goodCode + data.sku">
+                    <i nz-icon nzType="arrow-down" nzTheme="outline"></i>
+                    <span [ngClass]="data.newSecondLevel > data.secondLevel ? 'increase' : 'markdown'"><strong>{{ data.newSecondLevel|currency }}</strong></span>
+                </div>
+                <input class="w-100" [hidden]="editId !== data.goodCode + data.sku" type="text" nz-input [(ngModel)]="data.newSecondLevel" (blur)="stopEdit()" />
+            </td>
+            <td width="90px" class="text-center" (click)="startEdit(data.goodCode + data.sku)">{{data.thirdLevel|currency}}
+                <div *ngIf="data.newThirdLevel" class="editable-cell" [hidden]="editId === data.goodCode + data.sku">
+                    <i nz-icon nzType="arrow-down" nzTheme="outline"></i>
+                    <span [ngClass]="data.newThirdLevel > data.thirdLevel ? 'increase' : 'markdown'"><strong>{{ data.newThirdLevel|currency }}</strong></span>
+                </div>
+                <input class="w-100" [hidden]="editId !== data.goodCode + data.sku" type="text" nz-input [(ngModel)]="data.newThirdLevel" (blur)="stopEdit()" />
+            </td>
+            <td width="90px" class="text-center" (click)="startEdit(data.goodCode + data.sku)">{{data.fourthLevel|currency}}
+                <div *ngIf="data.newFourthLevel" class="editable-cell" [hidden]="editId === data.goodCode + data.sku">
+                    <i nz-icon nzType="arrow-down" nzTheme="outline"></i>
+                    <span [ngClass]="data.newFourthLevel > data.fourthLevel ? 'increase' : 'markdown'"><strong>{{ data.newFourthLevel|currency }}</strong></span>
+                </div>
+                <input class="w-100" [hidden]="editId !== data.goodCode + data.sku" type="text" nz-input [(ngModel)]="data.newFourthLevel" (blur)="stopEdit()" />
+            </td>
+            <td width="90px" class="text-center" (click)="startEdit(data.goodCode + data.sku)">{{data.fifthLevel|currency}}
+                <div *ngIf="data.newFifthLevel" class="editable-cell" [hidden]="editId === data.goodCode + data.sku">
+                    <i nz-icon nzType="arrow-down" nzTheme="outline"></i>
+                    <span [ngClass]="data.newFifthLevel > data.fifthLevel ? 'increase' : 'markdown'"><strong>{{ data.newFifthLevel|currency }}</strong></span>
+                </div>
+                <input class="w-100" [hidden]="editId !== data.goodCode + data.sku" type="text" nz-input [(ngModel)]="data.newFifthLevel" (blur)="stopEdit()" />
+            </td>
+            <td width="90px" class="text-center" (click)="startEdit(data.goodCode + data.sku)">{{data.sixthLevel|currency}}
+                <div *ngIf="data.newSixthLevel" class="editable-cell" [hidden]="editId === data.goodCode + data.sku">
+                    <i nz-icon nzType="arrow-down" nzTheme="outline"></i>
+                    <span [ngClass]="data.newSixthLevel > data.sixthLevel ? 'increase' : 'markdown'"><strong>{{ data.newSixthLevel|currency }}</strong></span>
+                </div>
+                <input class="w-100" [hidden]="editId !== data.goodCode + data.sku" type="text" nz-input [(ngModel)]="data.newSixthLevel" (blur)="stopEdit()" />
+            </td>
+            
+          </tr>
+        </tbody>
+      </nz-table>
+</div>

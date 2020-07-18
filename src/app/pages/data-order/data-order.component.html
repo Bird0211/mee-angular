@@ -1,0 +1,10 @@
+<div>
+    <p class="h6"><strong>7天内订单数据</strong></p>
+</div>
+
+<div *ngIf="chartOption" 
+    echarts 
+    [options]="chartOption"
+    [autoResize]="true"
+    >
+</div>

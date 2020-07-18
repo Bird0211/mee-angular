@@ -30,7 +30,7 @@ export class MenuInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.loadMenu();
+    this.loadMenu();
   }
 
   loadMenu() {
@@ -46,17 +46,6 @@ export class MenuInfoComponent implements OnInit {
   }
 
   jumpto(menu: Menu) {
-
-    /*
-    if (menu.type === '0') {
-      this.router.navigate([menu.url], {skipLocationChange: true});
-    } else {
-      console.log('MenuUrl: ', menu.url);
-      const url = menu.url;
-      console.log(url);
-      this.router.navigate(['iframe'], {skipLocationChange: true , queryParams: { jumpurl: url}});
-    }
-    */
     this.menuService.jumpto(menu);
   }
 

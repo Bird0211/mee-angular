@@ -31,7 +31,6 @@ export class NewsListEditComponent implements OnInit {
   }
 
   loadNews() {
-    console.log('LoadNews');
     this.newsService.loadNews(this.pageIndex, this.pageSize).then((result: pageNewsInfo) => {
       this.total = result.total;
       // this.pageIndex = result.pageIndex;

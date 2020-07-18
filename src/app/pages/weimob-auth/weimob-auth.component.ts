@@ -89,7 +89,6 @@ export class WeimobAuthComponent implements OnInit {
     const url = 'dashboard' + '/' + this.bizId + '/' + this.userId + '/' + this.authService.time + '/' + this.authService.nonce
                 + '/' + this.authService.sign;
 
-    console.log(url);
     this.router.navigate([url]);
   }
 

@@ -65,9 +65,7 @@ export class MenuService implements CanActivate {
       return false;
     }
 
-    console.log('CheckMenu' , menus, path);
     if (menus.filter(item => item.url === path).length > 0) {
-      console.log('filter true');
       return true;
     } else {
       for (const item of menus) {
@@ -128,7 +126,6 @@ export class MenuService implements CanActivate {
         if (result.statusCode === 0 && result.data != null) {
           resolve(result.data);
           this.menus = result.data;
-          console.log('UserMenus', this.menus);
         } else {
           reject();
         }

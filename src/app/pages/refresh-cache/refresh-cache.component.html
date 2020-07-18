@@ -1,0 +1,12 @@
+<a (click)="refresh()"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseLever()"
+    nz-tooltip nzTooltipTitle="刷新商品缓存" 
+    nzTooltipPlacement="bottom"  
+    >
+    <i class="mr-1" 
+    [@iconChange]="{value: onTouch ? 'open' : 'closed'}"
+    nz-icon 
+    [nzIconfont]="'icon-refresh-cache'"
+    ></i>
+</a>

@@ -19,7 +19,6 @@ export class OrderFlowItemComponent implements OnInit {
   }
 
   jumpTo() {
-    console.log(this.menu);
     this.menuService.jumpto(this.menu);
   }
 

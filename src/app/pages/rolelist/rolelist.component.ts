@@ -4,6 +4,7 @@ import { NzMessageService, TransferItem } from 'ng-zorro-antd';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { MeeResult, Role, RoleMenu, YiYunUser, RoleUser } from 'src/app/interface';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-rolelist',
@@ -24,7 +25,7 @@ export class RolelistComponent implements OnInit, OnChanges {
   queryRoleUrl: string;
   queryRoleMenuUrl: string;
 
-  queryAllUserUrl: string;
+
   queryRoleUserUrl: string;
 
   addRoleUrl: string;
@@ -46,13 +47,13 @@ export class RolelistComponent implements OnInit, OnChanges {
   constructor(
     private authService: AuthService,
     private msg: NzMessageService,
-    private http: HttpClient
+    private http: HttpClient,
+    private userService: UserService
   ) {
     this.queryRoleUrl = environment.roleUrl;
     this.addRoleUrl = environment.addRoleUrl;
     this.queryRoleMenuUrl = environment.queryRoleMenuUrl;
     this.updateRoleMenuUrl = environment.updateRoleMenuUrl;
-    this.queryAllUserUrl = environment.allUserUrl;
     this.queryRoleUserUrl = environment.roleUserUrl;
     this.updateRoleUserUrl = environment.updateRoleUserUrl;
   }
@@ -87,10 +88,8 @@ export class RolelistComponent implements OnInit, OnChanges {
   }
 
   loadUser() {
-    this.getUser().subscribe((meeResult: MeeResult) => {
-      if (meeResult.statusCode === 0) {
-        this.yiyunUsers = meeResult.data;
-      }
+    this.userService.loadUsers(Number(this.bizId)).then((result: YiYunUser[]) => {
+      this.yiyunUsers = result;
     });
   }
 
@@ -203,10 +202,6 @@ export class RolelistComponent implements OnInit, OnChanges {
     return this.http.post(url, data);
   }
 
-  getUser() {
-    const url = this.queryAllUserUrl + '/' + this.bizId;
-    return this.http.get(url);
-  }
 
   postRoleUser() {
     const url = this.updateRoleUserUrl;

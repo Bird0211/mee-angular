@@ -19,10 +19,8 @@ export class NewsService {
   }
 
   loadNews(pageIndex: number, pageSize: number): Promise<pageNewsInfo> {
-    console.log('LoadNews Service');
     const promise = new Promise<pageNewsInfo>((resolve, reject) => {
       this.postNews(pageIndex, pageSize).subscribe((result: MeeResult) => {
-        console.log(result);
         if (result.statusCode === 0) {
           resolve(result.data);
         } else {
@@ -42,7 +40,6 @@ export class NewsService {
   loadNewsDetail(id: string): Promise<NewsInfo> {
     const promise = new Promise<NewsInfo>((resolve, reject) => {
       this.getNewsDetail(id).subscribe((result: MeeResult) => {
-        console.log(result);
         if (result.statusCode === 0) {
           resolve(result.data);
         } else {

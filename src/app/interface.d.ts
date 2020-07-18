@@ -59,6 +59,7 @@ export interface MeeProduct {
     retailPrice: number;     //销售价
 }
 
+
 export class Menu {
   id?: number | 0;
 
@@ -217,6 +218,269 @@ export interface TotalData {
 
 export interface NoshipData {
     noShipOrder: number;
+}
 
+export interface ErrorData {
     errorOrder: number;
+}
+
+export interface PlatFormInfo {
+    id: number;
+
+    bizId: number;
+
+    platformCode: string;
+
+    name: string;
+}
+
+export interface NineTeenType {
+    id: number;
+    type_name: string;
+}
+
+export interface NineTeenGroup {
+    id: number;
+    name: string;
+}
+
+export interface NineTeenRequest {
+    pageSize: number;
+    page: number;
+    typeId: number;
+    goodName: string;
+    groupId: number;
+    skuCode: string;
+}
+
+export interface NineTeenProducts {
+    productName: string;
+
+    goodCode: number;
+
+    nameCh: string;
+
+    nameEn: string;
+
+    skuInfo: NineTeenSku[];
+
+}
+
+export interface NineTeenSku {
+
+    sku: string;
+
+    skuId?: string;
+
+    stock?: number;
+
+    name: string;
+
+    price: number;
+
+    weight: number;
+
+    firstLevel?: number;
+    secondLevel?: number;
+    thirdLevel?: number;
+    fourthLevel?: number;
+    fifthLevel?: number;
+    sixthLevel?: number;
+}
+
+export interface NineTeenGoods {
+    productName: string;
+    goodCode: number;
+    nameCh: string;
+    nameEn: string;
+    sku?: string;
+    skuId?: string;
+    skuName?: string;
+    stock?: number;
+    price?: number;
+    firstLevel?: number;
+    secondLevel?: number;
+    thirdLevel?: number;
+    fourthLevel?: number;
+    fifthLevel?: number;
+    sixthLevel?: number;
+    weight?: number;
+    meeWeight?: number;
+    meeCostPrice?: number;
+    meeSalesPrice?: number;
+    newPrice?: number;
+    newFirstPrice?: number;
+    newSecondLevel?: number;
+    newThirdLevel?: number;
+    newFourthLevel?: number;
+    newFifthLevel?: number;
+    newSixthLevel?: number;
+}
+
+export interface NineTeenProductResponse {
+    page: number,
+    pageSize: number,
+    total: number,
+    products: NineTeenProducts[]
+}
+
+export interface OrderStatisticsData {
+    time: string;
+
+    dataTotal: TotalData;
+}
+
+export interface NineTeenUpdatePrice {
+    goodCode: number;
+    skuInfos: NineTeenUpdateSku[];
+}
+
+export interface NineTeenUpdateSku {
+    skuId: string;
+
+    skuPrice: number;
+
+    firstLevel: number;
+
+    secondLevel: number;
+
+    thirdLevel: number;
+
+    fourthLevel: number;
+
+    fifthLevel: number;
+
+    sixthLevel: number;
+}
+
+export interface TodoPageResult {
+    total: number;
+
+    pageIndex: number;
+
+    pageSize: number;
+
+    todo: Todo[];
+}
+
+export interface Todo {
+    id: number;
+
+    title: string;
+
+    createDate: Date;
+
+    bizId: number;
+
+    uid: number;
+
+    userName?: string;
+
+    createUid: number;
+
+    //0: 未完成； 1: 已完成
+    status: number;
+}
+
+export interface DataStatistics {
+    bizId: number;
+    
+    noShip: number;
+
+    error: number;
+}
+
+export interface YiyunTopProduct {
+    sku: string;
+
+    number: number;
+
+    productName?: string;
+}
+
+export interface TradeMeToken {
+    oauth_token: string;
+
+    oauth_token_secret: string;
+
+    oauth_callback_confirmed: string;
+}
+
+export interface TradeMeSoltOrder {
+    orderId: number;
+
+    reference: string;
+
+    soldDate: string;
+
+    buyer: SoltItemBuyer;
+
+    deliveryAddress: SoltItemDeliveryAddress;
+
+    items: SoltItem;
+
+    paymentDetail: TradeMePayDetail;
+
+}
+
+export interface SoltItemBuyer {
+    MemberId: number;
+
+    Nickname: string;
+
+    DateAddressVerified: string;
+
+    DateJoined: string;
+
+    Email: string;
+
+    UniqueNegative: number;
+
+    UniquePositive: number;
+
+    FeedbackCount: number;
+
+    IsAddressVerified: boolean;
+}
+
+export interface SoltItemDeliveryAddress {
+    Name: string;
+
+    Address1: string;
+
+    Address2: string;
+
+    Suburb: string;
+
+    City: string;
+
+    Postcode: string;
+
+    Country: string;
+
+    PhoneNumber: string;
+}
+
+export interface SoltItem {
+    name: string;
+
+    sku: string;
+
+    photo: string;
+
+    quantity: number;
+
+    price: number;
+}
+
+export interface TradeMePayDetail {
+    isPaymentPending: boolean;
+
+    paymentType: number;
+
+    paymentAmount: number;
+
+    paymentMethodFee: number;
+
+    gstCollected: number;
 }

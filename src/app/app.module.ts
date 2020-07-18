@@ -50,6 +50,18 @@ import { NewsListComponent } from './pages/news-list/news-list.component';
 import { NewsDetailComponent } from './pages/news-detail/news-detail.component';
 import { PipeModule } from './pipe/pipe.module';
 import { NewsListEditComponent } from './pages/news-list-edit/news-list-edit.component';
+import { NineteenProductsComponent } from './pages/nineteen-products/nineteen-products.component';
+import { DataOrderComponent } from './pages/data-order/data-order.component';
+import { NgxEchartsModule } from 'ngx-echarts';
+
+import * as echarts from 'echarts';
+import { RefreshCacheComponent } from './pages/refresh-cache/refresh-cache.component';
+import { TodoAllComponent } from './pages/todo-all/todo-all.component';
+import { TodoAllTableComponent } from './pages/todo-all-table/todo-all-table.component';
+import { TopProductComponent } from './pages/top-product/top-product.component';
+import { TrademeComponent } from './pages/trademe/trademe.component';
+import { TrademeListModule } from './pages/trademe-list/trademe-list.module';
+
 
 // 支持AOT
 export function createTranslateLoader(http: HttpClient) {
@@ -91,10 +103,17 @@ registerLocaleData(zh);
     DataTotalComponent,
     NewsComponent,
     TodoListComponent,
+    TodoAllComponent,
+    TodoAllTableComponent,
     NewsEditerComponent,
     NewsListComponent,
     NewsDetailComponent,
-    NewsListEditComponent
+    NewsListEditComponent,
+    NineteenProductsComponent,
+    DataOrderComponent,
+    RefreshCacheComponent,
+    TopProductComponent,
+    TrademeComponent
   ],
   imports: [
     BrowserModule,
@@ -109,6 +128,9 @@ registerLocaleData(zh);
     PdfViewerModule,
     EditorModule,
     PipeModule,
+    NgxEchartsModule.forRoot({
+      echarts
+    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

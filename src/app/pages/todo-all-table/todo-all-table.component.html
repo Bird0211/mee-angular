@@ -1,0 +1,60 @@
+<nz-table #basicTable [nzData]="data" 
+        (nzPageIndexChange)="indexChange($event)" 
+        [nzTotal]="total"
+        [nzPageIndex]="pageIndex"
+        [nzPageSize]="pageSize"
+        >
+    
+            <tbody>
+                <tr *ngFor="let item of basicTable.data">
+                    <td nzAlign="left"
+                        [nzChecked]="item.status === 1"
+                        (nzCheckedChange)="onItemChecked(item, $event)"
+                        style="width: 20px;"
+                    ></td>
+                    <td (click)="editId = item.id" nzAlign="left">
+                        <a>
+                            <div *ngIf="editId !== item.id">
+                                <span class="w-100" *ngIf="item.status === 1">
+                                    <del >{{item.title}}</del>
+                                </span>
+                                <span class="w-100" *ngIf="item.status === 0">
+                                    {{item.title}}
+                                </span>
+                            </div>
+                        </a>
+                        
+                        <div *ngIf="editId === item.id">
+                            <input  nz-input [(ngModel)]="item.title" class="w-100"/>
+                        </div>     
+                    </td>
+                    <td nzAlign="right" style="width: 110px;">
+                        <a 
+                        nz-popconfirm
+                        [nzPopconfirmTitle]="users"
+                        [ngClass]="!item.title ? 'desable':''"
+                        (nzOnCancel)="selectedUser = null"
+                        (nzOnConfirm)="save(item)"
+                        (click)="selectedUser = item.uid"
+                        >
+                        {{item.userName}}
+                        </a>
+                    </td>
+                    <td nzAlign="right" style="width: 110px;">
+                        {{item.createDate | date}}
+                    </td>
+                    <td nzAlign="right" style="width: 110px;">
+                        <button *ngIf="editId === item.id" nz-button nzType="primary" (click)="save(item)" [disabled]="!item.title">save</button>
+                    </td>
+                    <td nzAlign="right" style="width: 110px;">      
+                        <button nz-button nzType="default" nzDanger (click)="remove(item.id)" [disabled]="!item.title">delete</button>
+                    </td>
+                </tr>
+            </tbody>
+</nz-table>
+
+<ng-template #users>
+    <nz-select class="w-100" nzShowSearch nzAllowClear [(ngModel)]="selectedUser">
+        <nz-option *ngFor="let item of yiyunUsers" [nzLabel]="item.givenName" [nzValue]="item.userId"></nz-option>
+    </nz-select>
+</ng-template>

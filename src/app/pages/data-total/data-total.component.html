@@ -1,5 +1,15 @@
-<p class="h6 ml-2"><strong>总数据</strong></p>
-<div nz-row [nzGutter]="[8,8]" nzJustify="space-between">
+<nz-space>
+    <nz-space-item>
+        <span class="h6"><strong>总数据</strong></span>
+    </nz-space-item>
+    <nz-space-item>
+        <a (click)="refreshData()">
+            <i nz-icon nzType="sync" nzTheme="outline" [nzSpin]="isSpin"></i>
+        </a>
+    </nz-space-item>
+</nz-space>
+
+<div nz-row [nzGutter]="[8,8]" nzJustify="space-between" class="mt-2">
     <div nz-col *ngFor="let item of totalDatas" nzSpan="12">
         <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzParagraph]="true" [nzTitle]="false" [nzAvatar]="true" [nzParagraph]="{ rows: 0 }">
             <app-nzcard *ngIf="item" [title]="item.value" [description]="item.name" [icon]="item.image" [iconColor]="item.color" ></app-nzcard>

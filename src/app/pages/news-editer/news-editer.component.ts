@@ -46,7 +46,6 @@ export class NewsEditerComponent implements OnInit {
   }
 
   loadNews(id: string) {
-    console.log('Number: {}' , id);
     this.newsService.loadNewsDetail(id).then((result: NewsInfo) => {
       this.title = result.title;
       this.content = result.content;

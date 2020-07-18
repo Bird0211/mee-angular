@@ -18,6 +18,9 @@ import { NewsEditerComponent } from './pages/news-editer/news-editer.component';
 import { NewsListComponent } from './pages/news-list/news-list.component';
 import { NewsDetailComponent } from './pages/news-detail/news-detail.component';
 import { NewsListEditComponent } from './pages/news-list-edit/news-list-edit.component';
+import { NineteenProductsComponent } from './pages/nineteen-products/nineteen-products.component';
+import { TodoAllComponent } from './pages/todo-all/todo-all.component';
+import { TrademeComponent } from './pages/trademe/trademe.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/welcome' },
@@ -38,11 +41,16 @@ const routes: Routes = [
   { path: 'news/edit/:id', component: NewsEditerComponent},
   { path: 'news/list', component: NewsListComponent},
   { path: 'news/edit', component: NewsListEditComponent},
-  { path: 'news/:id', component: NewsDetailComponent}
+  { path: 'news/:id', component: NewsDetailComponent},
+  { path: 'nineteen/products', component: NineteenProductsComponent},
+  { path: 'todo/all', component: TodoAllComponent},
+  { path: 'trademe', component: TrademeComponent},
+  { path: 'trademelist', loadChildren: () => import('./pages/trademe-list/trademe-list.module').then(m => m.TrademeListModule) }
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
+  imports: [RouterModule.forRoot(routes, { enableTracing: false })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -159,7 +159,6 @@ export class UpdateFileComponent implements OnInit, InvoiceComponent {
   onChange = ({ file, fileList }: { [key: string]: any }) => {
     const status = file.status;
     if (status !== 'uploading') {
-      console.log(file, fileList);
     }
     if (status === 'done') {
       // this.msg.success(`${file.name} file uploaded successfully.`);

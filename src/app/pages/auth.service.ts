@@ -26,10 +26,10 @@ export class AuthService {
   }
 
   initAuth(authParam: AuthParam): Promise<boolean> {
+    console.log('InitAuth');
     const promise = new Promise<boolean>((resolve, reject) => {
       this.paramInit(authParam);
       if (!this.bizid) {
-        console.log(this.bizid);
         resolve(false);
         return;
       }
@@ -38,17 +38,23 @@ export class AuthService {
         const result = meeResult.statusCode === 0;
         resolve(result);
         if (result) {
-          sessionStorage.setItem('bizId', this.bizid);
-          sessionStorage.setItem('userId', this.userid);
+          localStorage.setItem('bizId', this.bizid);
+          localStorage.setItem('userId', this.userid);
+          localStorage.setItem('time', this.time);
+          localStorage.setItem('nonce', this.nonce);
+          localStorage.setItem('sign', this.sign);
+
           this.getYiyunUser().then((user: YiYunUser) => {
             this.user = user;
-            console.log('emit User', user);
             this.getLoggedInName.emit(user);
             }
           );
         } else {
-          sessionStorage.removeItem('bizId');
-          sessionStorage.removeItem('userId');
+          localStorage.removeItem('bizId');
+          localStorage.removeItem('userId');
+          localStorage.removeItem('time');
+          localStorage.removeItem('nonce');
+          localStorage.removeItem('sign');
         }
       });
 
@@ -58,7 +64,6 @@ export class AuthService {
   }
 
   private paramInit(authParam: AuthParam) {
-
     this.bizid = authParam.bizid;
     this.time = authParam.time;
     this.nonce = authParam.nonce;
@@ -68,11 +73,11 @@ export class AuthService {
 
   public loadAuthParam(): AuthParam {
     const param: AuthParam = {
-      bizid: this.bizid,
-      time: this.time,
-      nonce: this.nonce,
-      sign: this.sign,
-      userid: this.userid
+      bizid: this.getBizId().toString(),
+      time: this.getTime(),
+      nonce: this.getNonce(),
+      sign: this.getSign(),
+      userid: this.getUserId().toString()
     };
     return param;
   }
@@ -100,11 +105,23 @@ export class AuthService {
   }
 
   public getBizId(): number {
-    return Number(sessionStorage.getItem('bizId'));
+    return Number(localStorage.getItem('bizId'));
   }
 
   public getUserId(): number {
-    return Number(sessionStorage.getItem('userId'));
+    return Number(localStorage.getItem('userId'));
+  }
+
+  public getTime(): string {
+    return localStorage.getItem('time');
+  }
+
+  public getNonce(): string {
+    return localStorage.getItem('nonce');
+  }
+
+  public getSign(): string {
+    return localStorage.getItem('sign');
   }
 
   public getYiyunUser(): Promise<YiYunUser> {

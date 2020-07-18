@@ -8,16 +8,22 @@
     </div>
     <div nz-col>
         <nz-space nzSize="large">
+            <nz-space-item> 
+                <app-refresh-cache></app-refresh-cache>
+            </nz-space-item>
             <nz-space-item>
-                <i *ngIf="currency" class="mr-1" nz-icon [nzIconfont]="'icon-huishuai-copy'"></i>
-                <span nz-tooltip nzTooltipTitle="当前汇率" nzTooltipPlacement="bottom" >{{currency}}</span>
+                <span nz-tooltip nzTooltipTitle="当前汇率" nzTooltipPlacement="bottom" >
+                    <i *ngIf="currency" class="mr-1" nz-icon [nzIconfont]="'icon-huilv01'"></i>
+                    {{currency}}</span>
             </nz-space-item>
             <nz-space-item>
                 <button nz-button nzType="default" nzSize='small' (click)="changeLangus()">{{'langue' | translate}}</button>
             </nz-space-item>
             <nz-space-item>
                 <div *ngIf="user">
-                    <nz-avatar [nzText]="user.givenName.substr(0,1).toUpperCase()"></nz-avatar>
+                    <nz-badge [nzCount]="todoNumber" class="mr-2">
+                        <nz-avatar [nzText]="user.givenName.substr(0,1).toUpperCase()"></nz-avatar>
+                    </nz-badge>
                     <span class="h6 ml-1 text-muted">{{user.givenName}}</span>
                 </div>
             </nz-space-item>

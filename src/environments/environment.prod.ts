@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
 
-  iconUrl: '//at.alicdn.com/t/font_1644348_21ibzkzvholh.js',
+  iconUrl: '//at.alicdn.com/t/font_1644348_jn239cnulu.js',
 
   updateImgUrl: 'https://external.yiyun.co.nz/api/textocr',
   supplierUrl: 'https://external.yiyun.co.nz/api/allSuppliers',
@@ -41,7 +41,41 @@ export const environment = {
   todayDataUrl: 'https://external.yiyun.co.nz/api/today',
   totalDataUrl: 'https://external.yiyun.co.nz/api/total',
 
-  noShipUrl: 'https://external.yiyun.co.nz/api/noshipped'
+  noShipUrl: 'https://external.yiyun.co.nz/api/noshipped',
+  errorOrderUrl:  'https://external.yiyun.co.nz/api/errororder',
+  dataStaticUrl: 'https://external.yiyun.co.nz/api/datastatic',
+  refreshDataUrl: 'https://external.yiyun.co.nz/api/refreshdatastatic',
 
+  platFormUrl: 'https://external.yiyun.co.nz/api/platform',
+  platFormDelUrl: 'https://external.yiyun.co.nz/api/platform/del',
+
+
+  nineTeenTypeUrl: 'https://external.yiyun.co.nz/api/nineteen/producttype',
+  nineTeenGroupUrl: 'https://external.yiyun.co.nz/api/nineteen/productgroup',
+  nineTeenProductsUrl: 'https://external.yiyun.co.nz/api/nineteen/products',
+
+  nineTeenUpdateProductUrl: 'https://external.yiyun.co.nz/api/nineteen/price/update',
+
+  orderDataUrl: 'https://external.yiyun.co.nz/api/statistics',
+
+  productsSkuUrl: 'https://external.yiyun.co.nz/api/product/skus',
+  refreshCacheUrl: 'https://external.yiyun.co.nz/api/guava/refresh',
+
+  myTodoUrl: 'https://external.yiyun.co.nz/api/todo/mytodo',
+  addTodoUrl: 'https://external.yiyun.co.nz/api/todo/add',
+  saveTodoUrl: 'https://external.yiyun.co.nz/api/todo/save',
+  removeTodoUrl: 'https://external.yiyun.co.nz/api/todo/remove',
+  finishTodoUrl: 'https://external.yiyun.co.nz/api/todo/finish',
+  unsetTodoUrl: 'https://external.yiyun.co.nz/api/todo/unset',
+  countTodoUrl: 'https://external.yiyun.co.nz/api/todo/count',
+  myalltodoUrl: 'https://external.yiyun.co.nz/api/todo/myalltodo',
+  mycreatedTodoUrl: 'https://external.yiyun.co.nz/api/todo/mycreated',
+  createNumberUrl: 'https://external.yiyun.co.nz/api/todo/createdcount',
+  topProductURl: 'https://external.yiyun.co.nz/api/product/top',
+
+  tradeMerRquestUrl: 'https://external.yiyun.co.nz/api/trademe/requesttoken',
+  tradeMeOauthUrl: 'https://secure.trademe.co.nz/Oauth/Authorize?oauth_token=',
+  tradeMeAccessTokenUrl: 'https://external.yiyun.co.nz/api/trademe/accessToken',
+  tradeMeSoldItemUrl: 'https://external.yiyun.co.nz/api/trademe/sold'
 
 };

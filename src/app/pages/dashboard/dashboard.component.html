@@ -1,23 +1,43 @@
 <nz-alert *ngIf="alertMsg" nzCloseable nzType="info" [nzMessage]="alertMsg"></nz-alert>
 
 <div *ngIf="isLogin" nz-row nzGutter="16" nzJustify="space-between">
-    <div nz-col class="h-100" nzSpan="12">
-        <app-order-flow></app-order-flow>
-    </div>
-    <div nz-col class="h-100" nzSpan="7">
-        <div>
-            <app-data-today></app-data-today>
+    <div nz-col class="h-100" nzSpan="19">
+        <div nz-row>
+            <div nz-col class="h-100" nzSpan="24">
+                <app-order-flow></app-order-flow>
+            </div>
+            
         </div>
-        <div class="mt-2">
-            <app-data-total></app-data-total>
+        <div nz-row class="mt-2">
+            <div nz-col class="h-100" nzSpan="12">
+                <div>
+                    <app-data-today></app-data-today>
+                </div>
+            </div>
+            <div nz-col class="h-100" nzSpan="12">
+                <div>
+                    <app-data-total></app-data-total>
+                </div>
+            </div>
+        </div>
+        <nz-divider></nz-divider>
+        <div nz-row>
+            <div nz-col nzSpan="12">
+                <app-data-order></app-data-order>
+            </div>
+            <div nz-col nzSpan="12">
+                <app-top-product></app-top-product>
+            </div>
         </div>
     </div>
     <div nz-col nzSpan="5">
         <div>
             <app-news></app-news>
         </div>
-        <div class="mt-2">
+        <div class="mt-3">
             <app-todo-list></app-todo-list>
         </div>
     </div>
+
+    
 </div>

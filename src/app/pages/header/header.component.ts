@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import { environment } from 'src/environments/environment';
+import { CurrencyService } from 'src/app/service/currency.service';
+import { TodoService } from 'src/app/service/todo.service';
 
 @Component({
   selector: 'app-header',
@@ -22,28 +24,31 @@ export class HeaderComponent implements OnInit {
 
   isZh = true;
 
-  currency: string;
+  currency: number;
 
-  currencyUrl: string;
+  todoNumber: number;
+
 
   constructor(public translate: TranslateService,
               public message: NzMessageService,
               public http: HttpClient,
               public authService: AuthService,
               public route: ActivatedRoute,
-              private router: Router
+              private currencyService: CurrencyService,
+              private router: Router,
+              private todoService: TodoService
       ) {
         translate.addLangs(['en', 'zh']);
         translate.setDefaultLang('zh');
         translate.use('zh');
 
-        this.currencyUrl = environment.currencyUrl;
-
         authService.getLoggedInName.subscribe((yiYunUser: YiYunUser) => this.changeName(yiYunUser));
+        this.todoService.getTodoNum.subscribe((result: number) => this.todoNumber = result);
   }
 
   ngOnInit(): void {
     this.loadCurrency();
+    this.loadTodoNumber();
   }
 
   changeLangus() {
@@ -60,20 +65,11 @@ export class HeaderComponent implements OnInit {
   }
 
   private changeName(user: YiYunUser): void {
-    console.log('header User', user);
     this.user = user;
   }
 
   loadCurrency() {
-    this.getCurrency().subscribe((resuult: MeeResult) => {
-      if (resuult.statusCode === 0) {
-        this.currency = resuult.data.rate;
-      }
-    });
-  }
-
-  getCurrency() {
-    return this.http.get(this.currencyUrl);
+    this.currencyService.loadCurrency().then(item => this.currency = item);
   }
 
   jumpback() {
@@ -83,6 +79,12 @@ export class HeaderComponent implements OnInit {
             param.time,
             param.nonce,
             param.sign]);
+  }
+
+  loadTodoNumber() {
+    this.todoService.loadTodoNumber().then((result: number) => {
+      this.todoNumber = result;
+    });
   }
 
 }

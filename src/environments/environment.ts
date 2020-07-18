@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  iconUrl: '//at.alicdn.com/t/font_1644348_21ibzkzvholh.js',
+  iconUrl: '//at.alicdn.com/t/font_1644348_jn239cnulu.js',
 
   updateImgUrl: '//localhost:8801/api/textocr',
   // updateImgUrl: 'http://localhost:8801/api/textocr',
@@ -50,7 +50,43 @@ export const environment = {
 
   todayDataUrl: '//localhost:8801/api/today',
   totalDataUrl: '//localhost:8801/api/total',
-  noShipUrl: '//localhost:8801/api/noshipped'
+  noShipUrl: '//localhost:8801/api/noshipped',
+  errorOrderUrl:  '//localhost:8801/api/errororder',
+  dataStaticUrl: '//localhost:8801/api/datastatic',
+  refreshDataUrl: '//localhost:8801/api/refreshdatastatic',
+
+  platFormUrl: '//localhost:8801/api/platform',
+  platFormDelUrl: '//localhost:8801/api/platform/del',
+
+  nineTeenTypeUrl: '//localhost:8801/api/nineteen/producttype',
+  nineTeenGroupUrl: '//localhost:8801/api/nineteen/productgroup',
+  nineTeenProductsUrl: '//localhost:8801/api/nineteen/products',
+
+  nineTeenUpdateProductUrl: '//localhost:8801/api/nineteen/price/update',
+
+  orderDataUrl: '//localhost:8801/api/statistics',
+
+  productsSkuUrl: '//localhost:8801/api/product/skus',
+  refreshCacheUrl: '//localhost:8801/api/guava/refresh',
+
+  myTodoUrl: '//localhost:8801/api/todo/mytodo',
+  addTodoUrl: '//localhost:8801/api/todo/add',
+  saveTodoUrl: '//localhost:8801/api/todo/save',
+  removeTodoUrl: '//localhost:8801/api/todo/remove',
+  finishTodoUrl: '//localhost:8801/api/todo/finish',
+  unsetTodoUrl: '//localhost:8801/api/todo/unset',
+  countTodoUrl: '//localhost:8801/api/todo/count',
+  myalltodoUrl: '//localhost:8801/api/todo/myalltodo',
+  mycreatedTodoUrl: '//localhost:8801/api/todo/mycreated',
+  createNumberUrl: '//localhost:8801/api/todo/createdcount',
+
+  topProductURl: '//localhost:8801/api/product/top',
+
+  tradeMerRquestUrl: '//localhost:8801/api/trademe/requesttoken',
+  tradeMeOauthUrl: 'https://secure.trademe.co.nz/Oauth/Authorize?oauth_token=',
+  tradeMeAccessTokenUrl: '//localhost:8801/api/trademe/accessToken',
+
+  tradeMeSoldItemUrl: '//localhost:8801/api/trademe/sold'
 };
 
 /*

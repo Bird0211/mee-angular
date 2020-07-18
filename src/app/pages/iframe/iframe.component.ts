@@ -20,11 +20,9 @@ export class IframeComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(
       params => {
-        console.log(params);
         const url = params.jumpurl +  '&bid=' + this.authService.getBizId() + '&uid=' + this.authService.getUserId() +
         '&v=' + Date.parse(new Date().toString());
         this.jumpurl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-        console.log(this.jumpurl);
       }
     );
   }

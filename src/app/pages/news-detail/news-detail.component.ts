@@ -22,9 +22,7 @@ export class NewsDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const newsId = this.route.snapshot.paramMap.get('id');
-    console.log('NewsId', newsId);
     const id = newsId;
-    console.log('id', id);
     if (id !== '0') {
       this.loadNews(id);
     }

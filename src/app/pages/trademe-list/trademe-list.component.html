@@ -1,0 +1,77 @@
+<div>
+    <nz-space nzSize="large">
+        <nz-space-item>
+            <label>TradeMe Store:</label>
+            <nz-select [(ngModel)]="store">
+                <nz-option *ngFor="let item of trademeInfos" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+            </nz-select>
+        </nz-space-item>
+        <nz-space-item>
+            <label>Filter:</label>
+            <nz-select [(ngModel)]="filter">
+                <nz-option *ngFor="let item of filters" [nzValue]="item" [nzLabel]="item"></nz-option>
+            </nz-select>
+        </nz-space-item>
+        <nz-space-item>
+            <button nz-button nzType="primary" [nzLoading]="isLongding" (click)="search()"><i nz-icon nzType="search"></i>Search</button>
+        </nz-space-item>
+    </nz-space>
+</div>
+<nz-divider></nz-divider>
+<div>
+    <nz-table #basicTable [nzData]="orders">
+        <thead>
+          <tr>
+            <th>Order Id</th>  
+            <th>Reference Number</th>  
+            <th>Photo</th>
+            <th>SKU</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Buyer</th>
+            <th>Payment</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td>{{data.orderId}}</td>
+            <td>{{data.reference}}</td>
+            <td><img [src]="data.items.photo" class="w-100"/></td>
+            <td>{{data.items.sku}}</td>
+            <td>{{data.items.name}}</td>
+            <td>{{data.items.quantity}}</td>
+            <td>{{data.buyer.nickname}}</td>
+            <td>
+                <span [ngSwitch]="data.paymentDetail.paymentType">
+                    <span *ngSwitchCase="0">
+                        None
+                    </span>
+                    <span *ngSwitchCase="1">
+                        BankDeposit
+                    </span>
+                    <span *ngSwitchCase="2">
+                        CreditCard
+                    </span>
+                    <span *ngSwitchCase="4">
+                        Cash
+                    </span>
+                    <span *ngSwitchCase="8">
+                        SafeTrader
+                    </span>
+                    <span *ngSwitchCase="16">
+                        Other
+                    </span>
+                    <span *ngSwitchCase="32">
+                        Ping
+                    </span>
+                    <span *ngSwitchCase="64">
+                        Afterpay
+                    </span>
+                </span>
+            </td>
+            <td>{{data.items.price | currency}}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+</div>
