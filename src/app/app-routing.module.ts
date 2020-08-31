@@ -45,7 +45,10 @@ const routes: Routes = [
   { path: 'nineteen/products', component: NineteenProductsComponent},
   { path: 'todo/all', component: TodoAllComponent},
   { path: 'trademe', component: TrademeComponent},
-  { path: 'trademelist', loadChildren: () => import('./pages/trademe-list/trademe-list.module').then(m => m.TrademeListModule) }
+  { path: 'trademelist', loadChildren: () => import('./pages/trademe-list/trademe-list.module').then(m => m.TrademeListModule) },
+  { path: 'nzpost-config', loadChildren: () => import('./pages/nzpost-config/nzpost-config.module').then(m => m.NzpostConfigModule) },
+  { path: 'weimob/delivery', loadChildren: () => import('./pages/weimob-delivery/weimob-delivery.module').
+                              then(m => m.WeimobDeliveryModule) }
 
 ];
 

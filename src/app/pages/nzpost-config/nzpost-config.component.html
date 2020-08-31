@@ -1,0 +1,99 @@
+<div>
+    <button nz-button nzType="default" (click)="add()">添加</button>
+</div>
+<div class="mt-2">
+    <nz-table #basicTable [nzData]="nzpostConfigs" nzHideOnSinglePage="true">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Company Name</th>
+            <th>Reference <a nz-tooltip nzTooltipTitle="Reference 可以显示在面单上"><i nz-icon nzType="question-circle" nzTheme="outline"></i></a>
+            </th>
+            <th>Street</th>
+            <th>City</th>
+            <th>Post Code</th>
+            <th>Country Code</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td>{{data.name}}</td>
+            <td>{{data.phone}}</td>
+            <td>{{data.email}}</td>
+            <td>{{data.companyName}}</td>
+            <td>{{data.reference}}</td>
+            <td>{{data.street}}</td>
+            <td>{{data.city}}</td>
+            <td>{{data.postcode}}</td>
+            <td>{{data.countryCode}}</td>
+            <td>
+              <a (click)="edit(data)">Edit</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="del(data.id)">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" nzWidth="1000" [nzTitle]="title" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" [nzOkLoading]="loading">
+    <form nz-form>
+        <nz-divider nzText="Sender Details"></nz-divider>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Name</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24">
+            <input nz-input placeholder="Name" [(ngModel)]="entity.name" name="name" />
+          </nz-form-control>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Phone</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24">
+            <input nz-input placeholder="Phone" [(ngModel)]="entity.phone" name="phone" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Email</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24">
+            <input nz-input placeholder="Email" [(ngModel)]="entity.email" name="email" />
+          </nz-form-control>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Company Name</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24">
+            <input nz-input placeholder="Company Name" [(ngModel)]="entity.companyName" name="companyName" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-divider nzText="Pickup Address"></nz-divider>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24">Reference
+            <a nz-tooltip nzTooltipTitle="Reference 可以显示在面单上"><i nz-icon nzType="question-circle" nzTheme="outline"></i></a>
+          </nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24">
+            <input nz-input placeholder="Reference" [(ngModel)]="entity.reference" name="reference"/>
+          </nz-form-control>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Street</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24">
+            <input nz-input placeholder="Street" [(ngModel)]="entity.street" name="street"/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Suburb</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24">
+            <input nz-input placeholder="Suburb" [(ngModel)]="entity.suburb" name="city"/>
+          </nz-form-control>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>City</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24">
+            <input nz-input placeholder="City" [(ngModel)]="entity.city" name="city"/>
+          </nz-form-control>
+        </nz-form-item>
+          <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Post Code</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24">
+            <input nz-input placeholder="Post Code" [(ngModel)]="entity.postcode" name="postcode"/>
+          </nz-form-control>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Country Code</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24">
+            <input nz-input placeholder="Country Code" [(ngModel)]="entity.countryCode" name="countryCode"/>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+</nz-modal>

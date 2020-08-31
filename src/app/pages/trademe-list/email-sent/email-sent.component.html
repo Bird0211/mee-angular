@@ -1,0 +1,63 @@
+<nz-table #basicTable [nzData]="orders">
+    <thead>
+      <tr>
+        <th
+            [(nzChecked)]="checked"
+            [nzIndeterminate]="indeterminate"
+            (nzCheckedChange)="onAllChecked($event)"
+        ></th>
+        <th>Order Id</th>  
+        <th>PurchaseId</th>
+        <th>Reference Number</th>  
+        <th>Photo</th>
+        <th>SKU</th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Buyer</th>
+        <th>Payment</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td [nzChecked]="setOfCheckedId.has(data.purchaseId)" (nzCheckedChange)="onItemChecked(data.purchaseId, $event)"></td>
+        <td>{{data.orderId}}</td>
+        <td>{{data.purchaseId}}</td>
+        <td>{{data.reference}}</td>
+        <td><img [src]="data.items.photo" class="w-100"/></td>
+        <td>{{data.items.sku}}</td>
+        <td>{{data.items.name}}</td>
+        <td>{{data.items.quantity}}</td>
+        <td>{{data.buyer.nickname}}</td>
+        <td>
+            <span *ngIf="data.paymentDetail" [ngSwitch]="data.paymentDetail.paymentType">
+                <span *ngSwitchCase="0">
+                    None
+                </span>
+                <span *ngSwitchCase="1">
+                    BankDeposit
+                </span>
+                <span *ngSwitchCase="2">
+                    CreditCard
+                </span>
+                <span *ngSwitchCase="4">
+                    Cash
+                </span>
+                <span *ngSwitchCase="8">
+                    SafeTrader
+                </span>
+                <span *ngSwitchCase="16">
+                    Other
+                </span>
+                <span *ngSwitchCase="32">
+                    Ping
+                </span>
+                <span *ngSwitchCase="64">
+                    Afterpay
+                </span>
+            </span>
+        </td>
+        <td>{{data.items.price | currency}}</td>
+      </tr>
+    </tbody>
+</nz-table>

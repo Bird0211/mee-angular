@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { UploadFile } from 'ng-zorro-antd';
 
 import * as XLSX from 'xlsx';
+import { BookType, WritingOptions } from 'xlsx';
 
 type Callback = (data: any)  => void;
 
@@ -78,6 +79,51 @@ export class XlsxService {
     for (; l < data.byteLength / w; ++l) { o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w))); }
     o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
     return o;
+  }
+
+  downloadExl = (data: any, type: BookType, filename: string, isSkipHeader: boolean) => {
+    if (!data || data == null || data.length <= 0) {
+      return;
+    }
+
+    const reName = filename;
+    const wb = { SheetNames: ['Sheet1'], Sheets: {}, Props: {} };
+    wb.Sheets['Sheet1'] = XLSX.utils.json_to_sheet(data, {skipHeader: isSkipHeader}); //  通过json_to_sheet转成单页(Sheet)数据
+    const bookType: BookType = type === undefined ? 'xlsx' : type;
+    const writhOption: WritingOptions = {bookType, bookSST: false, type: 'binary'};
+
+    const obj = new Blob([this.s2ab(XLSX.write(wb, writhOption))],
+    { type: 'application/octet-stream' });
+
+
+    this.saveAs(obj, reName);
+  }
+
+  saveAs(obj: any, fileName: string) {     //  当然可以自定义简单的下载文件实现方式
+      const tmpa = document.createElement('a');
+      tmpa.download = fileName || '下载';
+      tmpa.href = URL.createObjectURL(obj);   //  绑定a标签
+      tmpa.click();   //  模拟点击实现下载
+      setTimeout(() => { // 延时释放
+          URL.revokeObjectURL(obj);  // 用URL.revokeObjectURL()来释放这个object URL
+      }, 100);
+  }
+
+  s2ab(s: any): BlobPart { //  字符串转字符流
+      if (typeof ArrayBuffer !== 'undefined') {
+          const buf = new ArrayBuffer(s.length);
+          const view = new Uint8Array(buf);
+          for (let i = 0; i !== s.length; ++i) {
+            view[i] = s.charCodeAt(i) & 0xFF;
+          }
+          return buf;
+      } else {
+          const buf = new Uint8Array(s.length);
+          for (let i = 0; i !== s.length; ++i) {
+            buf[i] = s.charCodeAt(i) & 0xFF;
+          }
+          return buf;
+      }
   }
 
 }

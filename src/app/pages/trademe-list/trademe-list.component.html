@@ -2,9 +2,15 @@
     <nz-space nzSize="large">
         <nz-space-item>
             <label>TradeMe Store:</label>
-            <nz-select [(ngModel)]="store">
+            <nz-select [(ngModel)]="store" [nzDropdownRender]="addTemplate">
                 <nz-option *ngFor="let item of trademeInfos" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
             </nz-select>
+            <ng-template #addTemplate>
+              <nz-divider class="mt-2 mb-2"></nz-divider>
+              <div class="pl-2 pr-2 pb-2">
+                <app-trademe-add-button class="trademeaddbtn"></app-trademe-add-button>
+              </div>
+            </ng-template>
         </nz-space-item>
         <nz-space-item>
             <label>Filter:</label>
@@ -18,60 +24,79 @@
     </nz-space>
 </div>
 <nz-divider></nz-divider>
-<div>
-    <nz-table #basicTable [nzData]="orders">
-        <thead>
-          <tr>
-            <th>Order Id</th>  
-            <th>Reference Number</th>  
-            <th>Photo</th>
-            <th>SKU</th>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Buyer</th>
-            <th>Payment</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of basicTable.data">
-            <td>{{data.orderId}}</td>
-            <td>{{data.reference}}</td>
-            <td><img [src]="data.items.photo" class="w-100"/></td>
-            <td>{{data.items.sku}}</td>
-            <td>{{data.items.name}}</td>
-            <td>{{data.items.quantity}}</td>
-            <td>{{data.buyer.nickname}}</td>
-            <td>
-                <span [ngSwitch]="data.paymentDetail.paymentType">
-                    <span *ngSwitchCase="0">
-                        None
-                    </span>
-                    <span *ngSwitchCase="1">
-                        BankDeposit
-                    </span>
-                    <span *ngSwitchCase="2">
-                        CreditCard
-                    </span>
-                    <span *ngSwitchCase="4">
-                        Cash
-                    </span>
-                    <span *ngSwitchCase="8">
-                        SafeTrader
-                    </span>
-                    <span *ngSwitchCase="16">
-                        Other
-                    </span>
-                    <span *ngSwitchCase="32">
-                        Ping
-                    </span>
-                    <span *ngSwitchCase="64">
-                        Afterpay
-                    </span>
-                </span>
-            </td>
-            <td>{{data.items.price | currency}}</td>
-          </tr>
-        </tbody>
-      </nz-table>
-</div>
+
+<nz-empty *ngIf="!orders"></nz-empty>
+
+<nz-tabset *ngIf="orders" 
+            [nzSelectedIndex]="tabIndex" 
+            (nzSelectedIndexChange)="selectedIndexChange($event)" 
+            [nzTabBarExtraContent]="extraTemplate">
+    <nz-tab [nzTitle]="mailsentTitle">
+      <app-email-sent [orders]="orders.emailSent" (selectItems)="selectSentItem($event)"></app-email-sent>
+      <ng-template #mailsentTitle>
+          <nz-badge [nzCount]="orders.emailSent? orders.emailSent.length : '0'">
+            <span>待支付</span>
+          </nz-badge>
+      </ng-template>
+    </nz-tab>
+    <nz-tab [nzTitle]="paymentTitle">
+      <app-payment-received [(orders)]="paidOrder" [nzconfig]="selectedConfig" (selectItems)="selectShippedItem($event)"></app-payment-received>
+      <ng-template #paymentTitle>
+        <nz-badge [nzCount]="orders.paymentReceived? orders.paymentReceived.length : '0'">
+          <span>已处理</span>
+        </nz-badge>
+      </ng-template>
+    </nz-tab>
+    <nz-tab [nzTitle]="goodshipedTitle">
+        <app-goods-shipped [orders]="orders.goodsShipped"></app-goods-shipped>
+        <ng-template #goodshipedTitle>
+            <nz-badge [nzCount]="orders.goodsShipped? orders.goodsShipped.length : '0'">
+              <span>已发货</span>
+            </nz-badge>
+        </ng-template>
+    </nz-tab>
+    <nz-tab [nzTitle]="saleCompletedTitle">
+        <app-sale-completed [orders]="orders.saleCompleted"></app-sale-completed>
+        <ng-template #saleCompletedTitle>
+            <nz-badge [nzCount]="orders.saleCompleted? orders.saleCompleted.length : '0'">
+              <span>已完成</span>
+            </nz-badge>
+        </ng-template>
+    </nz-tab>
+</nz-tabset>
+
+<ng-template #extraPayment>
+</ng-template>
+
+<ng-template #extraTemplate>
+
+ <div [ngSwitch]="tabIndex">
+    <div *ngSwitchCase="0">
+      <button nz-button (click)="confirmPayment()" [nzLoading]="confirmPayLoading">确认支付</button>
+    </div>
+    <div *ngSwitchCase="1">
+      <nz-space nzSize="small">
+        <nz-space-item>
+          <label>NzPost Config:</label>
+          <nz-select [(ngModel)]="selectedConfig">
+            <nz-option *ngFor="let item of nzpostConfigs" [nzValue]="item" [nzLabel]="item.name"></nz-option>
+          </nz-select>
+        </nz-space-item>
+        <nz-space-item>
+          <button class="btn" nz-button [nzLoading]="shippedLoading" (click)="shipped()">申请快递</button>
+        </nz-space-item>
+      </nz-space>
+    </div>
+    <div *ngSwitchCase="2">
+      <button nz-button>完成订单</button>
+    </div>
+ </div>
+
+</ng-template>
+
+<nz-modal [(nzVisible)]="isLoadingLabelStatus" 
+   nzClosable="false"
+   nzTitle="NzPost申请成功！"
+   nzContent="系统正在确认申请结果..., 请不要关闭页面"
+  >
+</nz-modal>

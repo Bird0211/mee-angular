@@ -1,0 +1,306 @@
+<nz-table #basicTable [nzData]="orders" nzSize="small" nzBordered="false" nzHideOnSinglePage="true">
+    <thead>
+      <tr>
+        <th
+        [(nzChecked)]="checked"
+        [nzIndeterminate]="indeterminate"
+        (nzCheckedChange)="onAllChecked($event)"
+        ></th>
+        <th>Purchase</th>  
+        <th>Buyer</th>
+        <th>Delivery Name</th>
+        <th>Delivery Phone</th>
+        <th>Address</th>
+        <th>NzPost Service</th>
+      </tr>
+    </thead>
+    <tbody>
+       <ng-container *ngFor="let data of basicTable.data">
+        <tr>
+            <td [nzChecked]="setOfCheckedId.has(data.orderId)" 
+                (nzCheckedChange)="onItemChecked(data.orderId, $event)"
+                >
+            </td>
+            <td colspan="5"> 
+                <span><strong>Order Id:</strong></span> <span class="ml-3">{{data.orderId}}</span>
+                <span class="ml-5"><strong>Total Quantity:</strong></span> <span class="ml-3">{{getTotalQuantity(data)}}</span>
+                <span class="ml-5"><strong>Total Price:</strong></span> <span class="ml-3">{{getTotalPrice(data) | currency}}</span>
+            </td>
+            <td>
+              <a (click)="editAddress(data)"><i nz-icon nzType="edit" nzTheme="fill"></i></a>
+            </td>
+        </tr>
+        <tr>
+            <td nzAlign="center"> 
+                <a *ngIf="isMerge(data)" (click)="marge(data)" nz-tooltip nzTooltipTitle="Merge" nzTooltipPlacement="bottom"> 
+                    <i nz-icon [nzIconfont]="'icon-merge'"></i>
+                </a>
+            </td>
+            <td>
+                <div nz-row *ngFor="let item of data.items; let i=index">
+                    <nz-divider *ngIf="i > 0" class="m-0"></nz-divider>
+                    <div nz-col class="expand-td">
+                        <a (click)="showImg(item.photo)"><img [src]="item.photo" class="productimg"></a>
+                    </div>
+                    <div nz-col class="product-font">
+                       <div nz-row nzType="flex" nzJustify="start">
+                         <span class="h6">{{item.name}} </span>
+                       </div>
+                       <div nz-row nzType="flex" nzJustify="start" nzGutter="8">
+                         <div nz-col>Quantity:</div>
+                         <div nz-col>{{item.quantity}}</div>
+                         <div nz-col class="ml-2">Price:</div>
+                         <div nz-col>{{item.price | currency}}</div>
+                       </div>
+                       <div nz-row nzType="flex" nzJustify="start" nzGutter="8">
+                         <div nz-col>SKU:</div>
+                         <div nz-col>{{item.sku}}</div>
+                       </div>
+                     </div>
+                </div>
+            </td>
+            <td>{{data.buyer.nickname}}</td>
+            <td>{{data.deliveryAddress ? data.deliveryAddress.name : ''}}</td>
+            <td>{{data.deliveryAddress ? data.deliveryAddress.phoneNumber : ''}}</td>
+            <td>
+              <p>
+                {{data.deliveryAddress ? data.deliveryAddress.address1 : ''}}
+              </p>
+              <nz-space nzSize="large">
+                <nz-space-item>
+                  {{data.deliveryAddress ? data.deliveryAddress.suburb: ''}}
+                </nz-space-item>
+                <nz-space-item>
+                  {{data.deliveryAddress ? data.deliveryAddress.city: ''}}
+                </nz-space-item>
+                <nz-space-item>
+                  {{data.deliveryAddress ? data.deliveryAddress.postcode : ''}}
+                </nz-space-item>
+              </nz-space>
+            </td>
+            <td>
+              <div *ngIf="data.labelTrack">
+                <p *ngFor="let item of data.labelTrack">{{item.trackId}}</p>
+              </div>
+            </td>
+        </tr>
+        <tr  *ngFor="let item of data.dimensions; let i=index">
+          <td></td>
+          <td colspan="6" >
+            <div nz-row nzGutter="8" nzAlign="middle">
+              <div nz-col>
+                <a (click)="addVolumes(data)"><i nz-icon nzType="plus-circle" nzTheme="outline"></i></a>
+              </div>
+              <div nz-col>
+                <nz-divider nzType="vertical"></nz-divider>
+              </div>
+              <div nz-col>
+                <nz-input-group nzAddOnBefore="L" nzAddOnAfter="cm">
+                  <nz-input-number type="text" 
+                                  [nzMin]="1" 
+                                  nz-input 
+                                  placeholder="L"
+                                  [ngModel]="item.length" 
+                                  (ngModelChange)="changeLength($event, data,i)">
+                  </nz-input-number>
+                </nz-input-group>
+              </div>
+              <div nz-col>
+                <i nz-icon nzIconfont="icon-multiply"></i>
+              </div>
+              <div nz-col>
+                <nz-input-group nzAddOnBefore="W" nzAddOnAfter="cm">
+                  <nz-input-number type="text" 
+                                  [nzMin]="1" 
+                                  nz-input 
+                                  placeholder="W"
+                                  [ngModel]="item.width" 
+                                  (ngModelChange)="changeWidth($event, data,i)">
+                  </nz-input-number>
+                </nz-input-group>
+              </div>
+              <div nz-col>
+                <i nz-icon nzIconfont="icon-multiply"></i>
+              </div>
+              <div nz-col>
+                <nz-input-group nzAddOnBefore="H" nzAddOnAfter="cm">
+                  <nz-input-number type="text" 
+                                  [nzMin]="1" 
+                                  nz-input 
+                                  placeholder="H"
+                                  [ngModel]="item.height" 
+                                  (ngModelChange)="changeHeight($event, data,i)">
+                  </nz-input-number>
+                </nz-input-group>
+              </div>
+              <div nz-col>
+                <i nz-icon nzIconfont="icon-equal"></i>
+              </div>
+              <div nz-col>
+                <nz-input-group [nzAddOnAfter]="v">
+                  <input nz-input type="text" 
+                  nz-input 
+                  placeholder="M"
+                  [ngModel]="item.volumes" 
+                  class="iptWidth"
+                  >
+                </nz-input-group>
+              </div>
+              <div nz-col>
+                <nz-divider nzType="vertical"></nz-divider>
+              </div>
+              <div nz-col>
+                <nz-input-group [nzAddOnAfter]="w">
+                  <nz-input-number type="text" [nzMin]="0" nz-input [ngModel]="item.weight" (ngModelChange)="changeWeight($event, data,i)">
+                  </nz-input-number>
+                </nz-input-group>
+              </div>
+              <div nz-col>
+                <nz-divider nzType="vertical"></nz-divider>
+              </div>
+              <div nz-col>
+                <a (click)="selectService(data,i)" >
+                  <i nz-icon [nzIconfont]="'icon-postcard'"></i>
+                    <span *ngIf="!item.serviceCode">请选择服务商</span>
+                  <div *ngIf="item.serviceCode">
+                    <span><strong>Service Code: </strong></span><span class="ml-2">{{item.serviceCode}}</span>
+                    <span class="ml-2" *ngIf="item.addOns && item.addOns.length > 0"><strong>Add-Ons:</strong></span>
+                    <span class="ml-2" *ngFor="let addons of item.addOns">
+                      {{addons}}
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <div nz-col>
+                <nz-divider nzType="vertical"></nz-divider>
+              </div>
+              <div nz-col>
+                <a (click)="removeVolume(data,i)"><i nz-icon nzType="close-circle" nzTheme="outline"></i></a>
+              </div>
+            </div>
+          </td>
+        </tr>
+       </ng-container>
+    </tbody>
+</nz-table>
+
+<ng-template #v>
+  <a nz-tooltip nzTooltipTitle="包裹体积 m3" nzTooltipPlacement="bottom">
+    <i nz-icon [nzIconfont]="'icon-tijikongjian-xianxing'"></i>
+  </a>
+</ng-template>
+
+<ng-template #w>
+  <a nz-tooltip nzTooltipTitle="包裹重量 kg" nzTooltipPlacement="bottom">
+    <i nz-icon [nzIconfont]="'icon-weightkilogram'"></i>
+  </a>
+</ng-template>
+
+<nz-modal
+        [nzVisible]="previewVisible"
+        [nzContent]="modalContent"
+        [nzFooter]="null"
+        (nzOnCancel)="previewVisible = false"
+      >
+        <ng-template #modalContent>
+          <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+        </ng-template>
+</nz-modal>
+
+<nz-modal
+        [nzVisible]="editAddressVisible"
+        [nzTitle]="editAddressTitle"
+        nzWidth="1000"
+        (nzOnCancel)="editAddressVisible = false"
+        (nzOnOk)="saveEditAddress()"
+      >
+      <form nz-form *ngIf="editOrder">
+        <nz-divider nzText="Delivery Details"></nz-divider>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Name</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24">
+            <input nz-input placeholder="Name" [(ngModel)]="editOrder.deliveryAddress.name" name="name" />
+          </nz-form-control>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Phone</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24">
+            <input nz-input placeholder="Phone" [(ngModel)]="editOrder.deliveryAddress.phoneNumber" name="phone" />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-divider nzText="Delivery Address"></nz-divider>
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Street</nz-form-label>
+          <nz-form-control [nzSm]="20" [nzXs]="24">
+            <input nz-input placeholder="Street" [(ngModel)]="editOrder.deliveryAddress.address1" name="street"/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Suburb</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24">
+            <input nz-input placeholder="Suburb" [(ngModel)]="editOrder.deliveryAddress.suburb" name="suburb"/>
+          </nz-form-control>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>City</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24">
+            <input nz-input placeholder="City" [(ngModel)]="editOrder.deliveryAddress.city" name="city"/>
+          </nz-form-control>
+        </nz-form-item>
+          <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Post Code</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24">
+            <input nz-input placeholder="Post Code" [(ngModel)]="editOrder.deliveryAddress.postcode" name="postcode"/>
+          </nz-form-control>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>Country Code</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24">
+            <input nz-input placeholder="Country" [(ngModel)]="editOrder.deliveryAddress.country" name="country"/>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+
+</nz-modal>
+
+<nz-modal [nzVisible]="serviceVisible"
+          nzTitle="NzPost Service"
+          nzWidth="1000"
+          (nzOnCancel)="serviceVisible = false"
+          (nzOnOk)="addPostService()">
+  <div nz-row [nzGutter]="[8,8]" nzJustify="space-around" nzAlign="top">
+    <div nz-col nzSpan="8" *ngFor="let item of nzPostService" 
+        class="border rounded p-4" 
+        [ngClass]="selectNzPost && selectNzPost.service_code === item.service_code ? 'shadow' : ''"
+        >
+      <a (click)="selectNzPost = item">
+      <p class="text-center"><strong>{{item.carrier}}</strong></p>
+      <p class="text-center"><strong>{{item.price_excluding_gst | currency}} / {{item.price_including_gst | currency}}</strong></p>
+      <p>
+        {{item.description}}
+      </p>
+      <p>
+        {{item.service_standard}}
+      </p>
+      <p>
+        {{item.estimated_delivery_time}}
+      </p>
+      <div nz-row nzGutter="16">
+        <div nz-col>
+          <span>Signature Included</span>  
+        </div>
+        <div nz-col><i *ngIf="item.signature_included" nz-icon nzIconfont="icon-right"></i></div>
+      </div>
+      <div nz-row nzGutter="16">
+        <div nz-col>
+          <span>Tracking Included</span> 
+        </div>
+        <div nz-col><i *ngIf="item.tracking_included" nz-icon nzIconfont="icon-right"></i></div>
+      </div>
+      <nz-divider nzText="Add-Ons"></nz-divider>
+      <div *ngFor="let addon of item.addons">
+        <label nz-checkbox [(ngModel)]="addon.checked" [nzDisabled]="addon.mandatory">
+          {{addon.description}} {{addon.price_excluding_gst | currency}} / {{addon.price_including_gst | currency}}
+        </label>
+      </div>
+      </a>
+    </div>
+  </div>
+
+</nz-modal>

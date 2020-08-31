@@ -16,8 +16,6 @@ export class TrademeComponent implements OnInit {
 
   dataSet: PlatFormInfo[];
 
-  tradeMerRquestUrl: string;
-  tradeMeOauthUrl: string;
   tradeMeAccessTokenUrl: string;
 
   constructor(private platformService: PlatformService,
@@ -27,8 +25,6 @@ export class TrademeComponent implements OnInit {
               private route: ActivatedRoute
 
     ) {
-      this.tradeMerRquestUrl = environment.tradeMerRquestUrl;
-      this.tradeMeOauthUrl = environment.tradeMeOauthUrl;
       this.tradeMeAccessTokenUrl = environment.tradeMeAccessTokenUrl;
     }
 
@@ -73,19 +69,7 @@ export class TrademeComponent implements OnInit {
     });
   }
 
-  add() {
-    this.postToken().subscribe((result: MeeResult) => {
-      if (result.statusCode === 0) {
-        const data: TradeMeToken = result.data;
-        window.location.href = this.tradeMeOauthUrl + data.oauth_token;
-      }
-    });
-  }
 
-  postToken() {
-    const url = this.tradeMerRquestUrl + '/' + this.authService.getBizId();
-    return this.http.post(url, null);
-  }
 
   postAccessToken(token: string, tokenVerifier: string) {
     const url = this.tradeMeAccessTokenUrl + '/' + this.authService.getBizId();

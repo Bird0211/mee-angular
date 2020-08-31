@@ -60,7 +60,7 @@ import { TodoAllComponent } from './pages/todo-all/todo-all.component';
 import { TodoAllTableComponent } from './pages/todo-all-table/todo-all-table.component';
 import { TopProductComponent } from './pages/top-product/top-product.component';
 import { TrademeComponent } from './pages/trademe/trademe.component';
-import { TrademeListModule } from './pages/trademe-list/trademe-list.module';
+import { TrademeAddButtonModule } from './pages/trademe/trademe-add-button/trademe-add-button/trademe-add-button.module';
 
 
 // 支持AOT
@@ -128,6 +128,7 @@ registerLocaleData(zh);
     PdfViewerModule,
     EditorModule,
     PipeModule,
+    TrademeAddButtonModule,
     NgxEchartsModule.forRoot({
       echarts
     }),

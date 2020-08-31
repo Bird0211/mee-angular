@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  iconUrl: '//at.alicdn.com/t/font_1644348_jn239cnulu.js',
+  iconUrl: '//at.alicdn.com/t/font_1644348_0pv6i74wueda.js',
 
   updateImgUrl: '//localhost:8801/api/textocr',
   // updateImgUrl: 'http://localhost:8801/api/textocr',
@@ -83,10 +83,21 @@ export const environment = {
   topProductURl: '//localhost:8801/api/product/top',
 
   tradeMerRquestUrl: '//localhost:8801/api/trademe/requesttoken',
-  tradeMeOauthUrl: 'https://secure.trademe.co.nz/Oauth/Authorize?oauth_token=',
+  tradeMeOauthUrl: 'https://secure.tmsandbox.co.nz/Oauth/Authorize?oauth_token=',
   tradeMeAccessTokenUrl: '//localhost:8801/api/trademe/accessToken',
+  tradeMeSoldItemUrl: '//localhost:8801/api/trademe/sold',
+  tradeMeSPaidItemUrl: '//localhost:8801/api/trademe/paid',
+  tradeMeShippedItemUrl: '//localhost:8801/api/nzpost/shipped',
+  shippedoptionUrl: '//localhost:8801/api/nzpost/shippedoption',
+  nzPostStatusUrl: '//localhost:8801/api/nzpost/labelstatus',
 
-  tradeMeSoldItemUrl: '//localhost:8801/api/trademe/sold'
+  nzPostConfigListUrl: '//localhost:8801/api/nzpostconfig/list',
+  nzPostAddUrl: '//localhost:8801/api/nzpostconfig/add',
+  nzPostEditUrl: '//localhost:8801/api/nzpostconfig/update',
+  nzPostDelUrl: '//localhost:8801/api/nzpostconfig/delete',
+
+  weimobDeliveryListUrl: '//localhost:8801/api/weimob/delivery/list',
+  deliveryOrderUrl: '//localhost:8801/api/order/delivery',
 };
 
 /*

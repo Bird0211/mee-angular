@@ -1,0 +1,38 @@
+<nz-table #basicTable [nzData]="orders">
+    <thead>
+      <tr>
+        <th
+        [(nzChecked)]="checked"
+        [nzIndeterminate]="indeterminate"
+        (nzCheckedChange)="onAllChecked($event)"
+        ></th>
+        <th>Order Id</th>  
+        <th>PurchaseId</th>  
+        <th>Photo</th>
+        <th>SKU</th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Buyer</th>
+        <th>Delivery Name</th>
+        <th>Delivery Phone</th>
+        <th>Address</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td [nzChecked]="setOfCheckedId.has(data.purchaseId)" (nzCheckedChange)="onItemChecked(data.purchaseId, $event)"></td>
+        <td>{{data.orderId}}</td>
+        <td>{{data.purchaseId}}</td>
+        <td><img [src]="data.items.photo" class="w-100"/></td>
+        <td>{{data.items.sku}}</td>
+        <td>{{data.items.name}}</td>
+        <td>{{data.items.quantity}}</td>
+        <td>{{data.buyer.nickname}}</td>
+        <td>{{data.deliveryAddress.Name}}</td>
+        <td>{{data.deliveryAddress.PhoneNumber}}</td>
+        <td>{{data.deliveryAddress.Address1}}</td>
+        <td>{{data.items.price | currency}}</td>
+      </tr>
+    </tbody>
+</nz-table>

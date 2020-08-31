@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
 
-  iconUrl: '//at.alicdn.com/t/font_1644348_jn239cnulu.js',
+  iconUrl: '//at.alicdn.com/t/font_1644348_0pv6i74wueda.js',
 
   updateImgUrl: 'https://external.yiyun.co.nz/api/textocr',
   supplierUrl: 'https://external.yiyun.co.nz/api/allSuppliers',
@@ -74,8 +74,21 @@ export const environment = {
   topProductURl: 'https://external.yiyun.co.nz/api/product/top',
 
   tradeMerRquestUrl: 'https://external.yiyun.co.nz/api/trademe/requesttoken',
-  tradeMeOauthUrl: 'https://secure.trademe.co.nz/Oauth/Authorize?oauth_token=',
+  tradeMeOauthUrl: 'https://secure.tmsandbox.co.nz/Oauth/Authorize?oauth_token=',
   tradeMeAccessTokenUrl: 'https://external.yiyun.co.nz/api/trademe/accessToken',
-  tradeMeSoldItemUrl: 'https://external.yiyun.co.nz/api/trademe/sold'
+  tradeMeSoldItemUrl: 'https://external.yiyun.co.nz/api/trademe/sold',
+  tradeMeSPaidItemUrl: 'https://external.yiyun.co.nz/api/trademe/paid',
+  tradeMeShippedItemUrl: 'https://external.yiyun.co.nz/api/nzpost/shipped',
+  shippedoptionUrl: 'https://external.yiyun.co.nz/nzpost/shippedoption',
+
+
+  nzPostConfigListUrl: 'https://external.yiyun.co.nz/api/nzpostconfig/list',
+  nzPostAddUrl: 'https://external.yiyun.co.nz/api/nzpostconfig/add',
+  nzPostEditUrl: 'https://external.yiyun.co.nz/api/nzpostconfig/update',
+  nzPostDelUrl: 'https://external.yiyun.co.nz/api/nzpostconfig/delete',
+  nzPostStatusUrl: 'https://external.yiyun.co.nz/api/nzpost/labelstatus',
+
+  weimobDeliveryListUrl: 'https://external.yiyun.co.nz/api/weimob/delivery/list',
+  deliveryOrderUrl: 'https://external.yiyun.co.nz/api/order/delivery',
 
 };

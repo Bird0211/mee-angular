@@ -406,12 +406,21 @@ export interface TradeMeToken {
     oauth_callback_confirmed: string;
 }
 
+export interface TradeMeSoldOrderResp {
+    emailSent: TradeMeSoltOrder[];
+    paymentReceived: TradeMeSoltOrder[];
+    goodsShipped: TradeMeSoltOrder[];
+    saleCompleted: TradeMeSoltOrder[];
+}
+
 export interface TradeMeSoltOrder {
     orderId: number;
 
     reference: string;
 
     soldDate: string;
+
+    purchaseId: number;
 
     buyer: SoltItemBuyer;
 
@@ -423,42 +432,69 @@ export interface TradeMeSoltOrder {
 
 }
 
+export interface PaidSoltOrder {
+    orderId: string;
+
+    reference: string;
+
+    soldDate: string;
+
+    purchaseId: number;
+
+    buyer: SoltItemBuyer;
+
+    deliveryAddress?: SoltItemDeliveryAddress;
+
+    items: SoltItem[];
+
+    paymentDetail: TradeMePayDetail;
+
+    carrier: string;
+
+    dimensions?: ShippedDimensions[];
+
+    consignmentId?: string;
+
+    labelTrack?: LabelTrack[];
+
+}
+
 export interface SoltItemBuyer {
-    MemberId: number;
+    memberId: number;
 
-    Nickname: string;
+    nickname: string;
 
-    DateAddressVerified: string;
+    dateAddressVerified: string;
 
-    DateJoined: string;
+    dateJoined: string;
 
-    Email: string;
+    email: string;
 
-    UniqueNegative: number;
+    uniqueNegative: number;
 
-    UniquePositive: number;
+    uniquePositive: number;
 
-    FeedbackCount: number;
+    feedbackCount: number;
 
-    IsAddressVerified: boolean;
+    isAddressVerified: boolean;
 }
 
 export interface SoltItemDeliveryAddress {
-    Name: string;
+    name: string;
 
-    Address1: string;
+    address1: string;
 
-    Address2: string;
+    address2: string;
 
-    Suburb: string;
+    suburb: string;
 
-    City: string;
+    city: string;
 
-    Postcode: string;
+    postcode: string;
 
-    Country: string;
+    country: string;
 
-    PhoneNumber: string;
+    phoneNumber: string;
 }
 
 export interface SoltItem {
@@ -483,4 +519,271 @@ export interface TradeMePayDetail {
     paymentMethodFee: number;
 
     gstCollected: number;
+}
+
+export interface TradeMePayResult {
+    purchaseId: string;
+    consignmentId: string;
+    result: boolean;
+}
+
+export interface NzPostConfig {
+
+    id?: number;
+
+    bizId?: number;
+
+    reference?: string;
+
+    companyName?: string;
+
+    name?: string;
+
+    phone?: string;
+
+    email?: string;
+
+    street?: string;
+
+    suburb?: string;
+
+    city?: string;
+
+    postcode?: string;
+
+    countryCode?: string;
+}
+
+export interface ShippedItem {
+    purches: ShippedPurchase[];
+} 
+
+export interface ShippedPurchase {
+    orderId: string;
+
+    deliveryName: string;
+
+    deliveryPhone: string;
+
+    deliveryEmail: string;
+
+    street: string;
+
+    suburb: string;
+
+    city: string;
+
+    postcode: string;
+
+    countryCode: string;
+
+    carrier: string;
+
+    dimensions: ShippedDimensions[];
+}
+
+export interface ShippedDimensions{
+    length: number;
+    width: number;
+    height: number;
+    volumes: number;
+    weight: number;
+
+    serviceCode?: string;
+    addOns?: string[];
+}
+
+export interface ShippedOptionService {
+    carrier: string;
+
+    description: string;
+
+    service_code: string;
+
+    price_excluding_gst: number;
+
+    price_including_gst: number;
+
+    estimated_delivery_time: string;
+
+    service_standard: string;
+
+    tracking_included: boolean;
+
+    signature_included: boolean;
+
+    addons: Addons[];
+}
+
+export interface Addons {
+    addon_code: string;
+
+    description: string;
+
+    mandatory: boolean;
+
+    price_excluding_gst: number;
+    
+    price_including_gst: number;
+
+    checked?: boolean;
+}
+
+export interface ShippedOptionReq {
+    weight: string;
+
+    length: string;
+
+    width: string;
+
+    height: string;
+
+    diameter: string;
+
+    pickup: ShippedOpPickup;
+
+    delivery: ShippedOpDelivery;
+}
+
+export interface ShippedOpPickup {
+    suburb: string;
+
+    city: string;
+
+    postcode: string;
+}
+
+export interface ShippedOpDelivery {
+    suburb: string;
+
+    city: string;
+
+    postcode: string;
+}
+
+export interface LabelStatusResult {
+    consignmentId: string;
+    tracks: LabelTrack[];
+
+}
+
+export interface LabelTrack {
+    trackId: string;
+
+    status: string;
+}
+
+export interface WeimobOrderData {
+    orderNo: number;
+    pid: number;
+    wid: number;
+    userNickname: string;
+    orderStatus: number;
+    orderStatusName: string;
+    deliveryType: number;
+    bizType: number;
+    subBizType: number;
+    bizOrderId: number;
+    confirmReceivedTime: number;
+    deliveryTime: number;
+    enableDelivery: number;
+    deliveryTypeName: string;
+    paymentAmount: number;
+    deliveryAmount: number;
+    channelType: number;
+    channelTypeName: string;
+    paymentType: number;
+    paymentTypeName: string;
+    paymentStatus: number;
+    paymentMethodName: string;
+    createTime: number;
+    updateTime: number;
+    paymentTime: number;
+    totalPoint: number;
+    transferType: number;
+    transferStatus: number;
+    transferFailReason: string;
+    selfPickupSiteName: string;
+    processStoreTitle: string;
+    processStoreId: number;
+    storeId: number;
+    storeTitle: string;
+    flagRank: number;
+    flagContent: string;
+    itemList: WeimobItem[];
+    buyerRemark: string;
+    receiverName: string;
+    receiverMobile: string;
+    receiverAddress: string;
+    expectDeliveryTime: string;
+    deliveryOrderId: number;
+
+    deliveryCode: string;
+    deliveryCom: string;
+    split: boolean;
+}
+
+export interface WeimobItem {
+    commentStatus: number;
+    goodsCategoryId: number;
+    goodsCode: string;
+    goodsId: number;
+    goodsTitle: string;
+    goodsType: number;
+    hadDeliveryItemNum: number;
+    id: number;
+    imageUrl: string;
+    originalPrice: number;
+    paymentAmount: number;
+    point: string;
+    price: number;
+    rightsOrderId: number;
+    rightsStatus: number;
+    rightsStatusName: string;
+    shouldPaymentAmount: number;
+    skuAmount: number;
+    skuCode: string;
+    skuId: number;
+    skuName: string;
+    skuNum: number;
+    bizInfo: WeimobBizInfo;
+}
+
+export interface WeimobBizInfo {
+    bizType: number;
+    subBizType: number;
+    bizId: number;
+    bizOrderId: string;
+}
+
+export interface DeliveryOrderVo {
+    orderId: string;
+
+    deliveryId: string;
+
+    expressComCode: string;
+
+    name: string;
+
+    address: string;
+
+    phone: string;
+
+    id_num: string;
+
+    split: boolean;
+
+    skuInfo: DeliverySkuInfo[];
+}
+
+export interface DeliverySkuInfo {
+    sku: string;     //商品规格id
+
+    content: string;
+
+    skuNum: number; //发货数量（目前不支持单sku拆分数量）
+
+    skuId:  number;
+
+    itemId: number;
 }
