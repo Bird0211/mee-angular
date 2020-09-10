@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  iconUrl: '//at.alicdn.com/t/font_1644348_0pv6i74wueda.js',
+  iconUrl: '//at.alicdn.com/t/font_1644348_o3w8yybbpgp.js',
 
   updateImgUrl: '//localhost:8801/api/textocr',
   // updateImgUrl: 'http://localhost:8801/api/textocr',
@@ -61,8 +61,12 @@ export const environment = {
   nineTeenTypeUrl: '//localhost:8801/api/nineteen/producttype',
   nineTeenGroupUrl: '//localhost:8801/api/nineteen/productgroup',
   nineTeenProductsUrl: '//localhost:8801/api/nineteen/products',
-
   nineTeenUpdateProductUrl: '//localhost:8801/api/nineteen/price/update',
+  nineTeenDeliveryUrl: '//localhost:8801/api/nineteen/delivery/list',
+  logicsticeUrl: '//localhost:8801/api/nineteen/logistics',
+  deliveryUrl: '//localhost:8801/api/nineteen/delivery',
+
+  platUrl: '//localhost:8801/api/platform',
 
   orderDataUrl: '//localhost:8801/api/statistics',
 

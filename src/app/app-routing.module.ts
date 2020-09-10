@@ -48,7 +48,9 @@ const routes: Routes = [
   { path: 'trademelist', loadChildren: () => import('./pages/trademe-list/trademe-list.module').then(m => m.TrademeListModule) },
   { path: 'nzpost-config', loadChildren: () => import('./pages/nzpost-config/nzpost-config.module').then(m => m.NzpostConfigModule) },
   { path: 'weimob/delivery', loadChildren: () => import('./pages/weimob-delivery/weimob-delivery.module').
-                              then(m => m.WeimobDeliveryModule) }
+                              then(m => m.WeimobDeliveryModule) },
+  { path: 'nineteen/delivery', loadChildren: () => import('./pages/nineteen-delivery/nineteen-delivery.module').
+    then(m => m.NineteenDeliveryModule) }
 
 ];
 

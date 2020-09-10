@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
 
-  iconUrl: '//at.alicdn.com/t/font_1644348_0pv6i74wueda.js',
+  iconUrl: '//at.alicdn.com/t/font_1644348_o3w8yybbpgp.js',
 
   updateImgUrl: 'https://external.yiyun.co.nz/api/textocr',
   supplierUrl: 'https://external.yiyun.co.nz/api/allSuppliers',
@@ -53,8 +53,13 @@ export const environment = {
   nineTeenTypeUrl: 'https://external.yiyun.co.nz/api/nineteen/producttype',
   nineTeenGroupUrl: 'https://external.yiyun.co.nz/api/nineteen/productgroup',
   nineTeenProductsUrl: 'https://external.yiyun.co.nz/api/nineteen/products',
-
   nineTeenUpdateProductUrl: 'https://external.yiyun.co.nz/api/nineteen/price/update',
+  nineTeenDeliveryUrl: 'https://external.yiyun.co.nz/api/nineteen/delivery/list',
+  logicsticeUrl: 'https://external.yiyun.co.nz/api/nineteen/logistics',
+  deliveryUrl: 'https://external.yiyun.co.nz/api/nineteen/delivery',
+
+
+  platUrl: 'https://external.yiyun.co.nz/api/platform',
 
   orderDataUrl: 'https://external.yiyun.co.nz/api/statistics',
 

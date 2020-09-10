@@ -1,0 +1,86 @@
+<nz-space nzSize="large">
+    <nz-space-item>
+        <label>店铺:</label>
+        <nz-select class="ml-2" [(ngModel)]="selectedPlat">
+            <nz-option *ngFor="let item of plats" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+        </nz-select>
+    </nz-space-item>
+    <nz-space-item>
+        <nz-range-picker [(ngModel)]="dateRange" ></nz-range-picker>
+    </nz-space-item>
+    <nz-space-item>
+        <button nz-button nzType="primary" [nzLoading]="isLoading" (click)="search()"><i nz-icon nzType="search"></i>Search</button>
+    </nz-space-item>
+    <nz-space-item>
+        <button nz-button nzType="default" [disabled]="setOfCheckedId.size === 0" (click)="submit()"><i nz-icon [nzIconfont]="'icon-delivery'"></i>发货</button>
+    </nz-space-item>
+</nz-space>
+
+<nz-divider></nz-divider>
+
+<div>
+    <nz-table #basicTable [nzData]="orderData" nzLoadingDelay="1" >
+        <thead>
+          <tr>
+            <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+
+            <th>订单编号</th>
+            <th>物流单号</th>
+            <th [nzWidth]="'120px'">物流公司</th>
+            <th nzAlign="center">商品内容</th>
+            <th>收件人姓名</th>
+            <th>收件人电话</th>
+            <th [nzWidth]="'200px'">收件人地址</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td
+            [nzChecked]="setOfCheckedId.has(data.orderId)"
+            (nzCheckedChange)="onItemChecked(data.orderId, $event)"
+            ></td>
+            <td>{{data.tradeNo}}</td>
+            <td>{{data.courierNumber}}</td>
+            <td class="expTd">
+                <ng-container *ngIf="data.deliveryCom && selectedOrder !== data.orderId" class="w-100">
+                    <a (click)="selectedOrder = data.orderId">{{data.deliveryCom}}</a>
+                </ng-container>
+                <ng-container *ngIf="!data.deliveryCode || data.orderId === selectedOrder" class="w-100">
+                    <nz-select [(ngModel)]="data.deliveryCode" (ngModelChange)="changeDelivery($event, data)" class="w-100">
+                        <nz-option *ngFor="let item of nineTeenDelivery" [nzValue]="item.id" [nzLabel]="item.name">
+                        </nz-option>
+                      </nz-select>
+                </ng-container>
+            </td>
+            <td>
+                <nz-card *ngFor="let item of data.orderDetails" nzSize="small" class="mt-2" nzBordered="false">
+                    <nz-card-meta [nzTitle]="item.name" 
+                        [nzDescription]="descriptionTemplate"></nz-card-meta>
+                    <ng-template #descriptionTemplate>
+                        <nz-space>
+                            <nz-space-item>
+                                {{item.sku}} X {{item.num}}
+                            </nz-space-item>
+                            <nz-space-item>
+                                <nz-divider nzType="vertical"></nz-divider>
+                            </nz-space-item>
+                            <nz-space-item>
+                                {{item.price | currency}}                            
+                            </nz-space-item>
+                            </nz-space>
+                    </ng-template>
+                </nz-card>
+            </td>
+            <td>
+                {{data.name}}
+            </td>
+            <td>
+                {{data.phone}}
+            </td>
+            <td>
+                {{data.address}}
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+</div>

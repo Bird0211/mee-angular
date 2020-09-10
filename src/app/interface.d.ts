@@ -787,3 +787,69 @@ export interface DeliverySkuInfo {
 
     itemId: number;
 }
+
+export interface PlatFormInfo {
+    id: number;
+
+    bizId: number;
+
+    platformCode: string;
+
+    name: string;
+}
+
+export interface NineTeenDeliverOrders {
+    //订单Id
+    orderId: number; 
+
+    tradeNo: string;
+
+    //快递单号
+    courierNumber: string;
+
+    //收件人姓名
+    name: string;
+
+    //收件人地址
+    address: string;
+
+    //收件人电话
+    phone: string;
+
+    deliveryCom?: string;
+
+    deliveryCode: number;
+
+    orderDetails: NineTeenOrderDetail[];
+
+}
+
+export interface NineTeenOrderDetail {
+    price: number;
+
+    num: number;
+
+    code: string;
+
+    name_ch: string;
+
+    name_eh: string;
+
+    name: string;
+
+    sku: string;
+
+    detail_id: string;
+}
+
+export interface NineTeenLogistics {
+    id: number;
+    name: string;
+}
+
+export interface DeliveryInfo {
+    orderId: number;
+    detailId: string[];
+    expressId: number;
+    courierNumber: string;
+}
