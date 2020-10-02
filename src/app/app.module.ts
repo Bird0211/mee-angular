@@ -32,14 +32,12 @@ import { BizlistComponent } from './pages/bizlist/bizlist.component';
 import { BizmenuComponent } from './pages/bizmenu/bizmenu.component';
 import { RolelistComponent } from './pages/rolelist/rolelist.component';
 import { RoleuserComponent } from './pages/roleuser/roleuser.component';
-import { BizselectComponent } from './pages/bizselect/bizselect.component';
 import { MenutreeComponent } from './pages/menutree/menutree.component';
 import { MenulistComponent } from './pages/menulist/menulist.component';
 import { OrderFlowComponent } from './pages/order-flow/order-flow.component';
 import { OrderFlowItemComponent } from './pages/order-flow-item/order-flow-item.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { CardComponent } from './pages/nzcard/nzcard.component';
-import { FlywaySettingComponent } from './pages/flyway-setting/flyway-setting.component';
 import { DataTodayComponent } from './pages/data-today/data-today.component';
 import { DataTotalComponent } from './pages/data-total/data-total.component';
 import { NewsComponent } from './pages/news/news.component';
@@ -61,6 +59,9 @@ import { TodoAllTableComponent } from './pages/todo-all-table/todo-all-table.com
 import { TopProductComponent } from './pages/top-product/top-product.component';
 import { TrademeComponent } from './pages/trademe/trademe.component';
 import { TrademeAddButtonModule } from './pages/trademe/trademe-add-button/trademe-add-button/trademe-add-button.module';
+import { NzcardModule } from './pages/nzcard/nzcard.module';
+import { FlywaySettingComponent } from './pages/flyway-setting/flyway-setting.component';
+import { BizSelectModule } from './pages/bizselect/biz-select.module';
 
 
 // 支持AOT
@@ -91,13 +92,11 @@ registerLocaleData(zh);
     BizmenuComponent,
     RolelistComponent,
     RoleuserComponent,
-    BizselectComponent,
     MenutreeComponent,
     MenulistComponent,
     OrderFlowComponent,
     OrderFlowItemComponent,
     MenuComponent,
-    CardComponent,
     FlywaySettingComponent,
     DataTodayComponent,
     DataTotalComponent,
@@ -128,6 +127,8 @@ registerLocaleData(zh);
     PdfViewerModule,
     EditorModule,
     PipeModule,
+    NzcardModule,
+    BizSelectModule,
     TrademeAddButtonModule,
     NgxEchartsModule.forRoot({
       echarts

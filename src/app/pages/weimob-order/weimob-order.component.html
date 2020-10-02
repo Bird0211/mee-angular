@@ -1,0 +1,54 @@
+<div nz-row nzGutter="8" nzAlign="top" nzJustify="start">
+    <div nz-col>
+        <label class="mr-3 ml-3">订单日期 :</label> 
+        <nz-range-picker [(ngModel)]="dateRange"></nz-range-picker>
+    </div>
+    <div nz-col>
+        <label class="mr-3 ml-3">发货地址 :</label> 
+        <nz-select [(ngModel)]="sendAddress">
+            <nz-option nzValue="" nzLabel=""></nz-option>
+            <nz-option nzValue="0" nzLabel="新西兰仓"></nz-option>
+            <nz-option nzValue="1" nzLabel="国内现货"></nz-option>
+        </nz-select>
+    </div>
+    <div nz-col>
+        <label class="mr-3 ml-3">订单状态 :</label> 
+        <nz-select [(ngModel)]="orderStatus">
+            <nz-option nzValue="" nzLabel=""></nz-option>
+            <nz-option nzValue="0" nzLabel="待支付"></nz-option>
+            <nz-option nzValue="1" nzLabel="待发货"></nz-option>
+            <nz-option nzValue="2" nzLabel="已发货"></nz-option>
+            <nz-option nzValue="3" nzLabel="已完成"></nz-option>
+            <nz-option nzValue="4" nzLabel="已取消"></nz-option>
+        </nz-select>
+    </div>
+    <div nz-col>
+        <label class="mr-3 ml-3">订单类型 :</label> 
+        <nz-select [(ngModel)]="orderType">
+            <nz-option nzValue="" nzLabel=""></nz-option>
+            <nz-option nzValue="0" nzLabel="奶粉"></nz-option>
+            <nz-option nzValue="1" nzLabel="其他"></nz-option>
+        </nz-select>
+    </div>
+    <div nz-col>
+        <label class="mr-3 ml-3">订单标记 :</label> 
+        <nz-select [(ngModel)]="orderFlag" >
+            <nz-option nzValue="" nzLabel=""></nz-option>
+            <nz-option nzValue="0" nzLabel="未处理"></nz-option>
+            <nz-option nzValue="1" nzLabel="已处理"></nz-option>
+        </nz-select>
+    </div>
+    <div nz-col>
+        <button class="mr-3 ml-3" nz-button nzType="primary" [nzLoading]="isLoading" (click)="search()"><i nz-icon nzType="search"></i>Search</button>
+    </div>
+</div>
+
+<nz-divider></nz-divider>
+
+<app-order-table 
+    [(dataSet)]="data" 
+    [(pageIndex)]="pageNum" 
+    [(pageSize)]="pageSize" 
+    [total]="total"
+    [orderSource]="orderSource"
+    ></app-order-table>

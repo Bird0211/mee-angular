@@ -1,4 +1,4 @@
-import {EventEmitter } from "@angular/core";
+import {EventEmitter, Type } from "@angular/core";
 
 export interface MeeResult {
     statusCode: number;
@@ -788,7 +788,7 @@ export interface DeliverySkuInfo {
     itemId: number;
 }
 
-export interface PlatFormInfo {
+export interface PlatFormDetail {
     id: number;
 
     bizId: number;
@@ -796,6 +796,16 @@ export interface PlatFormInfo {
     platformCode: string;
 
     name: string;
+
+    token: string;
+
+    refreshToken: string;
+
+    clientId: string;
+
+    clientSecret: string;
+
+    expire: Date;
 }
 
 export interface NineTeenDeliverOrders {
@@ -852,4 +862,187 @@ export interface DeliveryInfo {
     detailId: string[];
     expressId: number;
     courierNumber: string;
+}
+
+export interface CardInfo {
+    title: string;
+    description: string;
+    icon?: string;
+    iconColor?: string;
+    url?: string;
+}
+
+export interface OrderInfo {
+    orderId: string;
+    address: string;        //收件人地址
+    phone: string;          //收件人电话
+    name: string;           //收件人
+    idCardNo: string;       //身份证号
+    totalNum: number;       //总数量
+    expressId: string;      //物流单号
+    expressName: string;    //物流公司
+    expressCode: string;    //物流公司编码
+    remark: string;         //备注
+    itemList: Item[];
+    checked?: boolean;
+}
+
+export interface Item {
+    sku: string;
+    image: string;
+    itemName: string;
+    num: number;
+}
+
+export interface WeimobOrderListReq {
+    pageNum: number;
+    pageSize: number;
+    createStartTime: number;
+    createEndTime: number;
+    orderStatuses: string;
+    orderType: string;  //0:奶粉;1:其他
+    sendarea: string;
+    flagRanks: string;
+}
+
+export interface WeimobOrderListResponse {
+    pageNum: number;
+    pageSize: number;
+    totalCount: number;
+    items: WeimobOrder[];
+}
+
+export interface WeimobOrder {
+    items: WeimobItemVo[];
+    num: number;
+    address: string;
+    phone: string;
+    name: string;
+    orderNo: string;
+    idCardNo: string;    //身份证号
+}
+
+export interface WeimobItemVo {
+    itemName: string;
+
+    num: number;
+
+    sku: string;
+
+    imageUrl: string;
+}
+
+export interface OptionInfo {
+    icon: string;
+    title: string;
+    description: string;
+    component: Type<any>
+}
+
+export interface OrderOptionComponent {
+    data: OrderInfo[];
+    bizId: number;
+    orderSource: OrderSource;
+    callback: EventEmitter<any>;
+}
+
+export declare type OrderSource = 'weimob' | 'taobao'  | 'nineteen' | 'excel' | null;
+
+
+export interface UggOrder {
+    id?: number;
+
+    extId: string;
+
+    productName: string;
+
+    qty: number;
+
+    creatTime?: Date;
+
+    bizId: number;
+
+    resource: string;
+
+    price?: number;
+
+    settlementPrice?: number;
+
+    status?: number;
+
+    batchId?: string;
+
+    expressId?: string;
+
+    expressName?: string;
+
+    imageUrl?: string;
+
+    receiveName: string;
+
+    receivePhone: string;
+
+    receiveAddress: string;
+
+    productSku: string;
+}
+
+export interface UggQueryOrderParams {
+    bizId?: number;
+
+    resource?: string;
+
+    start?: number;
+
+    end?: number;
+
+    status?: number;
+
+    extId?: string;
+
+    batchId?: string;
+}
+
+export interface pageUggOrder {
+    total: number;
+
+    pageIndex: number;
+
+    pageSize: number;
+
+    orders: UggOrder[];
+}
+
+export interface UggOrderCount {
+    status: number;
+    orderCount: number;
+}
+
+export interface UggDetail {
+    size: string;
+    productCode: string;
+    barcode: number;
+    productNameCn: string;
+    colorCode: number;
+    colorName: string;
+    colorNameCn: string;
+    productWeight: number;
+    productImage: string[];
+    productDetails: UggProductDetail;
+    retailPrice: number;
+    brand: string;
+    price: number;
+    productName: string;
+    productImageDesCn: string;
+    productDetailsCn: UggProductDetail;
+    productImageDesEn: string;
+}
+
+export interface UggProductDetail {
+    upper: string;
+    feature: string[];
+    sole: string;
+    lining: string;
+    other: string[];
+    insole: string;
 }

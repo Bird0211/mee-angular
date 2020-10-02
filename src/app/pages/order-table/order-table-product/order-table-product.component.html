@@ -1,0 +1,15 @@
+<ng-container *ngIf="products">
+    <div nz-row nzGutter="16" *ngFor="let product of products.slice(0, max)" nzAlign="middle" nzJustify="start" class="m-1">
+        <div nz-col nzSpan="4">
+            <nz-avatar [nzShape]="'square'" [nzSize]="60" [nzIcon]="'shopping'" [nzSrc]="product.image"></nz-avatar>
+        </div>
+        <div nz-col nzSpan="20" class="p-1">
+            <p nz-typography nzEllipsis nz-tooltip [nzTooltipTitle]="product.itemName" nzTooltipPlacement="bottomRight"><strong>{{product.itemName}}</strong></p>
+            <p class="ml-1">数量: <span><strong>{{product.num}}</strong></span></p>
+            <p class="ml-1">商家编码: <span><strong>{{product.sku}}</strong></span></p>
+        </div>
+    </div>
+    <div *ngIf="products.length > 4" class="mt-2">
+        <a (click)="show()">{{showTitle}}</a>
+    </div>
+</ng-container>

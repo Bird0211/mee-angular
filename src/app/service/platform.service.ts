@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../pages/auth.service';
 import { environment } from 'src/environments/environment';
-import { MeeResult, PlatFormInfo } from '../interface';
+import { MeeResult, PlatFormDetail, PlatFormInfo } from '../interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +11,15 @@ export class PlatformService {
 
   platFormUrl: string;
 
+  platFormDetailUrl: string;
+
   platFormDelUrl: string;
 
   constructor(private http: HttpClient,
               private authService: AuthService
     ) {
       this.platFormUrl = environment.platFormUrl;
+      this.platFormDetailUrl = environment.platFormDetailUrl;
       this.platFormDelUrl = environment.platFormDelUrl;
     }
 
@@ -54,9 +57,28 @@ export class PlatformService {
     return promise;
   }
 
-
   private del(id: number) {
     const url = this.platFormDelUrl + '/' + id;
     return this.http.delete(url);
   }
+
+  loadPlatFormDetail(code: string): Promise<PlatFormDetail[]> {
+    const promise = new Promise<PlatFormDetail[]>((resolve, reject) => {
+      this.getPlatFormDetail(code).subscribe((result: MeeResult) => {
+        if (result.statusCode === 0 && result.data.length > 0) {
+          resolve(result.data);
+        } else {
+          reject();
+        }
+      });
+    });
+
+    return promise;
+  }
+
+  private getPlatFormDetail(code: string) {
+    const url = this.platFormDetailUrl + '/' + this.authService.getBizId() + '/' + code;
+    return this.http.get(url);
+  }
+
 }

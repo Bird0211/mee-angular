@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
 
-  iconUrl: '//at.alicdn.com/t/font_1644348_o3w8yybbpgp.js',
+  iconUrl: '//at.alicdn.com/t/font_1644348_1xf4jhy09xz.js',
 
   updateImgUrl: 'https://external.yiyun.co.nz/api/textocr',
   supplierUrl: 'https://external.yiyun.co.nz/api/allSuppliers',
@@ -48,6 +48,7 @@ export const environment = {
 
   platFormUrl: 'https://external.yiyun.co.nz/api/platform',
   platFormDelUrl: 'https://external.yiyun.co.nz/api/platform/del',
+  platFormDetailUrl: 'https://external.yiyun.co.nz/api/platform/detail',
 
 
   nineTeenTypeUrl: 'https://external.yiyun.co.nz/api/nineteen/producttype',
@@ -95,5 +96,12 @@ export const environment = {
 
   weimobDeliveryListUrl: 'https://external.yiyun.co.nz/api/weimob/delivery/list',
   deliveryOrderUrl: 'https://external.yiyun.co.nz/api/order/delivery',
+  weimob_order_list_url: 'https://external.yiyun.co.nz/api/order/queryList/v2',
+
+  uggTokenUrl: 'https://external.yiyun.co.nz/api/ugg/token',
+  uggOrderSaveUrl: 'https://external.yiyun.co.nz/api/ugg/order/create',
+  uggOrderSearchUrl: 'https://external.yiyun.co.nz/api/ugg/order/list',
+  uggOrderCountUrl: 'https://external.yiyun.co.nz/api/ugg/order/count',
+  uggOrderDetailBySKUUrl: 'https://external.yiyun.co.nz/api/ugg/product'
 
 };

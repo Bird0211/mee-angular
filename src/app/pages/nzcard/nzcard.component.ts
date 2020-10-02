@@ -48,5 +48,4 @@ export class CardComponent implements OnInit {
     this.isOpen = false;
   }
 
-
 }

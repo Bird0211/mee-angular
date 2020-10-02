@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  iconUrl: '//at.alicdn.com/t/font_1644348_o3w8yybbpgp.js',
+  iconUrl: '//at.alicdn.com/t/font_1644348_1xf4jhy09xz.js',
 
   updateImgUrl: '//localhost:8801/api/textocr',
   // updateImgUrl: 'http://localhost:8801/api/textocr',
@@ -57,6 +57,7 @@ export const environment = {
 
   platFormUrl: '//localhost:8801/api/platform',
   platFormDelUrl: '//localhost:8801/api/platform/del',
+  platFormDetailUrl: '//localhost:8801/api/platform/detail',
 
   nineTeenTypeUrl: '//localhost:8801/api/nineteen/producttype',
   nineTeenGroupUrl: '//localhost:8801/api/nineteen/productgroup',
@@ -102,6 +103,14 @@ export const environment = {
 
   weimobDeliveryListUrl: '//localhost:8801/api/weimob/delivery/list',
   deliveryOrderUrl: '//localhost:8801/api/order/delivery',
+  weimob_order_list_url: '//localhost:8801/api/order/queryList/v2',
+
+  uggTokenUrl: '//localhost:8801/api/ugg/token',
+  uggOrderSaveUrl: '//localhost:8801/api/ugg/order/create',
+  uggOrderSearchUrl: '//localhost:8801/api/ugg/order/list',
+  uggOrderCountUrl: '//localhost:8801/api/ugg/order/count',
+  uggOrderDetailBySKUUrl: '//localhost:8801/api/ugg/product'
+
 };
 
 /*

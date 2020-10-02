@@ -1,0 +1,31 @@
+<nz-modal 
+  [(nzVisible)]="isVisible" 
+  [nzTitle]="title" 
+  (nzOnCancel)="isVisible = false"
+  nzWidth="800px"
+  [nzFooter]="null"
+  [nzMaskClosable]="false"
+>
+<nz-table #basicTable [nzData]="data" nzShowPagination="false">
+    <thead>
+      <tr>
+        <th>订单编码</th>
+        <th>商品名称</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of basicTable.data">
+        <td>{{item.orderId}}</td>
+        <td>
+            <app-order-table-product [products]="item.itemList"></app-order-table-product>
+        </td>
+        <td>
+            <i *ngIf="!successIds.has(item.orderId) && !failIds.has(item.orderId)" nz-icon [nzType]="'loading'"></i>
+            <i *ngIf="successIds.has(item.orderId)" nz-icon [nzType]="'check-circle'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#52c41a'"></i>
+            <i *ngIf="failIds.has(item.orderId)" nz-icon nzType="close-circle" nzTheme="twotone" nzTwotoneColor="#f51000"></i>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-modal>

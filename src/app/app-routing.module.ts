@@ -50,7 +50,12 @@ const routes: Routes = [
   { path: 'weimob/delivery', loadChildren: () => import('./pages/weimob-delivery/weimob-delivery.module').
                               then(m => m.WeimobDeliveryModule) },
   { path: 'nineteen/delivery', loadChildren: () => import('./pages/nineteen-delivery/nineteen-delivery.module').
-    then(m => m.NineteenDeliveryModule) }
+    then(m => m.NineteenDeliveryModule) },
+  { path: 'ugg/setting', loadChildren: () => import('./pages/ugg-setting/ugg-setting.module').then(m => m.UggSettingModule) },
+  { path: 'ugg/import', loadChildren: () => import('./pages/ugg-import/ugg-import.module').then(m => m.UggImportModule) },
+  { path: 'ugg/order', loadChildren: () => import('./pages/ugg-order/ugg-order.module').then(m => m.UggOrderModule) },
+  { path: 'ugg/product', loadChildren: () => import('./pages/ugg-product/ugg-product.module').then(m => m.UggProductModule) },
+  { path: 'weimob/order', loadChildren: () => import('./pages/weimob-order/weimob-order.module').then(m => m.WeimobOrderModule) }
 
 ];
 

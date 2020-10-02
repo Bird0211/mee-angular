@@ -1,3 +1,8 @@
-<nz-select [(ngModel)]="selectBiz" (ngModelChange)="loadBizMenu($event)" nzPlaceHolder="Choose" >
+<nz-select [(ngModel)]="selectBiz" 
+    (ngModelChange)="loadBizMenu($event)" 
+    nzPlaceHolder="选择商家" 
+    [nzAllowClear]="true"
+    [ngStyle]="{width: width}"
+    >
     <nz-option *ngFor="let biz of bizData" [nzValue]="biz.id.toString()" [nzLabel]="biz.name"></nz-option>
 </nz-select>

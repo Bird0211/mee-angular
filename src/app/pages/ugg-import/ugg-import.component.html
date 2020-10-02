@@ -1,0 +1,11 @@
+<div nz-row>
+    <div nz-col nzSpan="4" *ngFor="let item of cardInfos">
+        <app-nzcard 
+            [title]="item.title" 
+            [description]="item.description" 
+            [icon]="item.icon" 
+            [iconColor]="item.iconColor"
+            (click)="jump(item.url)">
+        </app-nzcard>
+    </div>
+</div>

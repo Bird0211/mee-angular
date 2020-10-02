@@ -1,0 +1,153 @@
+<div nz-row nzGutter="16" nzAlign="top" nzJustify="start">
+    <div nz-col>
+        <label class="mr-2">订单日期 :</label> 
+        <nz-range-picker [(ngModel)]="dateRange"></nz-range-picker>
+    </div>
+    <div nz-col>
+        <app-bizselect [(selectBiz)]="selectBiz" [width]="'150px'" ></app-bizselect>
+    </div>
+    <div nz-col>
+        <nz-select [(ngModel)]="resource" [nzAllowClear]="true" nzPlaceHolder="订单来源">
+            <nz-option *ngFor="let item of orderResource" [nzValue]="item" [nzLabel]="item"></nz-option>
+        </nz-select>
+    </div>
+    <div nz-col>
+        <label class="mr-2">订单编码 :</label> 
+        <input nz-input [(ngModel)]="orderId" />
+    </div>
+    <div nz-col>
+        <label class="mr-2">批次编码 :</label> 
+        <input nz-input [(ngModel)]="batchId" />
+    </div>
+    <div nz-col>
+        <button class="mr-3 ml-3" nz-button nzType="primary" [nzLoading]="isLoading" (click)="getData()"><i nz-icon nzType="search"></i>Search</button>
+    </div>
+</div>
+
+<nz-divider></nz-divider>
+<nz-tabset [nzSelectedIndex]="selectedIndex" (nzSelectedIndexChange)="indexChange($event)">
+    <nz-tab [nzTitle]="preorder" >
+      <ng-template #preorder>
+        <nz-badge [nzCount]="preorderCount" nzOverflowCount="99" [nzOffset]="[8,-4]">
+            <a class="head-example">预处理/未支付</a>
+        </nz-badge>
+      </ng-template>
+    </nz-tab>
+    <nz-tab [nzTitle]="prepay">
+      <ng-template #prepay>
+        <nz-badge [nzCount]="prepayCount" nzOverflowCount="99" [nzOffset]="[8,-4]">
+            <a class="head-example">待支付</a>
+        </nz-badge>
+      </ng-template>
+    </nz-tab>
+    <nz-tab [nzTitle]="preDelivery">
+      <ng-template #preDelivery>
+        <nz-badge [nzCount]="prepayCount" nzOverflowCount="99" [nzOffset]="[8,-4]">
+            <a class="head-example">已下单/待发货</a>
+        </nz-badge>
+      </ng-template>
+    </nz-tab>
+    <nz-tab [nzTitle]="delivery">
+        <ng-template #delivery>
+            <nz-badge [nzCount]="deliveryCount" nzOverflowCount="99" [nzOffset]="[8,-4]">
+                <a class="head-example">已发货</a>
+            </nz-badge>
+        </ng-template>
+    </nz-tab>
+</nz-tabset>
+
+<nz-table #basicTable [nzData]="orders" 
+    [nzPageIndex]="pageIndex" 
+    (nzPageIndexChange)="pageIndexChange($event)"
+    [nzTotal]="total" 
+    [nzLoading]="isLoading"
+    [nzLoadingDelay]="'100'"
+    [nzTitle]="TableHeader"
+    >
+    <thead>
+      <tr>
+        <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+        <th>订单ID</th>
+        <th>批次ID</th>
+        <th>商品名称</th>
+        <th>商品数量</th>
+        <th>商品编码</th>
+        <th>商品价格</th>
+        <th>结算价格</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td
+            [nzChecked]="setOfCheckedId.has(data.extId)"
+            (nzCheckedChange)="onItemChecked(data.extId, $event)"
+          ></td>
+        <td>{{data.extId}}</td>
+        <td>{{data.batchId}}</td>
+        <td>{{data.productName}}</td>
+        <td>{{data.qty}}</td>
+        <td>
+          <a (click)="selectSkuItem(data)" *ngIf="selectedOrderId !== data.extId || selectCol !== 'sku'">
+            {{data.productSku}}
+          </a>
+
+          <a *ngIf="!data.productSku && (selectedOrderId !== data.extId || selectCol !== 'sku') " 
+              (click)="selectSkuItem(data)" nz-tooltip nzTooltipTitle="添加SKU">
+            <i nz-icon nzType="barcode" nzTheme="outline"></i>
+          </a>
+
+          <nz-input-group *ngIf="selectedOrderId === data.extId && selectCol === 'sku'" nzSearch [nzAddOnAfter]="suffixIconButton">
+            <input type="text" nz-input [(ngModel)]="data.productSku"/>
+          </nz-input-group>
+          <ng-template #suffixIconButton>
+            <button class="inputBtn" (click)="setSku(data)" nz-button nzType="primary" nzSearch><i nz-icon nzType="check" nzTheme="outline"></i></button>
+          </ng-template>
+
+        </td>
+        <td>
+          <nz-space nzSize="small">
+            <nz-space-item>
+              {{data.price | currency}}
+            </nz-space-item>
+            <nz-space-item>
+              <a  class="ml-2" (click)="refresh(data)" nz-tooltip nzTooltipTitle="查询价格">
+                <i nz-icon nzType="transaction" nzTheme="outline" [nzSpin]="selectedOrderId === data.extId && selectCol === 'price' "></i>
+              </a>
+            </nz-space-item>
+          </nz-space>
+        </td>
+        <td>
+          {{data.settlementPrice}}
+          <a  nz-popover
+              nzPopoverTitle="结算价格" 
+              [nzPopoverContent]="Content"
+              [(nzPopoverVisible)]="visible"
+              nzPopoverTrigger="click" >
+          <i nz-icon nzIconfont="icon-settlement"></i>
+          </a>
+        </td>
+
+        <td>
+          
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+<ng-template #TableHeader>
+  <button *ngIf="status === 1" nz-button [disabled]="!setOfCheckedId || setOfCheckedId.size <= 0" nzType="primary" (click)="settle()">
+    <i nz-icon nzType="money-collect" nzTheme="outline"></i>
+    结算
+  </button>
+</ng-template>
+
+<ng-template #Content>
+  <nz-input-group [nzAddOnAfter]="suffixIconSettle" nzSearch="true">
+    <input type="text" nz-input [(ngModel)]="settlePrice"/>
+  </nz-input-group>
+  <ng-template #suffixIconSettle>
+    <button class="inputBtn" nz-button nzType="primary" nzSearch><i nz-icon nzType="check" nzTheme="outline"></i></button>
+  </ng-template>
+
+</ng-template>

@@ -12,10 +12,11 @@ export class BizselectComponent implements OnInit {
 
   @Input() selectBiz: string;
 
+  @Input() width: string;
+
   @Output() selectBizChange: EventEmitter<string> = new EventEmitter();
 
-  @Output() changeValue = new EventEmitter<string>();
-
+  style = {};
 
   bizData: BizData[];
 
@@ -24,6 +25,9 @@ export class BizselectComponent implements OnInit {
   constructor(private bizService: BizServiceService) { }
 
   ngOnInit(): void {
+    if (this.width) {
+      this.style = {widht: this.width};
+    }
     this.loadAllBiz();
   }
 
@@ -37,7 +41,6 @@ export class BizselectComponent implements OnInit {
 
   loadBizMenu(value: string): void {
     this.selectBizChange.emit(value);
-    this.changeValue.emit(value);
   }
 
 }

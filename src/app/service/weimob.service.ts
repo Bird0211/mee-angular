@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../pages/auth.service';
 import { Observable, Subscriber } from 'rxjs';
-import { WeimobOrderData, MeeResult, DeliveryOrderVo, DeliverySkuInfo } from '../interface';
+import { WeimobOrderData, MeeResult, DeliveryOrderVo, DeliverySkuInfo, WeimobOrder, WeimobOrderListResponse, WeimobOrderListReq } from '../interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +12,14 @@ export class WeimobService {
 
   deliveryListUrl: string;
   deliveryOrderUrl: string;
+  orderlistUrl: string;
 
   constructor(private http: HttpClient,
               private authService: AuthService
     ) {
     this.deliveryListUrl = environment.weimobDeliveryListUrl;
     this.deliveryOrderUrl = environment.deliveryOrderUrl;
+    this.orderlistUrl = environment.weimob_order_list_url;
   }
 
   loadDeliveryList(startDate: Date, endDate: Date): Observable<WeimobOrderData[]> {
@@ -79,6 +81,24 @@ export class WeimobService {
       return order;
     });
     return this.http.post(url, data);
+  }
+
+  loadOrderList(param: WeimobOrderListReq): Observable<WeimobOrderListResponse> {
+    const result = new Observable<WeimobOrderListResponse>((observable: Subscriber<WeimobOrderListResponse>) => {
+      this.getOrderList(param).subscribe((meeResult: MeeResult) => {
+        if (meeResult.statusCode === 0) {
+          observable.next(meeResult.data);
+        } else {
+          observable.error(meeResult.description);
+        }
+      }, observable.error, observable.complete );
+    });
+    return result;
+  }
+
+  getOrderList(param: WeimobOrderListReq) {
+    const url = this.orderlistUrl + '/' + this.authService.getBizId();
+    return this.http.post(url, param);
   }
 
 }

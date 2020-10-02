@@ -2,14 +2,15 @@
   <nz-card-meta
   [nzTitle]="cardTitle"
   nzDescription="{{description}}"
-  [nzAvatar]="cardIcon">
+  [nzAvatar]="cardIcon"
+  >
   </nz-card-meta>
 </nz-card>
 
 <ng-template #cardIcon>
-  <i [@iconChange]="{value: isOpen ? 'open' : 'closed',params: { iconColor: iconColor}}" nz-icon [nzIconfont]="icon"></i>
+  <i [@iconChange]="{value: isOpen ? 'open' : 'closed', params: { iconColor: iconColor}}" nz-icon [nzIconfont]="icon"></i>
 </ng-template>
 
 <ng-template #cardTitle>
-  <h4 class="cartitle" [@iconChange]="{value: isOpen ? 'open' : 'closed',params: { iconColor: iconColor }}">{{title}}</h4>
+  <h4 class="cartitle" [@iconChange]="{value: isOpen ? 'open' : 'closed', params: { iconColor: iconColor }}">{{title}}</h4>
 </ng-template>

@@ -1,0 +1,21 @@
+
+<div [@showAffix]="isOpen ? 'open' : 'closed'">
+    <div nz-row nzGutter="16" nzAlign="middle" nzJustify="center" class="bottom border p-2 w-50 m-auto">
+        <div nz-col *ngFor="let item of options">
+            <button nz-button nzType="primary" 
+                    nzSize="large"
+                    [nzTooltipTitle]="item.description" 
+                    nzTooltipPlacement="topLeft" 
+                    nz-tooltip
+                    (click)="jump(item)"
+                    >
+                <i *ngIf="item.icon" nz-icon [nzIconfont]="item.icon"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <ng-template appOrderOptionHost></ng-template>
+</div>
