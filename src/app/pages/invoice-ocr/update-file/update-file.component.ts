@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Output, EventEmitter } from '@angular/core';
-import { UploadFile, NzNotificationService } from 'ng-zorro-antd';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { InvoiceComponent, MeeResult, OcrData, Product } from '../../../interface';
 import { OcrResultVo } from '../invoice-item';
 import { environment } from 'src/environments/environment';
@@ -41,7 +42,7 @@ export class UpdateFileComponent implements OnInit, InvoiceComponent {
   ngOnInit() {
   }
 
-  beforeUpload = (file: UploadFile): boolean => {
+  beforeUpload = (file: NzUploadFile): boolean => {
     this.fileList = this.fileList.concat(file);
     return false;
   }
@@ -91,7 +92,7 @@ export class UpdateFileComponent implements OnInit, InvoiceComponent {
       );
   }
 
-  ocrExl = (fileList: UploadFile[]) => {
+  ocrExl = (fileList: NzUploadFile[]) => {
     this.uploading = false;
     const xlsx = new XlsxService();
     xlsx.importdata(fileList, 0, (datas: any) => {
@@ -151,7 +152,7 @@ export class UpdateFileComponent implements OnInit, InvoiceComponent {
     });
   }
 
-  handlePreview = (file: UploadFile) => {
+  handlePreview = (file: NzUploadFile) => {
     this.previewImage = file.url || file.thumbUrl;
     this.previewVisible = true;
   }

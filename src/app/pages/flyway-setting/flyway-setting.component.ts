@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth.service';
 import { HttpClient } from '@angular/common/http';
 import { MeeResult } from 'src/app/interface';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-flyway-setting',

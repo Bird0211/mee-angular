@@ -8,7 +8,6 @@ import { InvoiceOcrComponent } from './pages/invoice-ocr/invoice-ocr.component';
 import { UpdateFileComponent } from './pages/invoice-ocr/update-file/update-file.component';
 import { InvoiceResultComponent } from './pages/invoice-ocr/invoice-result/invoice-result.component';
 import { IconsProviderModule } from './icons-provider.module';
-import { NgZorroAntdModule, NZ_I18N, en_US, zh_CN, NzCardComponent } from 'ng-zorro-antd';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
@@ -37,7 +36,6 @@ import { MenulistComponent } from './pages/menulist/menulist.component';
 import { OrderFlowComponent } from './pages/order-flow/order-flow.component';
 import { OrderFlowItemComponent } from './pages/order-flow-item/order-flow-item.component';
 import { MenuComponent } from './pages/menu/menu.component';
-import { CardComponent } from './pages/nzcard/nzcard.component';
 import { DataTodayComponent } from './pages/data-today/data-today.component';
 import { DataTotalComponent } from './pages/data-total/data-total.component';
 import { NewsComponent } from './pages/news/news.component';
@@ -62,7 +60,42 @@ import { TrademeAddButtonModule } from './pages/trademe/trademe-add-button/trade
 import { NzcardModule } from './pages/nzcard/nzcard.module';
 import { FlywaySettingComponent } from './pages/flyway-setting/flyway-setting.component';
 import { BizSelectModule } from './pages/bizselect/biz-select.module';
-
+import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzTransferModule } from 'ng-zorro-antd/transfer';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzResultModule } from 'ng-zorro-antd/result';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzInputModule  } from 'ng-zorro-antd/input';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 // 支持AOT
 export function createTranslateLoader(http: HttpClient) {
@@ -121,7 +154,6 @@ registerLocaleData(zh);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgZorroAntdModule,
     NzSpaceModule,
     ReactiveFormsModule,
     PdfViewerModule,
@@ -129,6 +161,41 @@ registerLocaleData(zh);
     PipeModule,
     NzcardModule,
     BizSelectModule,
+    NzModalModule,
+    NzGridModule,
+    NzListModule,
+    NzRadioModule,
+    NzDatePickerModule,
+    NzTransferModule,
+    NzButtonModule,
+    NzTableModule,
+    NzLayoutModule,
+    NzStepsModule,
+    NzSpinModule,
+    NzUploadModule,
+    NzSelectModule,
+    NzDividerModule,
+    NzInputNumberModule,
+    NzPopoverModule,
+    NzResultModule,
+    NzAvatarModule,
+    NzIconModule,
+    NzBadgeModule,
+    NzAlertModule,
+    NzPopconfirmModule,
+    NzCardModule,
+    NzMenuModule,
+    NzToolTipModule,
+    NzTreeModule,
+    NzDropDownModule,
+    NzDrawerModule,
+    NzInputModule,
+    NzFormModule,
+    NzEmptyModule,
+    NzSkeletonModule,
+    NzPaginationModule,
+    NzTabsModule,
+    NzMessageModule,
     TrademeAddButtonModule,
     NgxEchartsModule.forRoot({
       echarts

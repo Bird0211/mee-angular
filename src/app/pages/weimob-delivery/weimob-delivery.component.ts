@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { WeimobOrderData, MeeResult } from 'src/app/interface';
-import { NzModalService, NzMessageService, NzNotificationService } from 'ng-zorro-antd';
 import { WeimobService } from 'src/app/service/weimob.service';
 import { tick } from '@angular/core/testing';
 import { title } from 'process';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-weimob-delivery',

@@ -4,11 +4,13 @@ import { PlatFormInfo, MeeResult, NineTeenType, NineTeenGroup, NineTeenRequest, 
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth.service';
 import { HttpClient } from '@angular/common/http';
-import { NzMessageService, NzModalService, NzNotificationService } from 'ng-zorro-antd';
 import { MeeProductService } from 'src/app/service/mee-product.service';
 import { CurrencyService } from 'src/app/service/currency.service';
 import { title } from 'process';
 import { PlatformService } from 'src/app/service/platform.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-nineteen-products',

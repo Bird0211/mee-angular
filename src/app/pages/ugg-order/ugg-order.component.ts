@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NzModalService } from 'ng-zorro-antd';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { pageUggOrder, UggDetail, UggOrder, UggOrderCount, UggQueryOrderParams } from 'src/app/interface';
 import { OrderService } from 'src/app/service/order.service';
 import { UggService } from 'src/app/service/ugg.service';

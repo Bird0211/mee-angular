@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NzPostConfig } from 'src/app/interface';
 import { AuthService } from '../auth.service';
 import { NzPostConfigService } from 'src/app/service/nz-post-config.service';
-import { NzModalService, NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-nzpost-config',

@@ -1,11 +1,12 @@
 import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef } from '@angular/core';
 import { InvoiceComponent, MeeResult, OcrData, MeeProduct, OCRProduct } from '../../../interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NzInputDirective, NzMessageService, NzNotificationService } from 'ng-zorro-antd';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
-
+import { NzInputDirective } from 'ng-zorro-antd/input';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 
 @Component({

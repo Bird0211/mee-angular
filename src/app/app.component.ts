@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { NzIconService } from 'ng-zorro-antd';
 import { environment } from 'src/environments/environment';
-import { ActivatedRoute } from '@angular/router';
+import { NzIconService } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-root',

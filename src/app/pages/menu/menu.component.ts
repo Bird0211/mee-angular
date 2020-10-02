@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { NzIconService } from 'ng-zorro-antd';
+import { NzIconService } from 'ng-zorro-antd/icon';
 import { trigger, state, transition, style, animate, keyframes } from '@angular/animations';
 import { MenuService } from './menu.service';
 import { Menu } from 'src/app/interface';

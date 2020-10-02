@@ -4,7 +4,7 @@ import { TodoService } from 'src/app/service/todo.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { UserService } from 'src/app/service/user.service';
-import { NzMessageComponent, NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-todo-all',

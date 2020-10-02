@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { PlatformService } from 'src/app/service/platform.service';
 import { PlatFormInfo, MeeResult, TradeMeSoldOrderResp, TradeMePayResult,
           NzPostConfig, PaidSoltOrder, ShippedItem, ShippedPurchase, TradeMeSoltOrder, LabelStatusResult } from 'src/app/interface';
-import { NzModalService, NzMessageService, NzNotificationService } from 'ng-zorro-antd';
+
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { NzPostConfigService } from 'src/app/service/nz-post-config.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { XlsxService } from '../invoice-ocr/update-file/xlsx.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 
 @Component({

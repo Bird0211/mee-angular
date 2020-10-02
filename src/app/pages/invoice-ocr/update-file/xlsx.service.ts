@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UploadFile } from 'ng-zorro-antd';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 
 import * as XLSX from 'xlsx';
 import { BookType, WritingOptions } from 'xlsx';
@@ -20,7 +20,7 @@ export class XlsxService {
 
   constructor() { }
 
-  importdata(files: UploadFile[] , range: number, callback: Callback ) {
+  importdata(files: NzUploadFile[] , range: number, callback: Callback ) {
     if (!files) {
         return;
     }

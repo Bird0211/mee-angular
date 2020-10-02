@@ -3,9 +3,8 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth.service';
 import { HttpClient } from '@angular/common/http';
 import { MeeResult } from 'src/app/interface';
-import { NzMessageService } from 'ng-zorro-antd';
-import { state, useAnimation, trigger, style, transition, animate } from '@angular/animations';
-import { iconAnimation } from 'src/app/service/animations';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { state, trigger, style, transition, animate } from '@angular/animations';
 
 
 @Component({
@@ -50,7 +49,6 @@ export class RefreshCacheComponent implements OnInit {
     private message: NzMessageService
   ) {
     this.refreshCacheUrl = environment.refreshCacheUrl;
-
   }
 
   ngOnInit(): void {

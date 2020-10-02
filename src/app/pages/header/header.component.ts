@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../auth.service';
-import { YiYunUser, MeeResult, AuthParam } from 'src/app/interface';
+import { YiYunUser, AuthParam } from 'src/app/interface';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NzMessageService } from 'ng-zorro-antd';
-import { environment } from 'src/environments/environment';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { CurrencyService } from 'src/app/service/currency.service';
 import { TodoService } from 'src/app/service/todo.service';
 

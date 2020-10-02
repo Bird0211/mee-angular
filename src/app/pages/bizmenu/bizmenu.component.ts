@@ -1,8 +1,8 @@
 import { Component, OnInit, OnChanges, SimpleChanges, Input, SimpleChange } from '@angular/core';
-import { BizData, MeeResult, BizMenu } from 'src/app/interface';
+import { MeeResult, BizMenu } from 'src/app/interface';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { NzMessageService} from 'ng-zorro-antd';
+import { NzMessageService} from 'ng-zorro-antd/message';
 import { BizServiceService } from '../biz-service.service';
 import { AuthService } from '../auth.service';
 

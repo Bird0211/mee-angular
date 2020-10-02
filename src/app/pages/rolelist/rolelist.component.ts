@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { NzMessageService, TransferItem } from 'ng-zorro-antd';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { MeeResult, Role, RoleMenu, YiYunUser, RoleUser } from 'src/app/interface';
 import { UserService } from 'src/app/service/user.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { TransferItem } from 'ng-zorro-antd/transfer';
 
 @Component({
   selector: 'app-rolelist',

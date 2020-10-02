@@ -3,7 +3,7 @@ import { SimpleData, MeeResult, TotalData, NoshipData, ErrorData, DataStatistics
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth.service';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-data-total',

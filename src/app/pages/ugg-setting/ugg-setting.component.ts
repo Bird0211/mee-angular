@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NzMessageService } from 'ng-zorro-antd';
-import { PlatFormDetail, PlatFormInfo } from 'src/app/interface';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { PlatFormDetail } from 'src/app/interface';
 import { PlatformService } from 'src/app/service/platform.service';
 import { UggService } from 'src/app/service/ugg.service';
 

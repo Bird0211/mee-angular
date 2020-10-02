@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NineteenService } from 'src/app/service/nineteen.service';
 import { PlatFormInfo, NineTeenDeliverOrders, NineTeenLogistics, DeliveryInfo, MeeResult } from 'src/app/interface';
-import { NzModalService, NzNotificationService } from 'ng-zorro-antd';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-nineteen-delivery',

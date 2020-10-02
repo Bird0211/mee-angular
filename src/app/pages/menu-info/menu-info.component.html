@@ -1,13 +1,13 @@
 <nz-spin [nzSpinning]="isLoading">
   <ul nz-menu [nzMode]="mode" [nzTheme]="theme" [nzInlineCollapsed]="isCollapsed" nz-tooltip nzTooltipPlacement="right">
-      <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTitle]="'Home'" nzSelected (click)="jumpback()">
+      <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="'Home'" nzSelected (click)="jumpback()">
         <i nz-icon nzType="home" nzTheme="outline"></i><span>HOME</span>
       </li>
 
       <ng-container *ngFor="let item of menus">
         <li nz-submenu *ngIf="item.subMenu" [nzTitle]="topmenutmp">
           <ul >
-            <li nz-menu-item *ngFor="let menu of item.subMenu" (click)="jumpto(menu)" [nzTitle]="submenutmp" nz-tooltip nzTooltipPlacement="right">
+            <li nz-menu-item *ngFor="let menu of item.subMenu" (click)="jumpto(menu)" [nzTooltipTitle]="submenutmp" nz-tooltip nzTooltipPlacement="right">
               <i nz-icon class="menuicon" [nzIconfont]="menu.icon"></i><span>{{menu.title}}</span>
               <ng-template #submenutmp>
                 <i nz-icon class="menuicon" [nzIconfont]="menu.icon" ></i><span>{{menu.description}}</span>
@@ -15,7 +15,7 @@
             </li>
           </ul>
         </li>
-        <li nz-menu-item *ngIf="!item.subMenu" nz-tooltip nzTooltipPlacement="right" [nzTitle]="menutmp" (click)="jumpto(item)">
+        <li nz-menu-item *ngIf="!item.subMenu" nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="menutmp" (click)="jumpto(item)">
           <i nz-icon class="menuicon" [nzIconfont]="item.icon"></i><span>{{item.title}}</span>
           <ng-template #menutmp>
             <i nz-icon class="menuicon" [nzIconfont]="item.icon" ></i><span>{{item.description ? item.description : item.title}}</span>

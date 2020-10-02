@@ -61,7 +61,7 @@
                                         <button nz-button nzType="primary" nzSize="default" (click)="loadMatchNames()" [nzLoading]="isLoading"><i nz-icon nzType="sync" nzTheme="outline"></i>{{'invoice.matching' | translate}}</button>
                                         <button
                                             nz-popconfirm
-                                            nzTitle="{{'invoice.gst'|translate}}"
+                                            nzPopconfirmTitle="{{'invoice.gst'|translate}}"
                                             nzPopconfirmTrigger="click"
                                             nzPopconfirmPlacement="topLeft"
                                             nzCancelText="{{'invoice.cancelText' | translate}}"
@@ -86,7 +86,7 @@
                             <thead>
                               <tr>
                                 <th>SKU</th>
-                                <th *ngIf="invoiceTable.data[0].meename">Mee-Name</th>
+                                <th>Mee-Name</th>
                                 <th>Name</th>
                                 <th>Num</th>
                                 <th>Price</th>
@@ -139,7 +139,7 @@
                                     </ng-template>
                                 </td>
                                 <td>
-                                    <a nz-popconfirm nzTitle="{{ 'invoice.deleteTitle' | translate }}" (nzOnConfirm)="deleteRow(data.id)">{{ 'invoice.delete' | translate }}</a>
+                                    <a nz-popconfirm nzPopconfirmTitle="{{ 'invoice.deleteTitle' | translate }}" (nzOnConfirm)="deleteRow(data.id)">{{ 'invoice.delete' | translate }}</a>
                                 </td>
                               </tr>
                             </tbody>

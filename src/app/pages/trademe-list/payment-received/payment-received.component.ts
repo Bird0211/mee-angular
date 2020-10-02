@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { TradeMeSoltOrder, PaidSoltOrder, NzPostConfig, ShippedOptionReq, ShippedOptionService } from 'src/app/interface';
 import { NzPostConfigService } from 'src/app/service/nz-post-config.service';
-import { NzModalService } from 'ng-zorro-antd';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 
 @Component({

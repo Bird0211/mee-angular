@@ -4,9 +4,10 @@ import { filter } from 'rxjs/operators';
 import { MeeResult, Menu } from 'src/app/interface';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth.service';
-import { NzTreeNodeOptions, NzFormatEmitEvent, NzTreeNode,
-  NzDropdownMenuComponent, NzContextMenuService, NzMessageService } from 'ng-zorro-antd';
 import { MenuService } from '../menu/menu.service';
+import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzTreeNodeOptions, NzTreeNode, NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 
 @Component({
   selector: 'app-menulist',

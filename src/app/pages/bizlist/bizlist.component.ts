@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BizData, MeeResult } from 'src/app/interface';
 import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { environment } from 'src/environments/environment';
 import { filter } from 'rxjs/operators';
 import { BizServiceService } from '../biz-service.service';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PlatFormInfo, MeeResult, TradeMeToken } from 'src/app/interface';
 import { PlatformService } from 'src/app/service/platform.service';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth.service';
 import { HttpClient } from '@angular/common/http';
