@@ -11,22 +11,39 @@
                     </div>
                 </div>
                 <div nz-row nzGutter="16">
-                    <div nz-col nzPush="1" nzSpan="8">
+                    <div nz-col nzSpan="1" class="d-flex index-dev">
+                        <nz-space nzDirection="vertical">
+                            <nz-space-item *ngIf="item.itemList && item.itemList.length > 1">
+                                <a (click)="split(item)">
+                                    <i nz-icon nzType="plus-circle" 
+                                        nzTheme="fill" 
+                                        [ngClass]="item.itemList.length < 8 ? 'text-success' : 
+                                            item.itemList.length < 15 ? 'text-warning' : 'text-danger'"></i>
+                                </a>
+                            </nz-space-item>
+                            <nz-space-item *ngIf="isMerge(item)">
+                                <a (click)="marge(item)" nz-tooltip nzTooltipTitle="Merge" nzTooltipPlacement="bottom"> 
+                                    <i nz-icon [nzIconfont]="'icon-merge'"></i>
+                                </a>
+                            </nz-space-item>
+                        </nz-space>
+                    </div>
+                    <div nz-col nzSpan="8">
                         <app-order-table-product [products]="item.itemList"></app-order-table-product>
                     </div>
-                    <div nz-col nzPush="1" nzSpan="2">
+                    <div nz-col nzSpan="2">
                         <span><strong>{{item.totalNum}}</strong></span>
                     </div>
-                    <div nz-col nzPush="1" nzSpan="8">
+                    <div nz-col nzSpan="8">
                         <p><strong>{{item.name}}</strong></p>
                         <p>{{item.phone}}</p>
                         <p>{{item.address}}</p>
                         <p>{{item.idCardNo}}</p>
                     </div>
-                    <div nz-col nzPush="1" nzSpan="3">
+                    <div nz-col nzSpan="3">
                         <p>{{item.remark}}</p>
                     </div>
-                    <div nz-col nzPush="1" nzSpan="2">
+                    <div nz-col nzSpan="2">
                         
                     </div>
                 </div>
@@ -67,3 +84,39 @@
 </ng-template>
 
 <app-order-options [data]="selectData" [bizId]="bizId" [orderSource]="orderSource"></app-order-options>
+
+<nz-modal [(nzVisible)]="splitVisible" nzTitle="拆分订单" (nzOnCancel)="cancelSplit()" (nzOnOk)="splitOrder()">
+    <ngx-nestable [(list)]="list" [options]="options" [template]="itemTemplate" (drag)="dragNode($event)" (drop)="dropNode($event)">
+    </ngx-nestable>
+    
+    <ng-template #itemTemplate let-row>
+      <a *ngIf="!row.item.children || !row.item.children.length" nz-button nzType="default" nzShape="circle" [ngxNestableDragHandle]="row">
+            <i nz-icon nzType="border-outer" nzTheme="outline"></i>
+      </a>
+
+      <a nz-button nzType="default" nzShape="circle"
+            *ngIf="row.item.children && row.item.children.length; else empty_item" 
+            [ngxNestableExpandCollapse]="row">
+            <i nz-icon [nzType]="row.item.$$expanded ? 'caret-down' : 'caret-right'" nzTheme="outline"></i>
+      </a>
+      
+      <div *ngIf="row.item.children">{{row.item.orderId}}</div>
+      <div *ngIf="!row.item.children">
+        <nz-space>
+            <nz-space-item>
+                {{row.item.title}}
+            </nz-space-item>
+            <nz-space-item>
+                <nz-tag [nzColor]="'volcano'">
+                    {{row.item.number}}
+                </nz-tag>
+            </nz-space-item>
+        </nz-space> 
+      </div>
+    </ng-template>
+  
+    <ng-template #empty_item>
+      <span style="width: 40px"></span>
+    </ng-template>
+
+</nz-modal>

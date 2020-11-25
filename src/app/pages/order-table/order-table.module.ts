@@ -14,7 +14,12 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
-
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NestableModule } from 'ngx-nestable';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,13 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
     NzToolTipModule,
     NzIconModule,
     OrderOptionsModule,
-    OrderTableProductModule
+    OrderTableProductModule,
+    NzSpaceModule,
+    NzTreeModule,
+    NzModalModule,
+    NestableModule,
+    NzButtonModule,
+    NzTagModule
   ],
   exports: [
     OrderTableComponent

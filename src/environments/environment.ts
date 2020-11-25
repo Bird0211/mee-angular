@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  iconUrl: '//at.alicdn.com/t/font_1644348_1xf4jhy09xz.js',
+  iconUrl: '//at.alicdn.com/t/font_1644348_xgwaebn21fd.js',
 
   updateImgUrl: '//localhost:8801/api/textocr',
   // updateImgUrl: 'http://localhost:8801/api/textocr',
@@ -109,7 +109,10 @@ export const environment = {
   uggOrderSaveUrl: '//localhost:8801/api/ugg/order/create',
   uggOrderSearchUrl: '//localhost:8801/api/ugg/order/list',
   uggOrderCountUrl: '//localhost:8801/api/ugg/order/count',
-  uggOrderDetailBySKUUrl: '//localhost:8801/api/ugg/product'
+  uggOrderDetailBySKUUrl: '//localhost:8801/api/ugg/product',
+  uggBatchOrderUrl: '//localhost:8801/api/ugg/order/batch',
+  uggDfOrderUrl: '//localhost:8801/api/ugg/order/df',
+  uggLoginUrl: '//localhost:8801/api/ugg/login'
 
 };
 

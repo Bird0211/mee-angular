@@ -30,6 +30,7 @@
     "ng2-pdf-viewer": "^5.3.4",
     "ngx-echarts": "^5.0.0",
     "ngx-img-zoom": "^3.4.0",
+    "ngx-nestable": "^0.9.4",
     "rxjs": "^6.5.5",
     "tslib": "^2.0.0",
     "xlsx": "^0.15.5",

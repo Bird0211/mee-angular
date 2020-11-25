@@ -15,6 +15,9 @@ export class UggService {
   uggOrderSearchUrl: string;
   uggOrderCountUrl: string;
   uggOrderDetailBySKUUrl: string;
+  uggBatchOrderUrl: string;
+  uggDfOrderUrl: string;
+  uggLoginUrl: string;
 
   constructor(private authService: AuthService,
               private http: HttpClient
@@ -24,6 +27,9 @@ export class UggService {
     this.uggOrderSearchUrl = environment.uggOrderSearchUrl;
     this.uggOrderCountUrl = environment.uggOrderCountUrl;
     this.uggOrderDetailBySKUUrl = environment.uggOrderDetailBySKUUrl;
+    this.uggBatchOrderUrl = environment.uggBatchOrderUrl;
+    this.uggDfOrderUrl = environment.uggDfOrderUrl;
+    this.uggLoginUrl = environment.uggLoginUrl;
   }
 
   setToken(username: string, password: string): Observable<void> {
@@ -41,6 +47,31 @@ export class UggService {
 
   private postToken(userName: string, password: string) {
     const url = this.uggTokenUrl + '/' + this.authService.getBizId();
+    const httpOptions = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+      },
+    };
+
+    const body = 'username=' + userName + '&password=' + password;
+    return this.http.post(url, body, httpOptions);
+  }
+
+  login(username: string, password: string) {
+    const result = new Observable<void>((observable: Subscriber<void>) => {
+      this.postLogin(username, password).subscribe((meeResult: MeeResult) => {
+        if (meeResult.statusCode === 0) {
+          observable.next();
+        } else {
+          observable.error();
+        }
+      }, observable.error, observable.complete );
+    });
+    return result;
+  }
+
+  private postLogin(userName: string, password: string) {
+    const url = this.uggLoginUrl + '/' + this.authService.getBizId();
     const httpOptions = {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
@@ -121,4 +152,39 @@ export class UggService {
     return this.http.get(url);
   }
 
+  batchOrder(orders: UggOrder[]): Observable<string> {
+    const result = new Observable<string>((observable: Subscriber<string>) => {
+      this.postBatchOrder(orders).subscribe((meeResult: MeeResult) => {
+        if (meeResult && meeResult.statusCode === 0) {
+          observable.next(meeResult.data);
+        } else {
+          observable.error();
+        }
+      }, observable.error, observable.complete );
+    });
+    return result;
+  }
+
+  private postBatchOrder(ordres: UggOrder[]) {
+    const url = this.uggBatchOrderUrl;
+    return this.http.post(url, ordres);
+  }
+
+  dfOrders(orders: UggOrder[]): Observable<void> {
+    const result = new Observable<void>((observable: Subscriber<void>) => {
+      this.postDfOrders(orders).subscribe((meeResult: MeeResult) => {
+        if (meeResult && meeResult.statusCode === 0) {
+          observable.next();
+        } else {
+          observable.error();
+        }
+      }, observable.error, observable.complete );
+    });
+    return result;
+  }
+
+  postDfOrders(orders: UggOrder[]) {
+    const url = this.uggDfOrderUrl + '/' + this.authService.getBizId();
+    return this.http.post(url, orders);
+  }
 }

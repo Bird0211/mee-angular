@@ -11,13 +11,13 @@ export class WeimobOrderComponent implements OnInit {
 
   dateRange = [];
 
-  sendAddress: number;
+  sendAddress: string;
 
-  orderStatus: number;
+  orderStatus: string;
 
-  orderType: number;
+  orderType: string;
 
-  orderFlag: number;
+  orderFlag: string;
 
   isLoading = false;
 
@@ -36,7 +36,17 @@ export class WeimobOrderComponent implements OnInit {
   constructor(private weimobService: WeimobService) { }
 
   ngOnInit(): void {
+    this.initParam();
+    this.search();
+  }
 
+  initParam() {
+    const now = new Date();
+    this.dateRange = [new Date(now.getTime() - 7 * 24 * 3600 * 1000), now];
+    this.sendAddress = '1';
+    this.orderStatus = '1';
+    this.orderType = '1';
+    this.orderFlag = '0';
   }
 
   search() {
@@ -52,10 +62,10 @@ export class WeimobOrderComponent implements OnInit {
       pageSize: this.pageSize,
       createStartTime: start.getTime(),
       createEndTime: end.getTime(),
-      orderStatuses: this.orderStatus ? this.orderStatus.toString() : '',
-      orderType: this.orderType ? this.orderType.toString() : '',  // 0:奶粉;1:其他
-      sendarea: this.sendAddress ? this.sendAddress.toString() : '',
-      flagRanks: this.orderFlag ? this.orderFlag.toString() : ''
+      orderStatuses: this.orderStatus ? this.orderStatus : '',
+      orderType: this.orderType ? this.orderType : '',  // 0:奶粉;1:其他
+      sendarea: this.sendAddress ? this.sendAddress : '',
+      flagRanks: this.orderFlag ? this.orderFlag : ''
     };
 
     this.weimobService.loadOrderList(param).subscribe(result => {

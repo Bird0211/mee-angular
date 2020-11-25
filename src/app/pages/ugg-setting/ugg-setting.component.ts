@@ -14,7 +14,12 @@ export class UggSettingComponent implements OnInit {
 
   validateForm!: FormGroup;
 
+  loginValidateForm!: FormGroup;
+
+
   isLoading: boolean;
+
+  isLoginLoading: boolean;
 
   constructor(private fb: FormBuilder,
               private platService: PlatformService,
@@ -24,6 +29,11 @@ export class UggSettingComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
+      userName: [null, [Validators.required]],
+      password: [null, [Validators.required]],
+    });
+
+    this.loginValidateForm = this.fb.group({
       userName: [null, [Validators.required]],
       password: [null, [Validators.required]],
     });
@@ -48,7 +58,24 @@ export class UggSettingComponent implements OnInit {
         this.isLoading = false;
       }
     );
+  }
 
+  loginForm(): void {
+    this.isLoginLoading = true;
+    for (const key of Object.keys(this.loginValidateForm.controls)) {
+      this.loginValidateForm.controls[key].markAsDirty();
+      this.loginValidateForm.controls[key].updateValueAndValidity();
+    }
+
+    this.uggService.login(this.loginValidateForm.value.userName, this.loginValidateForm.value.password).subscribe(() => {
+      this.message.success('设置成功!');
+      this.initData();
+      this.isLoginLoading = false;
+    }, () => {
+      this.message.error('设置失败!');
+      this.isLoginLoading = false;
+    }
+  );
 
   }
 
@@ -57,6 +84,13 @@ export class UggSettingComponent implements OnInit {
       if (result && result.length > 0) {
         const uggInfo = result[0];
         this.validateForm.patchValue({userName: uggInfo.clientId, password: uggInfo.clientSecret});
+      }
+    });
+
+    this.platService.loadPlatFormDetail('ugg-login').then((result: PlatFormDetail[]) => {
+      if (result && result.length > 0) {
+        const uggInfo = result[0];
+        this.loginValidateForm.patchValue({userName: uggInfo.clientId, password: uggInfo.clientSecret});
       }
     });
   }

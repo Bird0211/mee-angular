@@ -19,6 +19,7 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { PopoverModule } from '../popover/popover.module';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
     NzToolTipModule,
     NzSpaceModule,
     NzPopoverModule,
+    PopoverModule,
   ],
   exports: [
     UggOrderComponent

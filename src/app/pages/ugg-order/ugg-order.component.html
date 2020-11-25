@@ -42,7 +42,7 @@
     </nz-tab>
     <nz-tab [nzTitle]="preDelivery">
       <ng-template #preDelivery>
-        <nz-badge [nzCount]="prepayCount" nzOverflowCount="99" [nzOffset]="[8,-4]">
+        <nz-badge [nzCount]="payCount" nzOverflowCount="99" [nzOffset]="[8,-4]">
             <a class="head-example">已下单/待发货</a>
         </nz-badge>
       </ng-template>
@@ -71,10 +71,15 @@
         <th>批次ID</th>
         <th>商品名称</th>
         <th>商品数量</th>
-        <th>商品编码</th>
+        <th>
+          商品编码
+          <a nz-tooltip nzTooltipTitle="点击商品编码,进行修改">
+            <i nz-icon nzType="question-circle" nzTheme="outline" ></i>
+          </a>
+        </th>
         <th>商品价格</th>
         <th>结算价格</th>
-        <th>Action</th>
+        <th>快递单号</th>
       </tr>
     </thead>
     <tbody>
@@ -118,17 +123,18 @@
           </nz-space>
         </td>
         <td>
-          {{data.settlementPrice}}
-          <a  nz-popover
-              nzPopoverTitle="结算价格" 
-              [nzPopoverContent]="Content"
-              nzPopoverTrigger="click" >
-            <i nz-icon nzIconfont="icon-settlement"></i>
-          </a>
+          <nz-space nzSize="small">
+            <nz-space-item>
+              {{data.settlementPrice | currency}}
+            </nz-space-item>
+            <nz-space-item>
+              <app-popover [(data)]="data.settlementPrice"></app-popover>
+            </nz-space-item>
+          </nz-space>
         </td>
 
         <td>
-          
+          {{data.expressId}}
         </td>
       </tr>
     </tbody>
@@ -139,14 +145,8 @@
     <i nz-icon nzType="money-collect" nzTheme="outline"></i>
     结算
   </button>
-</ng-template>
-
-<ng-template #Content>
-  <nz-input-group [nzAddOnAfter]="suffixIconSettle" nzSearch="true">
-    <input type="text" nz-input [(ngModel)]="settlePrice"/>
-  </nz-input-group>
-  <ng-template #suffixIconSettle>
-    <button class="inputBtn" nz-button nzType="primary" nzSearch><i nz-icon nzType="check" nzTheme="outline"></i></button>
-  </ng-template>
-
+  <button *ngIf="status === 2" [nzLoading]="payLoading" nz-button [disabled]="!setOfCheckedId || setOfCheckedId.size <= 0" nzType="primary" (click)="pay()">
+    <i nz-icon nzIconfont="icon-pay"></i>
+    确认支付
+  </button>
 </ng-template>

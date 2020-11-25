@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
 
-  iconUrl: '//at.alicdn.com/t/font_1644348_1xf4jhy09xz.js',
+  iconUrl: '//at.alicdn.com/t/font_1644348_xgwaebn21fd.js',
 
   updateImgUrl: 'https://external.yiyun.co.nz/api/textocr',
   supplierUrl: 'https://external.yiyun.co.nz/api/allSuppliers',
@@ -102,6 +102,10 @@ export const environment = {
   uggOrderSaveUrl: 'https://external.yiyun.co.nz/api/ugg/order/create',
   uggOrderSearchUrl: 'https://external.yiyun.co.nz/api/ugg/order/list',
   uggOrderCountUrl: 'https://external.yiyun.co.nz/api/ugg/order/count',
-  uggOrderDetailBySKUUrl: 'https://external.yiyun.co.nz/api/ugg/product'
+  uggOrderDetailBySKUUrl: 'https://external.yiyun.co.nz/api/ugg/product',
+  uggBatchOrderUrl: 'https://external.yiyun.co.nz/api/ugg/order/batch',
+  uggDfOrderUrl: 'https://external.yiyun.co.nz/api/ugg/order/df',
+  uggLoginUrl: 'https://external.yiyun.co.nz/api/ugg/login'
+
 
 };

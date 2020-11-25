@@ -1,0 +1,18 @@
+<a  nz-popover
+              nzPopoverTitle="结算价格" 
+              [nzPopoverContent]="popoverContent"
+              [(nzPopoverVisible)]="isVisible"
+              nzPopoverTrigger="click" >
+            <i nz-icon nzIconfont="icon-settlement"></i>
+</a>
+
+
+<ng-template #popoverContent>
+    <nz-input-group [nzAddOnAfter]="suffixIconSettle" nzSearch="true">
+      <input type="text" nz-input [(ngModel)]="data"/>
+    </nz-input-group>
+    <ng-template #suffixIconSettle>
+      <button class="inputBtn" nz-button nzType="primary" nzSearch><i nz-icon nzType="check" nzTheme="outline" (click)="change()"></i></button>
+    </ng-template>
+  
+</ng-template>

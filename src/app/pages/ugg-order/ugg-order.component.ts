@@ -55,6 +55,8 @@ export class UggOrderComponent implements OnInit {
   settlePrice: number;
   popVisible = false;
 
+  payLoading = false;
+
   constructor(private orderService: OrderService,
               private authService: AuthService,
               private uggService: UggService,
@@ -136,6 +138,9 @@ export class UggOrderComponent implements OnInit {
     this.selectedIndex = index;
     this.status = index + 1;
     this.pageIndex = 1;
+    this.setOfCheckedId.clear();
+    this.indeterminate = false;
+    this.checked = false;
     this.search();
   }
 
@@ -174,8 +179,8 @@ export class UggOrderComponent implements OnInit {
   }
 
   settle() {
-
     const data = this.orders.filter(item => this.setOfCheckedId.has(item.extId));
+    console.log(data);
     if (data.length <= 0) {
       this.modal.error({
         nzTitle: '缺少订单',
@@ -184,7 +189,7 @@ export class UggOrderComponent implements OnInit {
       return;
     }
 
-    if (data.filter(item => !item.settlementPrice || item.settlementPrice === 0)) {
+    if (data.filter((item: UggOrder) => !item.settlementPrice || item.settlementPrice <= 0).length > 0 ) {
       this.modal.error({
         nzTitle: '订单缺少结算金额',
         nzContent: '请设置订单的结算金额！'
@@ -192,7 +197,18 @@ export class UggOrderComponent implements OnInit {
       return;
     }
 
-
+    this.uggService.batchOrder(data).subscribe(result => {
+      this.modal.success({
+        nzTitle: '订单结算成功',
+        nzContent: '批次编号为:' + result
+      });
+      this.getData();
+    }, () => {
+      this.modal.error({
+        nzTitle: '订单结算失败',
+        nzContent: '请确定订单是否正确！'
+      });
+    });
   }
 
   refresh(data: UggOrder) {
@@ -228,6 +244,33 @@ export class UggOrderComponent implements OnInit {
   selectSkuItem(data: UggOrder) {
     this.selectedOrderId = data.extId;
     this.selectCol = 'sku';
+  }
+
+  pay() {
+    const data = this.orders.filter(item => this.setOfCheckedId.has(item.extId));
+
+    if (data.length <= 0) {
+      this.modal.error({
+        nzTitle: '缺少订单',
+        nzContent: '请选择需要结算的订单！'
+      });
+      return;
+    }
+
+    this.payLoading = true;
+    this.uggService.dfOrders(data).subscribe(() => {
+      this.modal.success({
+        nzTitle: '订单发货成功',
+      });
+      this.getData();
+      this.payLoading = false;
+    }, () => {
+      this.payLoading = false;
+      this.modal.error({
+        nzTitle: '订单发货失败',
+        nzContent: '请确认订单是否正确！'
+      });
+    });
   }
 
 }

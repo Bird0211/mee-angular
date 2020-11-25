@@ -96,6 +96,7 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 // 支持AOT
 export function createTranslateLoader(http: HttpClient) {
@@ -197,6 +198,7 @@ registerLocaleData(zh);
     NzTabsModule,
     NzMessageModule,
     TrademeAddButtonModule,
+    NzNotificationModule,
     NgxEchartsModule.forRoot({
       echarts
     }),

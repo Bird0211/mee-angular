@@ -1,8 +1,9 @@
 
 
-<div>
+<div nz-row nzGutter="32" nzJustify="center">
+  <div nz-col>
     <p class="h3 text-center">
-        <strong>UGG 账号设置</strong>
+      <strong>UGG API账号设置</strong>
     </p>
     <form nz-form [formGroup]="validateForm" class="login-form p-4 border shadow rounded" (ngSubmit)="submitForm()">
         <nz-form-item>
@@ -21,4 +22,27 @@
         </nz-form-item>
         <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" [nzLoading]="isLoading">Submit</button>
     </form>
+  </div>
+  <div nz-col> 
+    <p class="h3 text-center">
+      <strong>UGG 网站账号设置</strong>
+    </p>
+    <form nz-form [formGroup]="loginValidateForm" class="login-form p-4 border shadow rounded" (ngSubmit)="loginForm()">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your username!">
+            <nz-input-group nzPrefixIcon="user">
+              <input type="text" nz-input formControlName="userName" placeholder="Username" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your Password!">
+            <nz-input-group nzPrefixIcon="lock">
+              <textarea nz-input formControlName="password" placeholder="Password" nzAutosize></textarea>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" [nzLoading]="isLoginLoading">Submit</button>
+    </form>
+  </div>
 </div>

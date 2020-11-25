@@ -66,7 +66,6 @@ export class OrderUggComponent implements OnInit, OrderOptionComponent {
 
   next() {
     console.log('Ugg-Order');
-    this.router.navigate(['welcome'], {skipLocationChange: true});
-    // this.router.navigateByUrl('ugg/order');
+    this.router.navigate(['ugg/order'], {skipLocationChange: true});
   }
 }

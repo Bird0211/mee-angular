@@ -1046,3 +1046,12 @@ export interface UggProductDetail {
     other: string[];
     insole: string;
 }
+
+export interface TreeNode {
+    $$expanded: boolean,
+    title?: string,
+    number?: number,
+    orderId?: string,
+    children?: TreeNode[],
+    $$id?: number
+}

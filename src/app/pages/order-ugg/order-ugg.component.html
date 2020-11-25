@@ -3,7 +3,7 @@
   [nzTitle]="title" 
   (nzOnCancel)="isVisible = false"
   nzWidth="800px"
-  [nzFooter]="null"
+  [nzFooter]="footer"
   [nzMaskClosable]="false"
 >
 <nz-table #basicTable [nzData]="data" nzShowPagination="false">
@@ -29,3 +29,8 @@
     </tbody>
   </nz-table>
 </nz-modal>
+
+<ng-template #footer>
+    <button nz-button nzType="default" (click)="isVisible = false">继续导入</button>
+    <button nz-button nzType="primary" (click)="next()">处理订单</button>
+</ng-template>

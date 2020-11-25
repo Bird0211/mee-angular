@@ -7,6 +7,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
     NzTableModule,
     OrderTableProductModule,
     NzSpinModule,
-    NzIconModule
+    NzIconModule,
+    NzButtonModule
   ],
   exports: [
     OrderUggComponent
